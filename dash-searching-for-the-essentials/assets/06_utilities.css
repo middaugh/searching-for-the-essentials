@@ -1,0 +1,80 @@
+/***
+Stylesheet for Content Manager Dashboard
+
+06_utilities.css - Helper Classes & Utilities. each achieves one purpose.
+
+Author: Information First, Esme Middaugh, emiddaugh@info-first.com
+Date: 2020SEP18
+***/
+
+@import "01_settings.css"
+
+/****** Flex ********/
+
+*{}
+
+.column{
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.centered{
+    justify-content: center;
+    align-items: middle;
+}
+
+.justify-center{
+    justify-content: center;
+}
+
+.justify-space-between{
+    justify-content: space-between;
+}
+
+.align-baseline{
+    align-items: baseline;
+}
+
+.align-center{
+    align-items: middle;
+}
+
+.flex-one, .flex-1{
+    flex: 1;
+}
+
+.flex-two, .flex-2{
+    flex: 2;
+}
+
+.flex-three, .flex-3{
+    flex: 3;
+}
+
+.flex-four, .flex-4{
+    flex: 4;
+}
+
+.flex-five, .flex-5{
+    flex: 5;
+}
+
+.no-wrap{
+    flex-wrap: nowrap;
+}
+
+.no-flex{
+    flex: 0;
+}
+
+.clearfix:after { content:""; display:block; clear:both; }
+
+.current {
+    color:red;
+    border:1px solid red;
+}
+
+/* Getting Rid of the Floating Toolbar IMPORTANT*/
+.modebar{
+      display: none !important;
+}

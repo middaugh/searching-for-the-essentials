@@ -1,0 +1,52 @@
+/***
+Stylesheet for Content Manager Dashboard
+
+05_viz-card.css -- All the base styling for viz-cards
+
+
+Author: Information First, Esme Middaugh, emiddaugh@info-first.com
+Date: 2020SEP18
+***/
+*{}
+
+@import "01_settings.css"
+
+.viz-card__header{
+    font-family: var(--header-font);
+    font-size: 1.3em;
+    line-height: 1.6;
+}
+
+.viz-card__explainer{
+    min-width: 250px;
+
+}
+
+.viz-card__explainer{
+    font-family: var(--main-font);
+}
+
+.viz-card__controller{
+    flex: 1;
+    min-width: 200px;
+    margin: 0px 10px;
+    background-color: none;
+}
+
+.viz-card__controller * {
+    background-color: none;
+}
+
+.viz-card__graph{
+    min-width: 275px;
+    flex: 1;
+}
+
+.viz-card {
+    margin-bottom: 15px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.18), 0 5px 15px 0 rgba(0, 0, 0, 0.15);
+    padding: 2vmin 4vmin;
+    background-color: #ffff;
+    min-width: 275px; /* set to min graph-card-size" */
+    box-sizing: content-box;
+}

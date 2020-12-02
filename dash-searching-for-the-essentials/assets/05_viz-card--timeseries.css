@@ -1,0 +1,18 @@
+/***
+Stylesheet for Content Manager Dashboard
+
+Author: Information First, Esme Middaugh, emiddaugh@info-first.com
+Date: 2020SEP18
+***/
+
+@import "01_settings.css"
+
+/* .viz-card modifier */
+*{}
+
+
+
+.viz-card__controller--timeseries{
+    min-width: 300px;
+}
+

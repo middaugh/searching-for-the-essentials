@@ -1,0 +1,11 @@
+viz-card__explainer--owner_classification{
+    flex: 3;
+}
+
+viz-card__controller--owner_classification{
+    flex: 2;
+}
+
+viz-card__graph--owner_classification-owner-bar-graph{
+    min-width: 400px;
+}

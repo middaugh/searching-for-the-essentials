@@ -1,0 +1,131 @@
+/*
+Stylesheet for Content Manager Dashboard
+
+07_print.css -- printing rules. Must come at the end of the project.
+
+Author: Information First, Esme Middaugh, emiddaugh@info-first.com
+Date: 2020SEP19
+*/
+
+@import "01_settings.css"
+
+/* Navigation */
+*{}
+
+.nav{
+    background-color: var(--nav-bgcolor);
+}
+
+.nav--top{
+    width: 100%;
+    position: relative;
+    padding: 8px var(--side-space);
+    justify-content: space-between;
+    align-items: baseline;
+    display: flex;
+    flex-flow: row wrap;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.18), 0 5px 15px 0 rgba(0, 0, 0, 0.15);
+}
+
+.nav--side{
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 300px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+  justify-content: flex-start;
+  align-items: center;
+  display: flex;
+  flex-flow: column;
+}
+
+.nav__logo{
+    height: 80px;
+    flex: 0 0 auto;
+}
+
+.nav__title, .nav__title:visited{
+    font-family: var(--title-font);
+    text-decoration: none;
+    font-weight: normal;
+    color: var(--nav-color);
+    padding: 0px;
+    flex: 3;
+    margin-left: 30px;
+    margin-right: 30px;
+    line-height: 1;
+}
+
+.nav__wrapper--left{
+    justify-self: stretch;
+}
+
+.nav__links{
+    justify-content: center;
+}
+
+.nav__link{
+    text-decoration: none;
+    font-size: 1.3em;
+    color: var(--secondary-color);
+    padding: 5px 20px;
+    font-family: var(--header-font);
+}
+
+.nav__link:hover{
+    color: inherit;
+    font-weight: bold;
+}
+
+.nav__link--current:focus{
+    text-decoration: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.nav__link--current{
+    font-weight: bold;
+    text-decoration: none;
+    outline: none;
+    background: var(--striped-bg);
+}
+
+/* Page Content */
+.page-content{
+    margin: 0px var(--side-space);
+    padding: 10px;
+    flex-flow: column wrap;
+    height: 100%:
+}
+
+@media only screen and (max-width: 600px) {
+	.page-content {
+		margin: 0px var(--side-space--mobile);
+		padding: 5px;
+	}
+}
+
+div.nav--side + div.page-content{
+    margin-left: 300px;
+}
+
+/* Footer */
+.footer{
+  clear: both;
+  bottom: 0;
+  width: 100%;
+  min-height: 150px;
+  background-color: var(--footer-bgcolor);
+  color: var(--footer-color);
+  display: block;
+  text-align: center;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.18), 0 5px 15px 0 rgba(0, 0, 0, 0.15);
+  padding: 60px;
+}
+
+.logo{
+    height: 100px;
+}

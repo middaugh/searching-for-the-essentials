@@ -1,0 +1,6 @@
+dash-core-components==1.12.1
+dash-html-components==1.1.1
+dash-table==4.10.1
+numpy==1.19.2
+pytz==2020.1
+six==1.15.0

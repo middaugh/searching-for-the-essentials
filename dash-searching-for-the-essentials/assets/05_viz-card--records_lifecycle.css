@@ -1,0 +1,16 @@
+/***
+Stylesheet for Content Manager Dashboard
+
+05_viz-card--records_lifecycle.css -- Adjustments to the records_lifecycle.py layout
+
+
+Author: Information First, Esme Middaugh, emiddaugh@info-first.com
+Date: 2020SEP18
+***/
+
+@import "01_settings.css"
+
+.viz-card--records_lifecycle{
+    display: flex;
+    flex-direction: column;
+}

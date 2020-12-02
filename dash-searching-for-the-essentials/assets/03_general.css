@@ -1,0 +1,46 @@
+/***
+Stylesheet for Content Manager Dashboard
+
+03_generals.css -- themes and settings described in 01_settings.css to
+base elements, eg body, p, div. Nor positioning.
+
+
+Author: Information First, Esme Middaugh, emiddaugh@info-first.com
+Date: 2020SEP18
+***/
+
+*{
+}
+
+@import "01_settings.css"
+
+*{
+    font-family: var(--main-font);
+}
+
+body, .page-content {
+  margin: 0px;
+  font-family: var(--main-font);
+  background-color: var(--bgcolor);
+  height: 100%;
+  line-height: 1.4;
+}
+
+h1, h2, h3, h4, h5{
+    font-family: var(--header-font);
+    margin-bottom: 10px;
+}
+
+h1{
+    font-size: 3.5em;
+    line-height: 1;
+
+}
+
+h4{
+    font-size: 1.3em;
+}
+
+img{
+    object-fit: contain;
+}

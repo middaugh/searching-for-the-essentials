@@ -1,0 +1,42 @@
+/***
+Stylesheet for Content Manager Dashboard
+
+01_settings.css -- themes / variables to be reused throughout the rest of the project
+
+Author: Information First, Esme Middaugh, emiddaugh@info-first.com
+Date: 2020SEP18
+***/
+
+
+/****** Reusable *********/
+:root {
+  --side-space: 15vmin;
+  --side-space--mobile: 5vmin;
+  --main-font: Roboto, "Segoe UI", Helvetica, sans-serif;
+  --title-font: Roboto, Courier New, monotype;
+  --header-font: Economica, "Courier New", "Segoe UI", "Roboto", "Roboto Mono", sans-serif;
+  --font-size: 1em;
+  --line-height: 1.3;
+  --bgcolor: #f8f8f8;
+  --nav-bgcolor: #FFFFFF;
+  --nav-color: #419D78;
+  --footer-bgcolor: #13262F;
+  --footer-color: rgba(255,255,255,.3);
+  --primary-color: #419D78;
+  --secondary-color: #DE6449;
+  --tertiary-color: #000000;
+  --accent-color:#3772FF;
+  --viz-card-bgcolor: #FFFFFF;
+  --striped-bg: repeating-linear-gradient(
+      45deg,
+      rgba(0,0,0,.3),
+      rgba(0,0,0,.3) 1px,
+      rgba(0,0,0,0) 1px,
+      rgba(0,0,0,0) 2px
+    );
+}
+
+* {
+    box-sizing: border-box;
+}
+
