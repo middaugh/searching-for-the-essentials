@@ -1,3 +1,0 @@
-['C:\\Windows\\system32\\inetsrv\\appcmd.exe', 'set', 'config', '/section:system.webServer/fastCGI', "/+[fullPath='c:\\u
-sers\\administrator\\desktop\\dashboard_app\\venv\\scripts\\python.exe', arguments='c:\\users\\administrator\\desktop\\d
-ashboard_app\\venv\\lib\\site-packages\\wfastcgi.py', signalBeforeTerminateSeconds='30']"]
