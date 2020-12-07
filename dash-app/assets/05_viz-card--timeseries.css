@@ -1,0 +1,13 @@
+/***
+05_viz-card--timeseries.css - Specific alterations to an interaction block. Example.
+***/
+
+@import "01_settings.css"
+
+/* .viz-card modifier */
+*{}
+
+.viz-card__controller--timeseries{
+    min-width: 300px;
+}
+

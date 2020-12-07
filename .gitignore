@@ -1,8 +1,22 @@
-# Virtual Environment
+# Virtual Environment / Working On
 venv/
 sandbox/
+env/
 
 
-# Jupyter Stuff
+# Jupyter Notebook
 .ipynb_checkpoints
 .DS_Store
+
+# JetBrains
+.idea
+
+# VSCode
+.vscode
+
+# IPython
+profile_default/
+ipython_config.py
+
+# Python
+__pycache__
