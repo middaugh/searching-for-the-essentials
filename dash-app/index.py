@@ -14,9 +14,6 @@ from app import app, TITLE
 from apps import food_map
 
 # TO DO: Find a better solution / a way to work into app.py. Leave for now.
-logo = glob.glob('./assets/logo.*')[0]  # any file named "logo" in assets, used in footer
-
-
 def serve_layout():
     """Dashboard Layout to be rendered with React"""
     layout = html.Div(
