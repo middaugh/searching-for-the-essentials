@@ -296,7 +296,7 @@ try:
                 ]
             ),
 
-            html.H4("Step #2 Map",
+            html.H4("Step 2: Map",
                     className="viz-card__header viz-card__header--timeseries"),
             html.Div(
                 className="row mobile-interaction-disabled",
