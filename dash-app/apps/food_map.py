@@ -10,6 +10,8 @@ import os
 from datetime import datetime
 import pandas as pd
 import numpy as np
+import glob
+import re
 
 import dash
 import dash_core_components as dcc
@@ -27,7 +29,6 @@ try:
     ###########################
     parse_dates = ['date']  # need the correct format
     trends_df = pd.read_csv(INPUT_DIR + 'google-trends-difference.csv', parse_dates=parse_dates)
-
 
     ###########################
     # PREP
@@ -84,40 +85,39 @@ try:
     ))
     # *** End Time Series Figure
 
-    # Lorem Ipsum Europe Map
-    trace1 = {
-        "geo": "geo",
-        "type": "choropleth",
-        "z": ["6", "4", "5"],
-        "showscale": True,
-        "locationmode": "country names",
-        "locations": ["Germany", "Great Britain", "Netherlands"],
-        "autocolorscale": True
-    }
-    data = go.Data([trace1])
-    layout = {
-        "geo": {
-            "scope": "europe",
-            "domain": {
-                "x": [0, 1],
-                "y": [0, 1]
-            },
-            "lataxis": {"range": [35.0, 70.0]},
-            "lonaxis": {"range": [-9.0, 38.0]},
-            "showland": True,
-            "landcolor": "rgb(229, 229, 229)",
-            "showframe": True,
-            "projection": {"type": "mercator"},
-            "resolution": 50,
-            "countrycolor": "rgb(255, 0, 255)",
-            "coastlinecolor": "rgb(0, 255, 255)",
-            "showcoastlines": True
-        },
-        "title": "map of Europe",
-        "legend": {"traceorder": "reversed"}
-    }
-    map_fig = go.Figure(data=data, layout=layout)
-    # End Placeholder Map
+    ## GENERATE ICONS
+    ICON_DIR = './assets/icons/'
+    icons = glob.glob(ICON_DIR + '*.svg')
+
+    icon_ids = []
+    icons = np.array(icons).reshape((3, -1))
+    icon_layout = []
+
+    for row in icons:
+        row_children = []
+        for icon in row:
+            name_stripped = re.sub(r'\d+', '', icon.split('/')[-1][:-4]) # extract the main product name from the path, removing numbers and .svg
+            button = html.Button(
+                id=f"{name_stripped}-button",
+                className="nav__link nav__link--current",
+                children=
+                    html.Img(
+                        src=icon,
+                        className="icon"
+                    )
+            )
+            row_children.append(button)
+            icon_ids.append(f"{name_stripped}-button")
+
+        row_layout = html.Div(
+            className="row centered",
+            children=row_children
+        )
+
+        print(row_layout)
+        icon_layout.append(row_layout)
+
+
 
     # Placeholder Joy Map
     np.random.seed(1)
@@ -145,156 +145,8 @@ try:
 
             html.H4("Step 1: Select an Icon",
                     className="viz-card__header viz-card__header--timeseries"),
-            html.Div(
-                className="row centered",
-                children=[
-                    html.A(
-                        className="nav__link nav__link--current",
-                        children=[
-                            html.Img(
-                                src="https://via.placeholder.com/75"
-                            )
-                        ],
-                        href="./"
-                    ),
-                    html.A(
-                        className="nav__link",
-                        children=[
-                            html.Img(
-                                src="https://via.placeholder.com/75"
-                            )
-                        ],
-                        href="./"
-                    ),
-                    html.A(
-                        className="nav__link",
-                        children=[
-                            html.Img(
-                                src="https://via.placeholder.com/75"
-                            )
-                        ],
-                        href="./"
-                    ),
-                    html.A(
-                        className="nav__link",
-                        children=[
-                            html.Img(
-                                src="https://via.placeholder.com/75"
-                            )
-                        ],
-                        href="./"
-                    ),
-                    html.A(
-                        className="nav__link",
-                        children=[
-                            html.Img(
-                                src="https://via.placeholder.com/75"
-                            )
-                        ],
-                        href="./"
-                    ),
-                ]
-            ),
-            html.Div(
-                className="row centered",
-                children=[
-                    html.A(
-                        className="nav__link",
-                        children=[
-                            html.Img(
-                                src="https://via.placeholder.com/75"
-                            )
-                        ],
-                        href="./"
-                    ),
-                    html.A(
-                        className="nav__link",
-                        children=[
-                            html.Img(
-                                src="https://via.placeholder.com/75"
-                            )
-                        ],
-                        href="./"
-                    ),
-                    html.A(
-                        className="nav__link",
-                        children=[
-                            html.Img(
-                                src="https://via.placeholder.com/75"
-                            )
-                        ],
-                        href="./"
-                    ),
-                    html.A(
-                        className="nav__link",
-                        children=[
-                            html.Img(
-                                src="https://via.placeholder.com/75"
-                            )
-                        ],
-                        href="./"
-                    ),
-                    html.A(
-                        className="nav__link",
-                        children=[
-                            html.Img(
-                                src="https://via.placeholder.com/75"
-                            )
-                        ],
-                        href="./"
-                    ),
-                ]
-            ),
-            html.Div(
-                className="row centered",
-                children=[
-                    html.A(
-                        className="nav__link",
-                        children=[
-                            html.Img(
-                                src="https://via.placeholder.com/75"
-                            )
-                        ],
-                        href="./"
-                    ),
-                    html.A(
-                        className="nav__link",
-                        children=[
-                            html.Img(
-                                src="https://via.placeholder.com/75"
-                            )
-                        ],
-                        href="./"
-                    ),
-                    html.A(
-                        className="nav__link",
-                        children=[
-                            html.Img(
-                                src="https://via.placeholder.com/75"
-                            )
-                        ],
-                        href="./"
-                    ),
-                    html.A(
-                        className="nav__link",
-                        children=[
-                            html.Img(
-                                src="https://via.placeholder.com/75"
-                            )
-                        ],
-                        href="./"
-                    ),
-                    html.A(
-                        className="nav__link",
-                        children=[
-                            html.Img(
-                                src="https://via.placeholder.com/75"
-                            )
-                        ],
-                        href="./"
-                    ),
-                ]
-            ),
+            *icon_layout,
+            html.Div(id="test-output"),
 
             html.H4("Step #2 Map",
                     className="viz-card__header viz-card__header--timeseries"),
@@ -324,6 +176,15 @@ try:
     # CALLBACK FUNCTIONS, IF ANY
     ###########################
     # Time Series and Record Types
+
+    ## Create the callbacks in a loop
+    @app.callback(
+        Output(component_id='test-output', component_property='children'),
+        [Input('baking-button', 'n_clicks')])
+    def update_output_div(input_value):
+        print(input_value)
+        print(icon_ids)
+        return 'Output: {}'.format(input_value)
 
 except Exception as e:
     layout = html.H3(f"Problem loading {os.path.basename(__file__)}, please check console for details.")
