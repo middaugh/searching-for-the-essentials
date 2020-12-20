@@ -210,7 +210,7 @@ try:
             html.H4("Step 1: Select a Topic/Term",
                     className="viz-card__header viz-card__header--timeseries"),
             *icon_layout,
-            html.Div(id="test-output"),
+            html.H4(id="test-output"),
 
             html.H4("Step 2: Map",
                     className="viz-card__header viz-card__header--timeseries"),
@@ -244,11 +244,17 @@ try:
     ## Create the callbacks in a loop
     @app.callback(
         Output(component_id='test-output', component_property='children'),
-        [Input('baking-button', 'n_clicks')])
-    def update_output_div(input_value):
-        print(input_value)
-        print(icon_ids)
-        return 'Output: {}'.format(input_value)
+        [Input(x, 'n_clicks') for x in icon_ids])
+    def update_output_div(*icon_ids):
+
+        ctx = dash.callback_context
+
+        if not ctx.triggered:
+            button_id = 'No clicks yet'
+        else:
+            button_id = ctx.triggered[0]['prop_id'].split('.')[0]
+        return f"{button_id}"
+
 
 except Exception as e:
     layout = html.H3(f"Problem loading {os.path.basename(__file__)}, please check console for details.")
