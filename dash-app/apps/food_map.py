@@ -20,8 +20,10 @@ from dash.dependencies import Input, Output
 from dash.exceptions import PreventUpdate
 import plotly.graph_objects as go
 from plotly.colors import n_colors
+import plotly.express as px
 
 from app import app, INPUT_DIR
+
 
 try:
     ###########################
@@ -118,7 +120,6 @@ try:
         icon_layout.append(row_layout)
 
 
-
     # Placeholder Joy Map
     np.random.seed(1)
 
@@ -134,6 +135,69 @@ try:
 
     joy_fig.update_traces(orientation='h', side='positive', width=3, points=False)
     joy_fig.update_layout(xaxis_showgrid=False, xaxis_zeroline=False, showlegend=False)
+    
+    ###########################
+    # FIRST TRY TO CREATE A MAP
+    ###########################
+    trends_df = trends_df[trends_df.score_difference.notna()]
+
+    # Adding iso_alpha and iso_num to df to use it as location for creating the map
+    def add_location(data):
+        for index,row in data.iterrows():
+            if row['country'] == "ger":
+                data.at[index,'iso_num'] = 276
+                data.at[index,'iso_alpha'] = "DEU"
+            elif row['country'] == "nl":
+                data.at[index,'iso_num'] = 533
+                data.at[index,'iso_alpha'] = "NLD"
+            elif row['country'] == "uk":
+                data.at[index,'iso_num'] = 826
+                data.at[index,'iso_alpha'] = "GBR"   
+        return data
+
+    trends_df = add_location(trends_df)
+
+    # Filter data by search term
+    def filter_data(data, term):
+        queryable_data = data.copy()
+        queryable_data.query('term == "'+term+'"', inplace = True)
+        return queryable_data
+
+    # Transform score_difference into absolute values and create additional column "score_diff_positive"
+    # To distinguish and use different colors for positive and negative score differences
+    def transform_data(data):
+        data['date_str'] = data['date'].astype(str)
+        for index,row in data.iterrows():
+            if row['score_difference'] >= 0:
+                data.at[index,'score_diff_positive'] = "positive"
+            else:
+                data.at[index,'score_diff_positive'] = "negative"
+            data.at[index,'score_difference'] = abs(data.at[index,'score_difference'])
+        return data
+
+    filtered_data = filter_data(trends_df,"restaurant") # test term, should be exchanged
+    transformed_data = transform_data(filtered_data)
+
+    test_fig = px.scatter_geo(transformed_data, 
+                        locations = "iso_alpha", 
+                        color="score_diff_positive", 
+                        hover_name="country", 
+                        size="score_difference", # has to be changed to score_difference as soon as values have been transformed to positive values
+                        animation_frame="date_str", # has to be edited
+                        projection="conic conformal") # to represent Europe: conic conformal OR azimuthal equal area;
+                        # to represent ONLY nl, uk and ger use conic equal area OR azimuthal equal area
+        
+    test_fig.update_layout(geo_scope = "europe")
+
+    test_fig.update_geos(projection_scale = 4, # set value; default = 1 (Europe scale)
+                    # set map extent              
+                    center_lon = 4.895168, # set coordinates of Amsterdam as center of map 
+                    center_lat= 52.370216,
+                    # fitbounds= "locations"
+                    showland= False,
+                    showocean = True,
+                    oceancolor="#eee")
+    #test_fig.show()
 
     ###########################
     # LAYOUT TO BE USED IN INDEX.PY
@@ -143,7 +207,7 @@ try:
         children=[
             dcc.Store(id="timeseries_output"),
 
-            html.H4("Step 1: Select an Icon",
+            html.H4("Step 1: Select a Topic/Term",
                     className="viz-card__header viz-card__header--timeseries"),
             *icon_layout,
             html.Div(id="test-output"),
@@ -153,9 +217,9 @@ try:
             html.Div(
                 className="row mobile-interaction-disabled",
                 children=[
-                    dcc.Graph(id="timeseries_graph",
+                    dcc.Graph(id="test_map",
                               className='viz-card__graph viz-card__graph--timeseries flex-three',
-                              figure=timeseries_fig
+                              figure=test_fig
                               ),
                     html.Div(
                         className="viz-card__controller viz-card__controller--timeseries flex-one",
