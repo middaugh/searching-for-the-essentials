@@ -201,7 +201,25 @@ try:
                     showland= False,
                     showocean = True,
                     oceancolor="#eee")
-    #test_fig.show()
+
+    ###########################
+    # POLAR LINE
+    ###########################
+    def polar_chart(country_data):
+        fig = px.line_polar(country_data, 
+                        r = "score_difference", 
+                        theta = "term", 
+                        color = "country", 
+                        line_close = True,
+                        line_shape = "spline", # or linear
+                        range_r = [min(country_data["score_difference"]), max(country_data["score_difference"])],
+                        render_mode = "auto",
+                        animation_frame = "date_str", 
+                        title = "Search term evolution for the Netherlands", # "the Netherlands" has to be replaced by name of input
+                        width = 700,
+                        height = 700,
+                        #color_discrete_sequence = px.colors.sequential.Plasma_r
+                        )
 
     ###########################
     # LAYOUT TO BE USED IN INDEX.PY
@@ -211,7 +229,7 @@ try:
         children=[
             dcc.Store(id="timeseries_output"),
 
-            html.H4("Step 1: Select a Topic/Term",
+            html.H4("Step 1: Select a Search Term",
                     className="viz-card__header viz-card__header--timeseries"),
             *icon_layout,
             html.H4(id="test-output"),
