@@ -31,6 +31,8 @@ try:
     ###########################
     parse_dates = ['date']  # need the correct format
     trends_df = pd.read_csv(INPUT_DIR + 'google-trends-difference.csv', parse_dates=parse_dates)
+    trends_df = trends_df[trends_df.score_difference.notna()]
+    trends_df["score_difference"] = trends_df["score_difference"].astype("int")
 
     ###########################
     # PREP
@@ -115,32 +117,34 @@ try:
             className="row centered",
             children=row_children
         )
-
-        print(row_layout)
         icon_layout.append(row_layout)
 
-
-    # Placeholder Joy Map
+    ## DETAILS JOY MAP --- JUST NETHERLANDS FOR NOW< TODO Turn into Callback
     np.random.seed(1)
 
-    # 12 sets of normal distributed random data, with increasing mean and standard deviation
-    data = (np.linspace(1, 2, 12)[:, np.newaxis] * np.random.randn(12, 200) +
-            (np.arange(12) + 2 * np.random.random(12))[:, np.newaxis])
+    num_categories = len(icon_ids)
 
-    colors = n_colors('rgb(5, 200, 200)', 'rgb(200, 10, 10)', 12, colortype='rgb')
+    data = (np.linspace(1, 2, num_categories)[:, np.newaxis] * np.random.randn(num_categories, 200) +
+            (np.arange(num_categories) + 2 * np.random.random(num_categories))[:, np.newaxis])
+
+    print(data)
+
+    colors = n_colors('rgb(5, 200, 200)', 'rgb(200, 10, 10)', num_categories, colortype='rgb')
 
     joy_fig = go.Figure()
-    for data_line, color in zip(data, colors):
-        joy_fig.add_trace(go.Violin(x=data_line, line_color=color))
 
+    #TODO: modify so that its zipping together trends_df filtered on item type for each color
+
+    for term, color in zip(trends_df.term.unique(), colors):
+        filtered_data = trends_df[(trends_df.country == "nl") & (trends_df.term == term)] # keep only one country and one term at a time
+        joy_fig.add_trace(go.Violin(x=filtered_data["score_difference"], line_color=color, name=term))
     joy_fig.update_traces(orientation='h', side='positive', width=3, points=False)
     joy_fig.update_layout(xaxis_showgrid=False, xaxis_zeroline=False, showlegend=False)
-    
+
+
     ###########################
     # FIRST TRY TO CREATE A MAP
     ###########################
-    trends_df = trends_df[trends_df.score_difference.notna()]
-
     # Adding iso_alpha and iso_num to df to use it as location for creating the map
     def add_location(data):
         for index,row in data.iterrows():
