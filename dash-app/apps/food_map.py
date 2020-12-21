@@ -20,8 +20,10 @@ from dash.dependencies import Input, Output
 from dash.exceptions import PreventUpdate
 import plotly.graph_objects as go
 from plotly.colors import n_colors
+import plotly.express as px
 
 from app import app, INPUT_DIR
+
 
 try:
     ###########################
@@ -29,6 +31,8 @@ try:
     ###########################
     parse_dates = ['date']  # need the correct format
     trends_df = pd.read_csv(INPUT_DIR + 'google-trends-difference.csv', parse_dates=parse_dates)
+    trends_df = trends_df[trends_df.score_difference.notna()]
+    trends_df["score_difference"] = trends_df["score_difference"].astype("int")
 
     ###########################
     # PREP
@@ -113,27 +117,91 @@ try:
             className="row centered",
             children=row_children
         )
-
-        print(row_layout)
         icon_layout.append(row_layout)
 
-
-
-    # Placeholder Joy Map
+    ## DETAILS JOY MAP --- JUST NETHERLANDS FOR NOW< TODO Turn into Callback
     np.random.seed(1)
 
-    # 12 sets of normal distributed random data, with increasing mean and standard deviation
-    data = (np.linspace(1, 2, 12)[:, np.newaxis] * np.random.randn(12, 200) +
-            (np.arange(12) + 2 * np.random.random(12))[:, np.newaxis])
+    num_categories = len(icon_ids)
 
-    colors = n_colors('rgb(5, 200, 200)', 'rgb(200, 10, 10)', 12, colortype='rgb')
+    data = (np.linspace(1, 2, num_categories)[:, np.newaxis] * np.random.randn(num_categories, 200) +
+            (np.arange(num_categories) + 2 * np.random.random(num_categories))[:, np.newaxis])
+
+    print(data)
+
+    colors = n_colors('rgb(5, 200, 200)', 'rgb(200, 10, 10)', num_categories, colortype='rgb')
 
     joy_fig = go.Figure()
-    for data_line, color in zip(data, colors):
-        joy_fig.add_trace(go.Violin(x=data_line, line_color=color))
 
+    #TODO: modify so that its zipping together trends_df filtered on item type for each color
+
+    for term, color in zip(trends_df.term.unique(), colors):
+        filtered_data = trends_df[(trends_df.country == "nl") & (trends_df.term == term)] # keep only one country and one term at a time
+        joy_fig.add_trace(go.Violin(x=filtered_data["score_difference"], line_color=color, name=term))
     joy_fig.update_traces(orientation='h', side='positive', width=3, points=False)
     joy_fig.update_layout(xaxis_showgrid=False, xaxis_zeroline=False, showlegend=False)
+
+
+    ###########################
+    # FIRST TRY TO CREATE A MAP
+    ###########################
+    # Adding iso_alpha and iso_num to df to use it as location for creating the map
+    def add_location(data):
+        for index,row in data.iterrows():
+            if row['country'] == "ger":
+                data.at[index,'iso_num'] = 276
+                data.at[index,'iso_alpha'] = "DEU"
+            elif row['country'] == "nl":
+                data.at[index,'iso_num'] = 533
+                data.at[index,'iso_alpha'] = "NLD"
+            elif row['country'] == "uk":
+                data.at[index,'iso_num'] = 826
+                data.at[index,'iso_alpha'] = "GBR"   
+        return data
+
+    trends_df = add_location(trends_df)
+
+    # Filter data by search term
+    def filter_data(data, term):
+        queryable_data = data.copy()
+        queryable_data.query('term == "'+term+'"', inplace = True)
+        return queryable_data
+
+    # Transform score_difference into absolute values and create additional column "score_diff_positive"
+    # To distinguish and use different colors for positive and negative score differences
+    def transform_data(data):
+        data['date_str'] = data['date'].astype(str)
+        for index,row in data.iterrows():
+            if row['score_difference'] >= 0:
+                data.at[index,'score_diff_positive'] = "positive"
+            else:
+                data.at[index,'score_diff_positive'] = "negative"
+            data.at[index,'score_difference'] = abs(data.at[index,'score_difference'])
+        return data
+
+    filtered_data = filter_data(trends_df,"restaurant") # test term, should be exchanged
+    transformed_data = transform_data(filtered_data)
+
+    test_fig = px.scatter_geo(transformed_data, 
+                        locations = "iso_alpha", 
+                        color="score_diff_positive", 
+                        hover_name="country", 
+                        size="score_difference", # has to be changed to score_difference as soon as values have been transformed to positive values
+                        animation_frame="date_str", # has to be edited
+                        projection="conic conformal") # to represent Europe: conic conformal OR azimuthal equal area;
+                        # to represent ONLY nl, uk and ger use conic equal area OR azimuthal equal area
+        
+    test_fig.update_layout(geo_scope = "europe")
+
+    test_fig.update_geos(projection_scale = 4, # set value; default = 1 (Europe scale)
+                    # set map extent              
+                    center_lon = 4.895168, # set coordinates of Amsterdam as center of map 
+                    center_lat= 52.370216,
+                    # fitbounds= "locations"
+                    showland= False,
+                    showocean = True,
+                    oceancolor="#eee")
+    #test_fig.show()
 
     ###########################
     # LAYOUT TO BE USED IN INDEX.PY
@@ -143,19 +211,19 @@ try:
         children=[
             dcc.Store(id="timeseries_output"),
 
-            html.H4("Step 1: Select an Icon",
+            html.H4("Step 1: Select a Topic/Term",
                     className="viz-card__header viz-card__header--timeseries"),
             *icon_layout,
-            html.Div(id="test-output"),
+            html.H4(id="test-output"),
 
-            html.H4("Step #2 Map",
+            html.H4("Step 2: Map",
                     className="viz-card__header viz-card__header--timeseries"),
             html.Div(
                 className="row mobile-interaction-disabled",
                 children=[
-                    dcc.Graph(id="timeseries_graph",
+                    dcc.Graph(id="test_map",
                               className='viz-card__graph viz-card__graph--timeseries flex-three',
-                              figure=timeseries_fig
+                              figure=test_fig
                               ),
                     html.Div(
                         className="viz-card__controller viz-card__controller--timeseries flex-one",
@@ -180,11 +248,17 @@ try:
     ## Create the callbacks in a loop
     @app.callback(
         Output(component_id='test-output', component_property='children'),
-        [Input('baking-button', 'n_clicks')])
-    def update_output_div(input_value):
-        print(input_value)
-        print(icon_ids)
-        return 'Output: {}'.format(input_value)
+        [Input(x, 'n_clicks') for x in icon_ids])
+    def update_output_div(*icon_ids):
+
+        ctx = dash.callback_context
+
+        if not ctx.triggered:
+            button_id = 'No clicks yet'
+        else:
+            button_id = ctx.triggered[0]['prop_id'].split('.')[0]
+        return f"{button_id}"
+
 
 except Exception as e:
     layout = html.H3(f"Problem loading {os.path.basename(__file__)}, please check console for details.")
