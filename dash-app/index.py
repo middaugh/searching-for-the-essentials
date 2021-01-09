@@ -11,9 +11,9 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 
 from app import app, TITLE
-from apps import food_map
+from apps import food_map, country_map
 
-# TO DO: Find a better solution / a way to work into app.py. Leave for now.
+
 def serve_layout():
     """Dashboard Layout to be rendered with React"""
     layout = html.Div(
@@ -30,7 +30,7 @@ def serve_layout():
                             html.Div(
                                 className="nav__wrapper--left row flex-two centered align-baseline",
                                 children=[
-                                    html.H1(f"{TITLE}", id="title", className="nav__title"),
+                                    html.H1("Searching for the Essentials", id="title", className="nav__title"),
                                 ]
                             ),
                             html.Div(
@@ -40,7 +40,7 @@ def serve_layout():
                                     dcc.Link(
                                         "FOOD",
                                         href="/food",
-                                        className="nav__link nav__link--current"
+                                        className="nav__link"
                                     ),
                                     dcc.Link(
                                         "COUNTRY",
@@ -82,7 +82,19 @@ def serve_layout():
 def display_page(pathname):
     """Callback function to render different page-content depending on the url passed."""
     try:
-        if pathname is None or pathname == "/" or pathname == "/food" or pathname:
+        if pathname == "/country":
+            page_content = html.Div(
+                className="",
+                children=[
+                    html.Div(
+                        className="row",
+                        children=[
+                            country_map.layout
+                        ]
+                    ),
+                ]
+            )
+        elif pathname is None or pathname == "/" or pathname == "/food":
             page_content = html.Div(
                 className="",
                 children=[
