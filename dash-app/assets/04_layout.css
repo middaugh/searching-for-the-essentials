@@ -121,7 +121,8 @@ div.nav--side + div.page-content{
 .footer{
   clear: both;
   bottom: 0;
-  width: 100%;
+  width: calc(100% - var(--nav-side-width));
+  margin-left: var(--nav-side-width);
   min-height: 150px;
   background-color: var(--footer-bgcolor);
   color: var(--footer-color);
@@ -130,6 +131,8 @@ div.nav--side + div.page-content{
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.18), 0 5px 15px 0 rgba(0, 0, 0, 0.15);
   padding: 60px;
 }
+
+
 
 .logo{
     height: 100px;

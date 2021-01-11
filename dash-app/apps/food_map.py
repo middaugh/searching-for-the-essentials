@@ -235,7 +235,6 @@ try:
         # Attempt to generate map
         try:
             filtered_data = trends_df[trends_df.term == button_id.split("-")[0]] # test term, should be exchanged
-            print(len(filtered_data))
             if len(filtered_data) == 0:
                 filtered_data = trends_df[trends_df.term == "restaurant"]  # baseline
         except Exception as e:

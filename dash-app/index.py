@@ -67,7 +67,11 @@ def serve_layout():
                 children=[
                     html.Div(
                         children=[
-                            """Created for Erasmus Mundus Joint Master's in Cartography Mapping Project""",
+                            """Created for Erasmus Mundus Joint Master's in Cartography Mapping Project. """,
+                            html.Br(),
+                            "Vivien, Nele, & Esmé",
+                            html.Br(),
+                            "EXPLANATION OF HOW THINGS WERE CALCULATED HERE." #TODO Explanation of How things were calculated.
                         ]
                     )
                 ]
