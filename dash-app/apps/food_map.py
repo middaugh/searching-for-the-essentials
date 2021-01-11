@@ -164,33 +164,12 @@ try:
     joy_fig = go.Figure()
 
     #TODO: modify so that its zipping together trends_df filtered on item type for each color
-
     for term, color in zip(trends_df.term.unique(), colors):
         filtered_data = trends_df[(trends_df.country == "nl") & (trends_df.term == term)] # keep only one country and one term at a time
         joy_fig.add_trace(go.Violin(x=filtered_data["score_difference"], line_color=color, name=term))
     joy_fig.update_traces(orientation='h', side='positive', width=3, points=False)
     joy_fig.update_layout(xaxis_showgrid=False, xaxis_zeroline=False, showlegend=False)
 
-
-
-    ###########################
-    # POLAR LINE
-    ###########################
-    def polar_chart(country_data):
-        fig = px.line_polar(country_data, 
-                        r = "score_difference", 
-                        theta = "term", 
-                        color = "country", 
-                        line_close = True,
-                        line_shape = "spline", # or linear
-                        range_r = [min(country_data["score_difference"]), max(country_data["score_difference"])],
-                        render_mode = "auto",
-                        animation_frame = "date_str", 
-                        title = "Search term evolution for the Netherlands", # "the Netherlands" has to be replaced by name of input
-                        width = 700,
-                        height = 700,
-                        #color_discrete_sequence = px.colors.sequential.Plasma_r
-                )
 
     ###########################
     # LAYOUT TO BE USED IN INDEX.PY
