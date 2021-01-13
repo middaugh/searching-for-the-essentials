@@ -123,8 +123,14 @@ try:
 
     ## GENERATE ICONS
     ICON_DIR = './assets/icons/'
-    icons = glob.glob(ICON_DIR + '*.svg')
 
+    icons = []
+    for name in os.listdir(ICON_DIR):
+        if name.endswith(".svg"):
+            print(name)
+            icons.append(ICON_DIR + name)
+    #icons = icons = glob.glob(ICON_DIR + '*.svg')
+    print(icons)
     icon_ids = []
     icons = np.array(icons).reshape((3, -1))
     icon_layout = []
