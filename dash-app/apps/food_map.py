@@ -18,6 +18,8 @@ from dash.dependencies import Input, Output
 from dash.exceptions import PreventUpdate
 import plotly.graph_objects as go
 from plotly.colors import n_colors
+import plotly.express as px
+
 
 from app import app, INPUT_DIR
 
@@ -27,7 +29,9 @@ try:
     ###########################
     parse_dates = ['date']  # need the correct format
     trends_df = pd.read_csv(INPUT_DIR + 'google-trends-difference.csv', parse_dates=parse_dates)
-
+    trends_who_df = pd.read_csv(INPUT_DIR + 'data_who_clean.csv')
+    #why not tho trends_who_df = trends_who_df.groupby('Date_reported','Country', 'New_cases')
+   
 
     ###########################
     # PREP
@@ -134,6 +138,14 @@ try:
 
     joy_fig.update_traces(orientation='h', side='positive', width=3, points=False)
     joy_fig.update_layout(xaxis_showgrid=False, xaxis_zeroline=False, showlegend=False)
+
+
+    # test for data from who 
+    # print(trends_who_df)
+    #fig = px.histogram(trends_who_df, x="Country")
+
+    # fig = px.line(trends_who_df, x = "Date_reported",  y="New_cases", color='Country', title='New COVID-19 cases')
+    # fig.show()
 
     ###########################
     # LAYOUT TO BE USED IN INDEX.PY
