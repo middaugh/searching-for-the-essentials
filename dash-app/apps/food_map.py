@@ -269,7 +269,7 @@ try:
     # What user has selected on map
     @app.callback(
         Output('test-map-output', 'children'),
-        [Input("test-map", 'relayputData')])
+        [Input("test-map", 'relayoutData')])
     def map_clicked(selected_country):
         ctx = dash.callback_context
         if not ctx.triggered:
