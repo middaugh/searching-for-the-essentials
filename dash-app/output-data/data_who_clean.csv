@@ -1,0 +1,937 @@
+Date_reported,Country,New_cases
+03/01/2020,Germany,0
+04/01/2020,Germany,0
+05/01/2020,Germany,0
+06/01/2020,Germany,0
+07/01/2020,Germany,0
+08/01/2020,Germany,0
+09/01/2020,Germany,0
+10/01/2020,Germany,0
+11/01/2020,Germany,0
+12/01/2020,Germany,0
+13/01/2020,Germany,0
+14/01/2020,Germany,0
+15/01/2020,Germany,0
+16/01/2020,Germany,0
+17/01/2020,Germany,0
+18/01/2020,Germany,0
+19/01/2020,Germany,0
+20/01/2020,Germany,0
+21/01/2020,Germany,0
+22/01/2020,Germany,0
+23/01/2020,Germany,0
+24/01/2020,Germany,0
+25/01/2020,Germany,0
+26/01/2020,Germany,0
+27/01/2020,Germany,0
+28/01/2020,Germany,1
+29/01/2020,Germany,3
+30/01/2020,Germany,0
+31/01/2020,Germany,1
+01/02/2020,Germany,2
+02/02/2020,Germany,1
+03/02/2020,Germany,1
+04/02/2020,Germany,2
+05/02/2020,Germany,0
+06/02/2020,Germany,0
+07/02/2020,Germany,1
+08/02/2020,Germany,1
+09/02/2020,Germany,0
+10/02/2020,Germany,0
+11/02/2020,Germany,0
+12/02/2020,Germany,2
+13/02/2020,Germany,0
+14/02/2020,Germany,0
+15/02/2020,Germany,0
+16/02/2020,Germany,0
+17/02/2020,Germany,0
+18/02/2020,Germany,0
+19/02/2020,Germany,0
+20/02/2020,Germany,0
+21/02/2020,Germany,0
+22/02/2020,Germany,0
+23/02/2020,Germany,0
+24/02/2020,Germany,0
+25/02/2020,Germany,0
+26/02/2020,Germany,2
+27/02/2020,Germany,4
+28/02/2020,Germany,26
+29/02/2020,Germany,10
+01/03/2020,Germany,54
+02/03/2020,Germany,18
+03/03/2020,Germany,28
+04/03/2020,Germany,39
+05/03/2020,Germany,66
+06/03/2020,Germany,138
+07/03/2020,Germany,284
+08/03/2020,Germany,163
+09/03/2020,Germany,55
+10/03/2020,Germany,237
+11/03/2020,Germany,157
+12/03/2020,Germany,271
+13/03/2020,Germany,802
+14/03/2020,Germany,693
+15/03/2020,Germany,733
+16/03/2020,Germany,1043
+17/03/2020,Germany,1174
+18/03/2020,Germany,1144
+19/03/2020,Germany,1042
+20/03/2020,Germany,5940
+21/03/2020,Germany,4049
+22/03/2020,Germany,3276
+23/03/2020,Germany,3311
+24/03/2020,Germany,4438
+25/03/2020,Germany,2342
+26/03/2020,Germany,4954
+27/03/2020,Germany,5780
+28/03/2020,Germany,6294
+29/03/2020,Germany,3965
+30/03/2020,Germany,4751
+31/03/2020,Germany,4615
+01/04/2020,Germany,5453
+02/04/2020,Germany,6156
+03/04/2020,Germany,6174
+04/04/2020,Germany,6082
+05/04/2020,Germany,5936
+06/04/2020,Germany,3677
+07/04/2020,Germany,3834
+08/04/2020,Germany,4003
+09/04/2020,Germany,4974
+10/04/2020,Germany,5323
+11/04/2020,Germany,4133
+12/04/2020,Germany,2821
+13/04/2020,Germany,2537
+14/04/2020,Germany,2082
+15/04/2020,Germany,2486
+16/04/2020,Germany,2866
+17/04/2020,Germany,3380
+18/04/2020,Germany,3609
+19/04/2020,Germany,2458
+20/04/2020,Germany,1775
+21/04/2020,Germany,1785
+22/04/2020,Germany,2237
+23/04/2020,Germany,2352
+24/04/2020,Germany,2337
+25/04/2020,Germany,2055
+26/04/2020,Germany,1737
+27/04/2020,Germany,1018
+28/04/2020,Germany,1144
+29/04/2020,Germany,1304
+30/04/2020,Germany,1478
+01/05/2020,Germany,1639
+02/05/2020,Germany,945
+03/05/2020,Germany,793
+04/05/2020,Germany,679
+05/05/2020,Germany,685
+06/05/2020,Germany,947
+07/05/2020,Germany,1284
+08/05/2020,Germany,1209
+09/05/2020,Germany,1251
+10/05/2020,Germany,667
+11/05/2020,Germany,357
+12/05/2020,Germany,933
+13/05/2020,Germany,798
+14/05/2020,Germany,933
+15/05/2020,Germany,913
+16/05/2020,Germany,620
+17/05/2020,Germany,583
+18/05/2020,Germany,342
+19/05/2020,Germany,513
+20/05/2020,Germany,797
+21/05/2020,Germany,745
+22/05/2020,Germany,460
+23/05/2020,Germany,638
+24/05/2020,Germany,431
+25/05/2020,Germany,289
+26/05/2020,Germany,432
+27/05/2020,Germany,362
+28/05/2020,Germany,353
+29/05/2020,Germany,741
+30/05/2020,Germany,738
+31/05/2020,Germany,286
+01/06/2020,Germany,333
+02/06/2020,Germany,213
+03/06/2020,Germany,342
+04/06/2020,Germany,394
+05/06/2020,Germany,507
+06/06/2020,Germany,407
+07/06/2020,Germany,301
+08/06/2020,Germany,214
+09/06/2020,Germany,350
+10/06/2020,Germany,318
+11/06/2020,Germany,555
+12/06/2020,Germany,258
+13/06/2020,Germany,348
+14/06/2020,Germany,247
+15/06/2020,Germany,192
+16/06/2020,Germany,378
+17/06/2020,Germany,345
+18/06/2020,Germany,580
+19/06/2020,Germany,770
+20/06/2020,Germany,601
+21/06/2020,Germany,687
+22/06/2020,Germany,537
+23/06/2020,Germany,503
+24/06/2020,Germany,587
+25/06/2020,Germany,630
+26/06/2020,Germany,477
+27/06/2020,Germany,687
+28/06/2020,Germany,256
+29/06/2020,Germany,262
+30/06/2020,Germany,498
+01/07/2020,Germany,466
+02/07/2020,Germany,503
+03/07/2020,Germany,446
+04/07/2020,Germany,422
+05/07/2020,Germany,239
+06/07/2020,Germany,219
+07/07/2020,Germany,390
+08/07/2020,Germany,397
+09/07/2020,Germany,442
+10/07/2020,Germany,395
+11/07/2020,Germany,378
+12/07/2020,Germany,248
+13/07/2020,Germany,159
+14/07/2020,Germany,412
+15/07/2020,Germany,351
+16/07/2020,Germany,534
+17/07/2020,Germany,583
+18/07/2020,Germany,529
+19/07/2020,Germany,202
+20/07/2020,Germany,249
+21/07/2020,Germany,522
+22/07/2020,Germany,454
+23/07/2020,Germany,569
+24/07/2020,Germany,815
+25/07/2020,Germany,781
+26/07/2020,Germany,305
+27/07/2020,Germany,340
+28/07/2020,Germany,633
+29/07/2020,Germany,684
+30/07/2020,Germany,902
+31/07/2020,Germany,870
+01/08/2020,Germany,955
+02/08/2020,Germany,240
+03/08/2020,Germany,509
+04/08/2020,Germany,879
+05/08/2020,Germany,741
+06/08/2020,Germany,1045
+07/08/2020,Germany,1147
+08/08/2020,Germany,1122
+09/08/2020,Germany,555
+10/08/2020,Germany,436
+11/08/2020,Germany,966
+12/08/2020,Germany,1226
+13/08/2020,Germany,1445
+14/08/2020,Germany,1449
+15/08/2020,Germany,1415
+16/08/2020,Germany,625
+17/08/2020,Germany,561
+18/08/2020,Germany,1390
+19/08/2020,Germany,1510
+20/08/2020,Germany,1707
+21/08/2020,Germany,1427
+22/08/2020,Germany,2034
+23/08/2020,Germany,782
+24/08/2020,Germany,711
+25/08/2020,Germany,1278
+26/08/2020,Germany,1576
+27/08/2020,Germany,1507
+28/08/2020,Germany,1571
+29/08/2020,Germany,1479
+30/08/2020,Germany,785
+31/08/2020,Germany,610
+01/09/2020,Germany,1218
+02/09/2020,Germany,1256
+03/09/2020,Germany,1311
+04/09/2020,Germany,1453
+05/09/2020,Germany,1378
+06/09/2020,Germany,988
+07/09/2020,Germany,814
+08/09/2020,Germany,1499
+09/09/2020,Germany,1176
+10/09/2020,Germany,1892
+11/09/2020,Germany,1484
+12/09/2020,Germany,1630
+13/09/2020,Germany,948
+14/09/2020,Germany,927
+15/09/2020,Germany,1407
+16/09/2020,Germany,1901
+17/09/2020,Germany,2194
+18/09/2020,Germany,1916
+19/09/2020,Germany,2297
+20/09/2020,Germany,1345
+21/09/2020,Germany,922
+22/09/2020,Germany,1821
+23/09/2020,Germany,1769
+24/09/2020,Germany,2143
+25/09/2020,Germany,2153
+26/09/2020,Germany,2507
+27/09/2020,Germany,1410
+28/09/2020,Germany,1192
+29/09/2020,Germany,2089
+30/09/2020,Germany,1798
+01/10/2020,Germany,2503
+02/10/2020,Germany,2673
+03/10/2020,Germany,2563
+04/10/2020,Germany,2279
+05/10/2020,Germany,1382
+06/10/2020,Germany,2639
+07/10/2020,Germany,2828
+08/10/2020,Germany,4058
+09/10/2020,Germany,4516
+10/10/2020,Germany,4721
+11/10/2020,Germany,3483
+12/10/2020,Germany,2467
+13/10/2020,Germany,4122
+14/10/2020,Germany,5132
+15/10/2020,Germany,6638
+16/10/2020,Germany,7334
+17/10/2020,Germany,7830
+18/10/2020,Germany,5587
+19/10/2020,Germany,4325
+20/10/2020,Germany,6868
+21/10/2020,Germany,7595
+22/10/2020,Germany,11287
+23/10/2020,Germany,11242
+24/10/2020,Germany,14714
+25/10/2020,Germany,11176
+26/10/2020,Germany,8685
+27/10/2020,Germany,11409
+28/10/2020,Germany,14964
+29/10/2020,Germany,16774
+30/10/2020,Germany,18681
+31/10/2020,Germany,19059
+01/11/2020,Germany,14177
+02/11/2020,Germany,12097
+03/11/2020,Germany,15352
+04/11/2020,Germany,17214
+05/11/2020,Germany,19990
+06/11/2020,Germany,21506
+07/11/2020,Germany,23399
+08/11/2020,Germany,16017
+09/11/2020,Germany,13363
+03/01/2020,Netherlands,0
+04/01/2020,Netherlands,0
+05/01/2020,Netherlands,0
+06/01/2020,Netherlands,0
+07/01/2020,Netherlands,0
+08/01/2020,Netherlands,0
+09/01/2020,Netherlands,0
+10/01/2020,Netherlands,0
+11/01/2020,Netherlands,0
+12/01/2020,Netherlands,0
+13/01/2020,Netherlands,0
+14/01/2020,Netherlands,0
+15/01/2020,Netherlands,0
+16/01/2020,Netherlands,0
+17/01/2020,Netherlands,0
+18/01/2020,Netherlands,0
+19/01/2020,Netherlands,0
+20/01/2020,Netherlands,0
+21/01/2020,Netherlands,0
+22/01/2020,Netherlands,0
+23/01/2020,Netherlands,0
+24/01/2020,Netherlands,0
+25/01/2020,Netherlands,0
+26/01/2020,Netherlands,0
+27/01/2020,Netherlands,0
+28/01/2020,Netherlands,0
+29/01/2020,Netherlands,0
+30/01/2020,Netherlands,0
+31/01/2020,Netherlands,0
+01/02/2020,Netherlands,0
+02/02/2020,Netherlands,0
+03/02/2020,Netherlands,0
+04/02/2020,Netherlands,0
+05/02/2020,Netherlands,0
+06/02/2020,Netherlands,0
+07/02/2020,Netherlands,0
+08/02/2020,Netherlands,0
+09/02/2020,Netherlands,0
+10/02/2020,Netherlands,0
+11/02/2020,Netherlands,0
+12/02/2020,Netherlands,0
+13/02/2020,Netherlands,0
+14/02/2020,Netherlands,0
+15/02/2020,Netherlands,0
+16/02/2020,Netherlands,0
+17/02/2020,Netherlands,0
+18/02/2020,Netherlands,0
+19/02/2020,Netherlands,0
+20/02/2020,Netherlands,0
+21/02/2020,Netherlands,0
+22/02/2020,Netherlands,0
+23/02/2020,Netherlands,0
+24/02/2020,Netherlands,0
+25/02/2020,Netherlands,0
+26/02/2020,Netherlands,0
+27/02/2020,Netherlands,0
+28/02/2020,Netherlands,1
+29/02/2020,Netherlands,1
+01/03/2020,Netherlands,5
+02/03/2020,Netherlands,6
+03/03/2020,Netherlands,5
+04/03/2020,Netherlands,10
+05/03/2020,Netherlands,10
+06/03/2020,Netherlands,44
+07/03/2020,Netherlands,46
+08/03/2020,Netherlands,60
+09/03/2020,Netherlands,77
+10/03/2020,Netherlands,56
+11/03/2020,Netherlands,61
+12/03/2020,Netherlands,121
+13/03/2020,Netherlands,111
+14/03/2020,Netherlands,190
+15/03/2020,Netherlands,155
+16/03/2020,Netherlands,176
+17/03/2020,Netherlands,278
+18/03/2020,Netherlands,292
+19/03/2020,Netherlands,346
+20/03/2020,Netherlands,409
+21/03/2020,Netherlands,534
+22/03/2020,Netherlands,637
+23/03/2020,Netherlands,573
+24/03/2020,Netherlands,545
+25/03/2020,Netherlands,811
+26/03/2020,Netherlands,852
+27/03/2020,Netherlands,1019
+28/03/2020,Netherlands,1172
+29/03/2020,Netherlands,1159
+30/03/2020,Netherlands,1104
+31/03/2020,Netherlands,884
+01/04/2020,Netherlands,845
+02/04/2020,Netherlands,1019
+03/04/2020,Netherlands,1083
+04/04/2020,Netherlands,1026
+05/04/2020,Netherlands,904
+06/04/2020,Netherlands,1224
+07/04/2020,Netherlands,952
+08/04/2020,Netherlands,777
+09/04/2020,Netherlands,969
+10/04/2020,Netherlands,1213
+11/04/2020,Netherlands,1335
+12/04/2020,Netherlands,1316
+13/04/2020,Netherlands,1174
+14/04/2020,Netherlands,964
+15/04/2020,Netherlands,868
+16/04/2020,Netherlands,734
+17/04/2020,Netherlands,1061
+18/04/2020,Netherlands,1235
+19/04/2020,Netherlands,1140
+20/04/2020,Netherlands,1066
+21/04/2020,Netherlands,750
+22/04/2020,Netherlands,729
+23/04/2020,Netherlands,708
+24/04/2020,Netherlands,887
+25/04/2020,Netherlands,806
+26/04/2020,Netherlands,655
+27/04/2020,Netherlands,655
+28/04/2020,Netherlands,400
+29/04/2020,Netherlands,171
+30/04/2020,Netherlands,386
+01/05/2020,Netherlands,514
+02/05/2020,Netherlands,475
+03/05/2020,Netherlands,445
+04/05/2020,Netherlands,335
+05/05/2020,Netherlands,199
+06/05/2020,Netherlands,317
+07/05/2020,Netherlands,232
+08/05/2020,Netherlands,455
+09/05/2020,Netherlands,319
+10/05/2020,Netherlands,289
+11/05/2020,Netherlands,245
+12/05/2020,Netherlands,161
+13/05/2020,Netherlands,196
+14/05/2020,Netherlands,227
+15/05/2020,Netherlands,270
+16/05/2020,Netherlands,200
+17/05/2020,Netherlands,189
+18/05/2020,Netherlands,125
+19/05/2020,Netherlands,146
+20/05/2020,Netherlands,108
+21/05/2020,Netherlands,198
+22/05/2020,Netherlands,253
+23/05/2020,Netherlands,188
+24/05/2020,Netherlands,176
+25/05/2020,Netherlands,172
+26/05/2020,Netherlands,209
+27/05/2020,Netherlands,133
+28/05/2020,Netherlands,190
+29/05/2020,Netherlands,182
+30/05/2020,Netherlands,176
+31/05/2020,Netherlands,131
+01/06/2020,Netherlands,185
+02/06/2020,Netherlands,103
+03/06/2020,Netherlands,102
+04/06/2020,Netherlands,86
+05/06/2020,Netherlands,209
+06/06/2020,Netherlands,210
+07/06/2020,Netherlands,183
+08/06/2020,Netherlands,239
+09/06/2020,Netherlands,165
+10/06/2020,Netherlands,164
+11/06/2020,Netherlands,184
+12/06/2020,Netherlands,164
+13/06/2020,Netherlands,210
+14/06/2020,Netherlands,179
+15/06/2020,Netherlands,143
+16/06/2020,Netherlands,165
+17/06/2020,Netherlands,139
+18/06/2020,Netherlands,117
+19/06/2020,Netherlands,115
+20/06/2020,Netherlands,107
+21/06/2020,Netherlands,76
+22/06/2020,Netherlands,91
+23/06/2020,Netherlands,65
+24/06/2020,Netherlands,64
+25/06/2020,Netherlands,82
+26/06/2020,Netherlands,110
+27/06/2020,Netherlands,91
+28/06/2020,Netherlands,69
+29/06/2020,Netherlands,73
+30/06/2020,Netherlands,76
+01/07/2020,Netherlands,50
+02/07/2020,Netherlands,62
+03/07/2020,Netherlands,77
+04/07/2020,Netherlands,75
+05/07/2020,Netherlands,61
+06/07/2020,Netherlands,73
+07/07/2020,Netherlands,36
+08/07/2020,Netherlands,37
+09/07/2020,Netherlands,52
+10/07/2020,Netherlands,52
+11/07/2020,Netherlands,42
+12/07/2020,Netherlands,81
+13/07/2020,Netherlands,101
+14/07/2020,Netherlands,71
+15/07/2020,Netherlands,53
+16/07/2020,Netherlands,106
+17/07/2020,Netherlands,99
+18/07/2020,Netherlands,103
+19/07/2020,Netherlands,127
+20/07/2020,Netherlands,144
+21/07/2020,Netherlands,185
+22/07/2020,Netherlands,163
+23/07/2020,Netherlands,168
+24/07/2020,Netherlands,163
+25/07/2020,Netherlands,191
+26/07/2020,Netherlands,137
+27/07/2020,Netherlands,214
+28/07/2020,Netherlands,205
+29/07/2020,Netherlands,223
+30/07/2020,Netherlands,247
+31/07/2020,Netherlands,342
+01/08/2020,Netherlands,338
+02/08/2020,Netherlands,431
+03/08/2020,Netherlands,311
+04/08/2020,Netherlands,372
+05/08/2020,Netherlands,540
+06/08/2020,Netherlands,426
+07/08/2020,Netherlands,601
+08/08/2020,Netherlands,519
+09/08/2020,Netherlands,486
+10/08/2020,Netherlands,577
+11/08/2020,Netherlands,575
+12/08/2020,Netherlands,779
+13/08/2020,Netherlands,654
+14/08/2020,Netherlands,577
+15/08/2020,Netherlands,636
+16/08/2020,Netherlands,652
+17/08/2020,Netherlands,506
+18/08/2020,Netherlands,481
+19/08/2020,Netherlands,487
+20/08/2020,Netherlands,552
+21/08/2020,Netherlands,529
+22/08/2020,Netherlands,534
+23/08/2020,Netherlands,508
+24/08/2020,Netherlands,456
+25/08/2020,Netherlands,572
+26/08/2020,Netherlands,414
+27/08/2020,Netherlands,570
+28/08/2020,Netherlands,510
+29/08/2020,Netherlands,507
+30/08/2020,Netherlands,500
+31/08/2020,Netherlands,508
+01/09/2020,Netherlands,525
+02/09/2020,Netherlands,461
+03/09/2020,Netherlands,914
+04/09/2020,Netherlands,421
+05/09/2020,Netherlands,744
+06/09/2020,Netherlands,654
+07/09/2020,Netherlands,925
+08/09/2020,Netherlands,797
+09/09/2020,Netherlands,963
+10/09/2020,Netherlands,1140
+11/09/2020,Netherlands,823
+12/09/2020,Netherlands,1268
+13/09/2020,Netherlands,1231
+14/09/2020,Netherlands,1086
+15/09/2020,Netherlands,1298
+16/09/2020,Netherlands,1376
+17/09/2020,Netherlands,1540
+18/09/2020,Netherlands,1750
+19/09/2020,Netherlands,1972
+20/09/2020,Netherlands,1882
+21/09/2020,Netherlands,1843
+22/09/2020,Netherlands,2215
+23/09/2020,Netherlands,2243
+24/09/2020,Netherlands,2351
+25/09/2020,Netherlands,2541
+26/09/2020,Netherlands,2776
+27/09/2020,Netherlands,2711
+28/09/2020,Netherlands,2989
+29/09/2020,Netherlands,2909
+30/09/2020,Netherlands,3001
+01/10/2020,Netherlands,3293
+02/10/2020,Netherlands,3253
+03/10/2020,Netherlands,3820
+04/10/2020,Netherlands,3963
+05/10/2020,Netherlands,4000
+06/10/2020,Netherlands,4572
+07/10/2020,Netherlands,4517
+08/10/2020,Netherlands,4979
+09/10/2020,Netherlands,5813
+10/10/2020,Netherlands,5959
+11/10/2020,Netherlands,6493
+12/10/2020,Netherlands,6368
+13/10/2020,Netherlands,6844
+14/10/2020,Netherlands,7368
+15/10/2020,Netherlands,7271
+16/10/2020,Netherlands,7779
+17/10/2020,Netherlands,7978
+18/10/2020,Netherlands,8105
+19/10/2020,Netherlands,8439
+20/10/2020,Netherlands,7720
+21/10/2020,Netherlands,8149
+22/10/2020,Netherlands,8738
+23/10/2020,Netherlands,9268
+24/10/2020,Netherlands,9983
+25/10/2020,Netherlands,8639
+26/10/2020,Netherlands,10194
+27/10/2020,Netherlands,10324
+28/10/2020,Netherlands,10283
+29/10/2020,Netherlands,8092
+30/10/2020,Netherlands,10248
+31/10/2020,Netherlands,11102
+01/11/2020,Netherlands,9790
+02/11/2020,Netherlands,8673
+03/11/2020,Netherlands,8278
+04/11/2020,Netherlands,7729
+05/11/2020,Netherlands,7622
+06/11/2020,Netherlands,6957
+07/11/2020,Netherlands,7232
+08/11/2020,Netherlands,6659
+09/11/2020,Netherlands,5659
+03/01/2020,The United Kingdom,0
+04/01/2020,The United Kingdom,0
+05/01/2020,The United Kingdom,0
+06/01/2020,The United Kingdom,0
+07/01/2020,The United Kingdom,0
+08/01/2020,The United Kingdom,0
+09/01/2020,The United Kingdom,0
+10/01/2020,The United Kingdom,0
+11/01/2020,The United Kingdom,0
+12/01/2020,The United Kingdom,0
+13/01/2020,The United Kingdom,0
+14/01/2020,The United Kingdom,0
+15/01/2020,The United Kingdom,0
+16/01/2020,The United Kingdom,0
+17/01/2020,The United Kingdom,0
+18/01/2020,The United Kingdom,0
+19/01/2020,The United Kingdom,0
+20/01/2020,The United Kingdom,0
+21/01/2020,The United Kingdom,0
+22/01/2020,The United Kingdom,0
+23/01/2020,The United Kingdom,0
+24/01/2020,The United Kingdom,0
+25/01/2020,The United Kingdom,0
+26/01/2020,The United Kingdom,0
+27/01/2020,The United Kingdom,0
+28/01/2020,The United Kingdom,0
+29/01/2020,The United Kingdom,0
+30/01/2020,The United Kingdom,0
+31/01/2020,The United Kingdom,0
+01/02/2020,The United Kingdom,2
+02/02/2020,The United Kingdom,0
+03/02/2020,The United Kingdom,0
+04/02/2020,The United Kingdom,0
+05/02/2020,The United Kingdom,1
+06/02/2020,The United Kingdom,0
+07/02/2020,The United Kingdom,1
+08/02/2020,The United Kingdom,0
+09/02/2020,The United Kingdom,0
+10/02/2020,The United Kingdom,4
+11/02/2020,The United Kingdom,1
+12/02/2020,The United Kingdom,0
+13/02/2020,The United Kingdom,1
+14/02/2020,The United Kingdom,0
+15/02/2020,The United Kingdom,0
+16/02/2020,The United Kingdom,0
+17/02/2020,The United Kingdom,0
+18/02/2020,The United Kingdom,0
+19/02/2020,The United Kingdom,0
+20/02/2020,The United Kingdom,0
+21/02/2020,The United Kingdom,0
+22/02/2020,The United Kingdom,0
+23/02/2020,The United Kingdom,1
+24/02/2020,The United Kingdom,0
+25/02/2020,The United Kingdom,0
+26/02/2020,The United Kingdom,2
+27/02/2020,The United Kingdom,5
+28/02/2020,The United Kingdom,4
+29/02/2020,The United Kingdom,8
+01/03/2020,The United Kingdom,12
+02/03/2020,The United Kingdom,5
+03/03/2020,The United Kingdom,22
+04/03/2020,The United Kingdom,40
+05/03/2020,The United Kingdom,55
+06/03/2020,The United Kingdom,56
+07/03/2020,The United Kingdom,51
+08/03/2020,The United Kingdom,81
+09/03/2020,The United Kingdom,60
+10/03/2020,The United Kingdom,57
+11/03/2020,The United Kingdom,148
+12/03/2020,The United Kingdom,259
+13/03/2020,The United Kingdom,406
+14/03/2020,The United Kingdom,484
+15/03/2020,The United Kingdom,478
+16/03/2020,The United Kingdom,361
+17/03/2020,The United Kingdom,442
+18/03/2020,The United Kingdom,611
+19/03/2020,The United Kingdom,769
+20/03/2020,The United Kingdom,999
+21/03/2020,The United Kingdom,1055
+22/03/2020,The United Kingdom,1255
+23/03/2020,The United Kingdom,1198
+24/03/2020,The United Kingdom,1378
+25/03/2020,The United Kingdom,2338
+26/03/2020,The United Kingdom,2375
+27/03/2020,The United Kingdom,2692
+28/03/2020,The United Kingdom,3087
+29/03/2020,The United Kingdom,3197
+30/03/2020,The United Kingdom,2822
+31/03/2020,The United Kingdom,2858
+01/04/2020,The United Kingdom,4273
+02/04/2020,The United Kingdom,4514
+03/04/2020,The United Kingdom,4913
+04/04/2020,The United Kingdom,4868
+05/04/2020,The United Kingdom,4911
+06/04/2020,The United Kingdom,4020
+07/04/2020,The United Kingdom,3592
+08/04/2020,The United Kingdom,5282
+09/04/2020,The United Kingdom,5450
+10/04/2020,The United Kingdom,5131
+11/04/2020,The United Kingdom,4858
+12/04/2020,The United Kingdom,4313
+13/04/2020,The United Kingdom,3579
+14/04/2020,The United Kingdom,3489
+15/04/2020,The United Kingdom,4178
+16/04/2020,The United Kingdom,4326
+17/04/2020,The United Kingdom,5065
+18/04/2020,The United Kingdom,5292
+19/04/2020,The United Kingdom,4956
+20/04/2020,The United Kingdom,4721
+21/04/2020,The United Kingdom,3853
+22/04/2020,The United Kingdom,4854
+23/04/2020,The United Kingdom,4760
+24/04/2020,The United Kingdom,5487
+25/04/2020,The United Kingdom,5158
+26/04/2020,The United Kingdom,4970
+27/04/2020,The United Kingdom,3748
+28/04/2020,The United Kingdom,3473
+29/04/2020,The United Kingdom,4706
+30/04/2020,The United Kingdom,4729
+01/05/2020,The United Kingdom,5446
+02/05/2020,The United Kingdom,4966
+03/05/2020,The United Kingdom,4737
+04/05/2020,The United Kingdom,3229
+05/05/2020,The United Kingdom,2982
+06/05/2020,The United Kingdom,3389
+07/05/2020,The United Kingdom,3682
+08/05/2020,The United Kingdom,3827
+09/05/2020,The United Kingdom,3767
+10/05/2020,The United Kingdom,3063
+11/05/2020,The United Kingdom,2157
+12/05/2020,The United Kingdom,2329
+13/05/2020,The United Kingdom,3586
+14/05/2020,The United Kingdom,3402
+15/05/2020,The United Kingdom,3307
+16/05/2020,The United Kingdom,2628
+17/05/2020,The United Kingdom,2526
+18/05/2020,The United Kingdom,2079
+19/05/2020,The United Kingdom,1838
+20/05/2020,The United Kingdom,2589
+21/05/2020,The United Kingdom,3052
+22/05/2020,The United Kingdom,2718
+23/05/2020,The United Kingdom,2574
+24/05/2020,The United Kingdom,2062
+25/05/2020,The United Kingdom,1527
+26/05/2020,The United Kingdom,1364
+27/05/2020,The United Kingdom,1624
+28/05/2020,The United Kingdom,1672
+29/05/2020,The United Kingdom,1835
+30/05/2020,The United Kingdom,1760
+31/05/2020,The United Kingdom,1527
+01/06/2020,The United Kingdom,1125
+02/06/2020,The United Kingdom,1079
+03/06/2020,The United Kingdom,1441
+04/06/2020,The United Kingdom,1484
+05/06/2020,The United Kingdom,1356
+06/06/2020,The United Kingdom,1243
+07/06/2020,The United Kingdom,1120
+08/06/2020,The United Kingdom,801
+09/06/2020,The United Kingdom,721
+10/06/2020,The United Kingdom,1099
+11/06/2020,The United Kingdom,1158
+12/06/2020,The United Kingdom,1199
+13/06/2020,The United Kingdom,1017
+14/06/2020,The United Kingdom,1052
+15/06/2020,The United Kingdom,890
+16/06/2020,The United Kingdom,822
+17/06/2020,The United Kingdom,1043
+18/06/2020,The United Kingdom,1102
+19/06/2020,The United Kingdom,1013
+20/06/2020,The United Kingdom,1027
+21/06/2020,The United Kingdom,986
+22/06/2020,The United Kingdom,687
+23/06/2020,The United Kingdom,639
+24/06/2020,The United Kingdom,896
+25/06/2020,The United Kingdom,886
+26/06/2020,The United Kingdom,778
+27/06/2020,The United Kingdom,721
+28/06/2020,The United Kingdom,671
+29/06/2020,The United Kingdom,649
+30/06/2020,The United Kingdom,446
+01/07/2020,The United Kingdom,730
+02/07/2020,The United Kingdom,617
+03/07/2020,The United Kingdom,651
+04/07/2020,The United Kingdom,602
+05/07/2020,The United Kingdom,579
+06/07/2020,The United Kingdom,401
+07/07/2020,The United Kingdom,555
+08/07/2020,The United Kingdom,704
+09/07/2020,The United Kingdom,597
+10/07/2020,The United Kingdom,693
+11/07/2020,The United Kingdom,715
+12/07/2020,The United Kingdom,565
+13/07/2020,The United Kingdom,442
+14/07/2020,The United Kingdom,361
+15/07/2020,The United Kingdom,726
+16/07/2020,The United Kingdom,685
+17/07/2020,The United Kingdom,772
+18/07/2020,The United Kingdom,704
+19/07/2020,The United Kingdom,569
+20/07/2020,The United Kingdom,493
+21/07/2020,The United Kingdom,413
+22/07/2020,The United Kingdom,793
+23/07/2020,The United Kingdom,751
+24/07/2020,The United Kingdom,773
+25/07/2020,The United Kingdom,731
+26/07/2020,The United Kingdom,667
+27/07/2020,The United Kingdom,421
+28/07/2020,The United Kingdom,371
+29/07/2020,The United Kingdom,70
+30/07/2020,The United Kingdom,763
+31/07/2020,The United Kingdom,846
+01/08/2020,The United Kingdom,880
+02/08/2020,The United Kingdom,771
+03/08/2020,The United Kingdom,743
+04/08/2020,The United Kingdom,928
+05/08/2020,The United Kingdom,670
+06/08/2020,The United Kingdom,891
+07/08/2020,The United Kingdom,950
+08/08/2020,The United Kingdom,871
+09/08/2020,The United Kingdom,758
+10/08/2020,The United Kingdom,1062
+11/08/2020,The United Kingdom,816
+12/08/2020,The United Kingdom,1148
+13/08/2020,The United Kingdom,1009
+14/08/2020,The United Kingdom,1129
+15/08/2020,The United Kingdom,1440
+16/08/2020,The United Kingdom,1077
+17/08/2020,The United Kingdom,1040
+18/08/2020,The United Kingdom,713
+19/08/2020,The United Kingdom,1089
+20/08/2020,The United Kingdom,812
+21/08/2020,The United Kingdom,1182
+22/08/2020,The United Kingdom,1033
+23/08/2020,The United Kingdom,1288
+24/08/2020,The United Kingdom,1041
+25/08/2020,The United Kingdom,972
+26/08/2020,The United Kingdom,1184
+27/08/2020,The United Kingdom,1048
+28/08/2020,The United Kingdom,1522
+29/08/2020,The United Kingdom,1276
+30/08/2020,The United Kingdom,1108
+31/08/2020,The United Kingdom,1715
+01/09/2020,The United Kingdom,1406
+02/09/2020,The United Kingdom,1295
+03/09/2020,The United Kingdom,1508
+04/09/2020,The United Kingdom,1735
+05/09/2020,The United Kingdom,1940
+06/09/2020,The United Kingdom,1813
+07/09/2020,The United Kingdom,2988
+08/09/2020,The United Kingdom,2948
+09/09/2020,The United Kingdom,2460
+10/09/2020,The United Kingdom,2659
+11/09/2020,The United Kingdom,2919
+12/09/2020,The United Kingdom,3539
+13/09/2020,The United Kingdom,3497
+14/09/2020,The United Kingdom,3330
+15/09/2020,The United Kingdom,2621
+16/09/2020,The United Kingdom,3103
+17/09/2020,The United Kingdom,3991
+18/09/2020,The United Kingdom,3395
+19/09/2020,The United Kingdom,4322
+20/09/2020,The United Kingdom,4422
+21/09/2020,The United Kingdom,3899
+22/09/2020,The United Kingdom,4368
+23/09/2020,The United Kingdom,4926
+24/09/2020,The United Kingdom,6178
+25/09/2020,The United Kingdom,6634
+26/09/2020,The United Kingdom,6873
+27/09/2020,The United Kingdom,6041
+28/09/2020,The United Kingdom,5692
+29/09/2020,The United Kingdom,4044
+30/09/2020,The United Kingdom,7143
+01/10/2020,The United Kingdom,7108
+02/10/2020,The United Kingdom,6914
+03/10/2020,The United Kingdom,6968
+04/10/2020,The United Kingdom,12871
+05/10/2020,The United Kingdom,22961
+06/10/2020,The United Kingdom,12593
+07/10/2020,The United Kingdom,14542
+08/10/2020,The United Kingdom,14162
+09/10/2020,The United Kingdom,17540
+10/10/2020,The United Kingdom,13864
+11/10/2020,The United Kingdom,15165
+12/10/2020,The United Kingdom,12872
+13/10/2020,The United Kingdom,13972
+14/10/2020,The United Kingdom,17232
+15/10/2020,The United Kingdom,19724
+16/10/2020,The United Kingdom,18978
+17/10/2020,The United Kingdom,15635
+18/10/2020,The United Kingdom,16171
+19/10/2020,The United Kingdom,16981
+20/10/2020,The United Kingdom,18803
+21/10/2020,The United Kingdom,21330
+22/10/2020,The United Kingdom,26687
+23/10/2020,The United Kingdom,21238
+24/10/2020,The United Kingdom,20531
+25/10/2020,The United Kingdom,23012
+26/10/2020,The United Kingdom,19790
+27/10/2020,The United Kingdom,20890
+28/10/2020,The United Kingdom,22885
+29/10/2020,The United Kingdom,24700
+30/10/2020,The United Kingdom,23065
+31/10/2020,The United Kingdom,24405
+01/11/2020,The United Kingdom,21915
+02/11/2020,The United Kingdom,23254
+03/11/2020,The United Kingdom,18950
+04/11/2020,The United Kingdom,20018
+05/11/2020,The United Kingdom,25177
+06/11/2020,The United Kingdom,24138
+07/11/2020,The United Kingdom,23287
+08/11/2020,The United Kingdom,24957
+09/11/2020,The United Kingdom,20572
