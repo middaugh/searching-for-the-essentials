@@ -74,7 +74,7 @@ try:
     # LAYOUT TO BE USED IN INDEX.PY
     ###########################
     layout = html.Div(
-        className="viz-card viz-card--template",
+        className="viz-card viz-card--country flex-one",
         children=[
             html.H4("Step 1: Select a Country",
                     className="viz-card__header viz-card__header--timeseries"),

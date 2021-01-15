@@ -21,14 +21,14 @@ def serve_layout():
             # represents the URL bar, doesn't render anything
             dcc.Location(id='url', refresh=False),
             html.Div(
-                className="nav__container nav--side",
+                className="nav__container",
                 children=[
                     html.Div(
                         id="nav",
-                        className="nav nav--side",
+                        className="nav",
                         children=[
                             html.Div(
-                                className="nav__wrapper--left row flex-two centered align-baseline",
+                                className="nav__wrapper row flex-two centered align-baseline",
                                 children=[
                                     html.H1("Searching for the Essentials", id="title", className="nav__title"),
                                 ]
@@ -60,7 +60,7 @@ def serve_layout():
                 ]
             ),
             # Where all of the content will go
-            html.Div(className="page-content", id='page-content'),
+            html.Div(className="page-content centered", id='page-content'),
             html.Footer(
                 id='footer',
                 className="footer clearfix centered",
