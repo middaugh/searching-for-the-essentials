@@ -74,7 +74,7 @@ try:
     # LAYOUT TO BE USED IN INDEX.PY
     ###########################
     layout = html.Div(
-        className="viz-card viz-card--country flex-one",
+        className="viz-card viz-card--country flex-one centered",
         children=[
             html.H4("Step 1: Select a Country",
                     className="viz-card__header viz-card__header--timeseries"),
@@ -95,7 +95,8 @@ try:
             ),
             html.H4(id="polar-title"),
             dcc.Graph(
-                id="polar-chart"
+                id="polar-chart",
+                className="centered flex-one"
             )
         ]
     )

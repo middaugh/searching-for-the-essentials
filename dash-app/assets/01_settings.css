@@ -8,13 +8,15 @@
   --side-space: 10vmin;
   --side-space--mobile: 5vmin;
   --main-font: Roboto, "Segoe UI", Helvetica, sans-serif;
-  --title-font: 'Roboto Mono',Roboto, Courier New, monotype;
+  --title-font: "Work Sans", 'Roboto Mono', Roboto, Courier New, sans-serif;
+  --subtitle-font: "Work Sans", monotype;
   --header-font:  Roboto, Economica, "Courier New", "Segoe UI", "Roboto", "Roboto Mono", sans-serif;
   --font-size: 1em;
   --line-height: 1.3;
-  --bgcolor: #f8f8f8;
+  --bgcolor: #13262F;
   --nav-bgcolor: #13262F;
   --nav-color: #419D78;
+  --nav-subtitle-color: #419D78;
   --footer-bgcolor: #DCEDFF;
   --footer-color: rgba(255,255,255,.9);
   --primary-color: #419D78;
@@ -24,10 +26,10 @@
   --viz-card-bgcolor: #f8f8f8;
   --striped-bg: repeating-linear-gradient(
       45deg,
-      rgba(0,0,0,.3),
-      rgba(0,0,0,.3) 1px,
-      rgba(0,0,0,0) 1px,
-      rgba(0,0,0,0) 2px
+      rgba(255,255,255,.3),
+      rgba(255,255,255,.3) 1px,
+      rgba(255,255,255,0) 1px,
+      rgba(255,255,255,0) 2px
     );
 }
 

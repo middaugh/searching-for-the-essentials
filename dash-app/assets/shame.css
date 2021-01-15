@@ -21,3 +21,9 @@ Esme Middaugh, emiddaugh@info-first.com
 .row > * {
   margin: var(--gap) 0 0 var(--gap);
 }
+
+.project-explanation{
+    color: #f0f0f0;
+    padding: 30px 50px;
+    text-align: justify;
+}

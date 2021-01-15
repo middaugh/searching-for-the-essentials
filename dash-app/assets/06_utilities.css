@@ -78,3 +78,7 @@
 .modebar{
       display: none !important;
 }
+
+.text-centered{
+    text-align: center;
+}
