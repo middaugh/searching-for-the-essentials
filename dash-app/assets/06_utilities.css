@@ -82,3 +82,7 @@
 .text-centered{
     text-align: center;
 }
+
+.striped-bg-dark{
+    background: var(--striped-bg-dark);
+}

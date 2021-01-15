@@ -7,7 +7,7 @@
 :root {
   --side-space: 10vmin;
   --side-space--mobile: 5vmin;
-  --main-font: Roboto, "Segoe UI", Helvetica, sans-serif;
+  --main-font: "work Sans", Roboto, "Segoe UI", Helvetica, sans-serif;
   --title-font: "Work Sans", 'Roboto Mono', Roboto, Courier New, sans-serif;
   --subtitle-font: "Work Sans", monotype;
   --header-font:  Roboto, Economica, "Courier New", "Segoe UI", "Roboto", "Roboto Mono", sans-serif;
@@ -30,6 +30,13 @@
       rgba(255,255,255,.3) 1px,
       rgba(255,255,255,0) 1px,
       rgba(255,255,255,0) 2px
+    );
+  --striped-bg-dark:repeating-linear-gradient(
+      45deg,
+      rgba(0,0,0,.3),
+      rgba(0,0,0,.3) 1px,
+      rgba(0,0,0,0) 1px,
+      rgba(0,0,0,0) 2px
     );
 }
 

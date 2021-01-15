@@ -96,7 +96,7 @@ app.index_string = '''
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700,900|Roboto+Mono|Economica:300,400,700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Monoton&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:300,400,700,900&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,300;0,900;1,100&display=swap" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     </head>
     <body>

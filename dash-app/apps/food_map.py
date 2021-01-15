@@ -139,7 +139,7 @@ try:
             name_stripped = re.sub(r'\d+', '', icon.split('/')[-1][:-4]) # extract the main product name from the path, removing numbers and .svg
             button = html.Button(
                 id=f"{name_stripped}-button",
-                className="nav__link nav__link--current",
+                className="nav__link striped-bg-dark",
                 children=
                     html.Img(
                         src=icon,
@@ -186,7 +186,6 @@ try:
             html.H4("Step 1: Select a Search Term",
                     className="viz-card__header viz-card__header--timeseries"),
             *icon_layout,
-            html.H4(id="test-output"),
 
             html.H4("Step 2: Map",
                     className="viz-card__header viz-card__header--timeseries"),
@@ -213,7 +212,6 @@ try:
                 children=[
                     html.Div(
                         id="test-map-output",
-                        children="butter"
                     )
                 ]
             )
@@ -226,8 +224,7 @@ try:
 
     ## Create the callbacks in a loop
     @app.callback(
-        [Output('test-output', 'children'),
-         Output("test_map", "figure")],
+         Output("test_map", "figure"),
         [Input(x, 'n_clicks') for x in icon_ids])
     def update_output_div(*icon_ids):
         ctx = dash.callback_context
@@ -235,7 +232,6 @@ try:
             button_id = 'No clicks yet'
         else:
             button_id = ctx.triggered[0]['prop_id'].split('.')[0]
-
         # Attempt to generate map
         try:
             filtered_data = trends_df[trends_df.term == button_id.split("-")[0]] # test term, should be exchanged
@@ -268,7 +264,7 @@ try:
                              oceancolor="#eee")
 
 
-        return f"{button_id}", test_fig
+        return test_fig
 
     # What user has selected on map
     @app.callback(

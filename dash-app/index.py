@@ -46,12 +46,12 @@ def serve_layout():
                                 className="nav__links flex-one row",
                                 children=[
                                     dcc.Link(
-                                        "BY SEARCH TERM",
+                                        "FOOD",
                                         href="/food",
                                         className="nav__link"
                                     ),
                                     dcc.Link(
-                                        "BY COUNTRY",
+                                        "COUNTRY",
                                         href="/country",
                                         className="nav__link"
                                     ),
