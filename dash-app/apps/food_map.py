@@ -52,7 +52,6 @@ try:
 
     trends_df = add_location(trends_df)
 
-
     # Transform score_difference into absolute values and create additional column "score_diff_positive"
     # To distinguish and use different colors for positive and negative score differences
     def transform_data(data):
@@ -157,14 +156,10 @@ try:
 
     ## DETAILS JOY MAP --- JUST NETHERLANDS FOR NOW< TODO Turn into Callback
     np.random.seed(1)
-
     num_categories = len(icon_ids)
-
     data = (np.linspace(1, 2, num_categories)[:, np.newaxis] * np.random.randn(num_categories, 200) +
             (np.arange(num_categories) + 2 * np.random.random(num_categories))[:, np.newaxis])
-
     colors = n_colors('rgb(5, 200, 200)', 'rgb(200, 10, 10)', num_categories, colortype='rgb')
-
     joy_fig = go.Figure()
 
     #TODO: modify so that its zipping together trends_df filtered on item type for each color
@@ -194,17 +189,7 @@ try:
                 children=[
                     dcc.Graph(id="test_map",
                               className='viz-card__graph viz-card__graph--timeseries flex-three'
-                              ),
-                    html.Div(
-                        className="viz-card__controller viz-card__controller--timeseries flex-one",
-                        children=[
-                            html.H4(className="viz-card__header viz-card__header--timeseries", children="In Depth Info"),
-                            dcc.Graph(id="joy_graph",
-                                      className='viz-card__graph viz-card__graph--timeseries flex-two',
-                                      figure=joy_fig)
-                        ]
-                    )
-
+                              )
                 ]
             ),
             html.Div(
@@ -243,16 +228,22 @@ try:
 
         #filtered_data = trends_df[trends_df.term == "restaurant"] # baseline
         transformed_data = transform_data(filtered_data)
+        transformed_data["modified_score_difference"] = transformed_data["score_difference"] * 3
+        color_discrete_map = {"positive": "#419D78", "negative": "#DE6449"}
         test_fig = px.scatter_geo(transformed_data,
                                   locations="iso_alpha",
                                   color="score_diff_positive",
+                                  color_discrete_map=color_discrete_map,
                                   hover_name="country",
+                                  hover_data={"country": True, "term": True, "score_difference": True},
                                   size="score_difference",
+                                  size_max=50,
                                   # has to be changed to score_difference as soon as values have been transformed to positive values
                                   animation_frame="date_str",  # has to be edited
                                   projection="conic conformal")  # to represent Europe: conic conformal OR azimuthal equal area;
         # to represent ONLY nl, uk and ger use conic equal area OR azimuthal equal area
         test_fig.update_layout(geo_scope="europe")
+        test_fig.update_layout(legend_title_text='Difference from Previous Year')
 
         test_fig.update_geos(projection_scale=4,  # set value; default = 1 (Europe scale)
                              # set map extent
