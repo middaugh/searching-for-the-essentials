@@ -32,6 +32,7 @@ try:
     trends_df = pd.read_csv(INPUT_DIR + 'google-trends-difference.csv', parse_dates=parse_dates)
     trends_df = trends_df[trends_df.score_difference.notna()]
     trends_df["score_difference"] = trends_df["score_difference"].astype("int")
+    who_trends_df = pd.read_csv(INPUT_DIR + 'data_who_clean.csv', )
 
     ###########################
     # PREP FOR MAPPING
@@ -102,6 +103,9 @@ try:
         )
 
     )
+
+    #Test for WHO
+    who_fig = px.line(who_trends_df, x="Date_reported", y="Nom_new_cases", color='Country')
 
     # *** Time Series Figure Creation
     timeseries_fig = go.Figure()
@@ -212,9 +216,18 @@ try:
                         children="butter"
                     )
                 ]
-            )
+            ),
+            
+            html.Div(
+                className="row",
+                children=[
+                    dcc.Graph(id="who_fig",
+                    className='viz-card__graph viz-card__graph--timeseries flex-two',
+                    figure=who_fig)
+                ]
+            ),
         ])
-
+        
     ###########################
     # CALLBACK FUNCTIONS, IF ANY
     ###########################
