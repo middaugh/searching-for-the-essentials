@@ -32,6 +32,7 @@ try:
     trends_df = pd.read_csv(INPUT_DIR + 'google-trends-difference-terms-ordered.csv', parse_dates=parse_dates)
     trends_df = trends_df[trends_df.score_difference.notna()]
     trends_df["score_difference"] = trends_df["score_difference"].astype("int")
+    trends_df['date_str'] = trends_df['date'].astype(str)
 
     ###########################
     # PREP
@@ -53,21 +54,7 @@ try:
                 data.at[index, 'iso_alpha'] = "GBR"
         return data
 
-    # Transform score_difference into absolute values and create additional column "score_diff_positive"
-    # To distinguish and use different colors for positive and negative score differences
-    def transform_data(data):
-        data['date_str'] = data['date'].astype(str)
-        for index, row in data.iterrows():
-            if row['score_difference'] >= 0:
-                data.at[index, 'score_diff_positive'] = "positive"
-            else:
-                data.at[index, 'score_diff_positive'] = "negative"
-            data.at[index, 'score_difference'] = abs(data.at[index, 'score_difference'])
-        return data
-
-
     trends_df = add_location(trends_df)
-    trends_df = transform_data(trends_df)
 
     #ICON_DIR = './assets/icons/'
     ICON_DIR = os.getcwd() + '\\dash-app\\assets\\icons\\country_icons\\' # for windows users
@@ -93,7 +80,7 @@ try:
                         id='country-dropdown',
                         options=[
                             {'label': 'Germany', 'value': 'ger'},
-                            {'label': 'England', 'value': 'uk'},
+                            {'label': 'United Kingdom', 'value': 'uk'},
                             {'label': 'Netherlands', 'value': 'nl'}
                         ],
                         value='ger'
