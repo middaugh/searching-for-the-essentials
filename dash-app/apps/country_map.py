@@ -29,7 +29,7 @@ try:
     # READ IN DATA
     ###########################
     parse_dates = ['date']  # need the correct format
-    trends_df = pd.read_csv(INPUT_DIR + 'google-trends-difference.csv', parse_dates=parse_dates)
+    trends_df = pd.read_csv(INPUT_DIR + 'google-trends-difference-terms-ordered.csv', parse_dates=parse_dates)
     trends_df = trends_df[trends_df.score_difference.notna()]
     trends_df["score_difference"] = trends_df["score_difference"].astype("int")
 
@@ -149,9 +149,13 @@ try:
             render_mode="auto",
             animation_frame="date_str",
             width=600,
-            height=600
-            # color_discrete_sequence = px.colors.sequential.Plasma_r
-        )
+            height=600,
+            labels={"date_str":"Date ", 
+                    "country":"Country ",
+                    "term":"Term ",
+                    "score_difference":'Search term popularity value'},
+            #category_orders= {"term":["baking","coffee","toiletpaper","to-go":"tTo-go","pasta":"Pasta"},
+            )
         polar_fig.update_layout(
             margin=dict(t=25, l=25, r=25, b=25, pad=10),
             showlegend=False

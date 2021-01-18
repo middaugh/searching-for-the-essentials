@@ -228,7 +228,7 @@ try:
 
         #filtered_data = trends_df[trends_df.term == "restaurant"] # baseline
         transformed_data = transform_data(filtered_data)
-        transformed_data["modified_score_difference"] = transformed_data["score_difference"] * 5
+        transformed_data["modified_score_difference"] = transformed_data["score_difference"] * 8
         color_discrete_map = {"positive": "#419D78", "negative": "#DE6449"}
         test_fig = px.scatter_geo(transformed_data,
                                   locations="iso_alpha",
@@ -240,20 +240,21 @@ try:
                                   size_max=50,
                                   animation_frame="date_str",  # has to be edited
                                   projection="conic conformal", # for Europe: conic conformal OR azimuthal equal area
-                                  height=800,
-                                  width=1200,
-                                  title="SET TITLE"
-                                  #TO-DO:
-                                  #labels = {
-                                  #         "score_diff_positive":"Difference from Previous Year", # "Search query compared to previous year"
-                                  #         "date_str": "Date",
-                                  #         "iso_alpha":"Country abbreviation",
-                                  #         "score_difference":"Search query value"
-                                  #   },
+                                  height=600,
+                                  width=1000,
+                                  #title="SET TITLE",
+                                  labels = {
+                                           "score_diff_positive":"Search term popularity compared to previous year ",
+                                           "date_str": "Date ",
+                                           "iso_alpha":"Country abbreviation ",
+                                           "country":"Country ",
+                                           "score_difference":"Search query value ",
+                                           "term":"Term "
+                                     }
                                   )  
 
         test_fig.update_layout(geo_scope="europe")
-        test_fig.update_layout(legend_title_text='Difference from Previous Year') # "Search query compared to previous year"
+        test_fig.update_layout(legend_title_text='Search term popularity compared to previous year') 
 
         test_fig.update_geos(projection_scale=4,  # set value; default = 1 (Europe scale)
                              # set map extent
