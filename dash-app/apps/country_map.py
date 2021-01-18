@@ -69,8 +69,9 @@ try:
     trends_df = add_location(trends_df)
     trends_df = transform_data(trends_df)
 
-    ICON_DIR = './assets/icons/'
-
+    #ICON_DIR = './assets/icons/'
+    ICON_DIR = os.getcwd() + '\\dash-app\\assets\\icons\\country_icons\\' # for windows users
+    
     icons = []
     for name in os.listdir(ICON_DIR):
         if name.endswith(".svg"):
@@ -82,7 +83,7 @@ try:
     layout = html.Div(
         className="viz-card viz-card--country centered",
         children=[
-            html.H4("Step 1: Select a Country",
+            html.H4("Select a Country",
                     className="viz-card__header viz-card__header--timeseries"),
             html.Div(
                 # Because of a bug in the dash system, need a wrapper div

@@ -33,20 +33,20 @@ base_theme_fig = go.Figure(
 )
 
 # Uncomment if in Draft Mode
-base_theme_fig.layout.annotations = [
-    dict(
-        name="draft watermark",
-        text="DRAFT",
-        textangle=-30,
-        opacity=0.1,
-        font=dict(color="black", size=100),
-        xref="paper",
-        yref="paper",
-        x=0.5,
-        y=0.5,
-        showarrow=False,
-    )
-]
+# base_theme_fig.layout.annotations = [
+#    dict(
+#        name="draft watermark",
+#        text="DRAFT",
+#        textangle=-30,
+#        opacity=0.1,
+#        font=dict(color="black", size=100),
+#        xref="paper",
+#        yref="paper",
+#        x=0.5,
+#        y=0.5,
+#        showarrow=False,
+#    )
+#]
 
 base_theme_fig.update_layout(
     xaxis_tickfont_size=14,
@@ -59,7 +59,7 @@ base_theme_fig.update_layout(
     },
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    margin=dict(t=10, l=10, r=10, b=10, pad=5)
+    margin=dict(t=20, l=20, r=20, b=20, pad=20)
 )
 
 # Axis Titles & Labels to Dark Gray

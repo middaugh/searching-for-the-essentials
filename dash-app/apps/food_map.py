@@ -121,8 +121,8 @@ try:
     # *** End Time Series Figure
 
     ## GENERATE ICONS
-    ICON_DIR = './assets/icons/'
-
+    #ICON_DIR = './assets/icons/'
+    ICON_DIR = os.getcwd() + '\\dash-app\\assets\\icons\\' # for windows users
     icons = []
     for name in os.listdir(ICON_DIR):
         if name.endswith(".svg"):
@@ -238,12 +238,22 @@ try:
                                   hover_data={"country": True, "term": True, "score_difference": True},
                                   size="score_difference",
                                   size_max=50,
-                                  # has to be changed to score_difference as soon as values have been transformed to positive values
                                   animation_frame="date_str",  # has to be edited
-                                  projection="conic conformal")  # to represent Europe: conic conformal OR azimuthal equal area;
-        # to represent ONLY nl, uk and ger use conic equal area OR azimuthal equal area
+                                  projection="conic conformal", # for Europe: conic conformal OR azimuthal equal area
+                                  height=800,
+                                  width=1200,
+                                  title="SET TITLE"
+                                  #TO-DO:
+                                  #labels = {
+                                  #         "score_diff_positive":"Difference from Previous Year", # "Search query compared to previous year"
+                                  #         "date_str": "Date",
+                                  #         "iso_alpha":"Country abbreviation",
+                                  #         "score_difference":"Search query value"
+                                  #   },
+                                  )  
+
         test_fig.update_layout(geo_scope="europe")
-        test_fig.update_layout(legend_title_text='Difference from Previous Year')
+        test_fig.update_layout(legend_title_text='Difference from Previous Year') # "Search query compared to previous year"
 
         test_fig.update_geos(projection_scale=4,  # set value; default = 1 (Europe scale)
                              # set map extent
@@ -252,7 +262,8 @@ try:
                              # fitbounds= "locations"
                              showland=False,
                              showocean=True,
-                             oceancolor="#eee")
+                             oceancolor="#eee" # try with "#fffff" for white background, color_discrete_map has to be changed though
+                             )
 
 
         return test_fig
