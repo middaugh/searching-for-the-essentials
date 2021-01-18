@@ -121,8 +121,11 @@ try:
     # *** End Time Series Figure
 
     ## GENERATE ICONS
-    #ICON_DIR = './assets/icons/'
-    ICON_DIR = os.getcwd() + '\\dash-app\\assets\\icons\\' # for windows users
+    if os.name == 'nt':
+        ICON_DIR = os.getcwd() + '\\dash-app\\assets\\icons\\'  # for windows users
+    else:
+        ICON_DIR = './assets/icons/'
+
     icons = []
     for name in os.listdir(ICON_DIR):
         if name.endswith(".svg"):

@@ -65,12 +65,13 @@ try:
             data.at[index, 'score_difference'] = abs(data.at[index, 'score_difference'])
         return data
 
-
     trends_df = add_location(trends_df)
     trends_df = transform_data(trends_df)
 
-    #ICON_DIR = './assets/icons/'
-    ICON_DIR = os.getcwd() + '\\dash-app\\assets\\icons\\country_icons\\' # for windows users
+    if os.name == 'nt':
+        ICON_DIR = os.getcwd() + '\\dash-app\\assets\\icons\\'  # for windows users
+    else:
+        ICON_DIR = './assets/icons/'
     
     icons = []
     for name in os.listdir(ICON_DIR):
