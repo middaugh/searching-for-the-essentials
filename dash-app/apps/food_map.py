@@ -228,7 +228,7 @@ try:
 
         #filtered_data = trends_df[trends_df.term == "restaurant"] # baseline
         transformed_data = transform_data(filtered_data)
-        transformed_data["modified_score_difference"] = transformed_data["score_difference"] * 3
+        transformed_data["modified_score_difference"] = transformed_data["score_difference"] * 5
         color_discrete_map = {"positive": "#419D78", "negative": "#DE6449"}
         test_fig = px.scatter_geo(transformed_data,
                                   locations="iso_alpha",
