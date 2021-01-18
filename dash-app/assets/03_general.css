@@ -20,16 +20,19 @@ body, .page-content {
   line-height: 1.4;
 }
 
+.page-content{
+    min-width: 800px;
+    max-width: 90%;
+}
+
 h1, h2, h3, h4, h5{
     font-family: var(--header-font);
     margin-bottom: 10px;
 }
 
 h1{
-    font-size: 2em;
-    line-height: 2;
-    writing-mode: tb-rl;
-    margin-right: 10px;
+    font-size: 3.7em;
+    line-height: 1.1;
 }
 
 h4{

@@ -33,20 +33,20 @@ base_theme_fig = go.Figure(
 )
 
 # Uncomment if in Draft Mode
-base_theme_fig.layout.annotations = [
-    dict(
-        name="draft watermark",
-        text="DRAFT",
-        textangle=-30,
-        opacity=0.1,
-        font=dict(color="black", size=100),
-        xref="paper",
-        yref="paper",
-        x=0.5,
-        y=0.5,
-        showarrow=False,
-    )
-]
+# base_theme_fig.layout.annotations = [
+#    dict(
+#        name="draft watermark",
+#        text="DRAFT",
+#        textangle=-30,
+#        opacity=0.1,
+#        font=dict(color="black", size=100),
+#        xref="paper",
+#        yref="paper",
+#        x=0.5,
+#        y=0.5,
+#        showarrow=False,
+#    )
+#]
 
 base_theme_fig.update_layout(
     xaxis_tickfont_size=14,
@@ -59,7 +59,7 @@ base_theme_fig.update_layout(
     },
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    margin=dict(t=10, l=10, r=10, b=10, pad=5)
+    margin=dict(t=20, l=20, r=20, b=20, pad=20)
 )
 
 # Axis Titles & Labels to Dark Gray
@@ -92,9 +92,11 @@ app.index_string = '''
         <title>{%title%} Dashboard</title>
         {%favicon%}
         {%css%}
+        <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700,900|Roboto+Mono|Economica:300,400,700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Monoton&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:300,400,700,900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,300;0,900;1,100&display=swap" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     </head>
     <body>
