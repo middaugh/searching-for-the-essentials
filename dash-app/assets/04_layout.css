@@ -8,17 +8,17 @@
 *{}
 
 :root {
-  --nav-side-width: 275px;
+  --nav-side-width: 0px;
 }
 .nav{
     background-color: var(--nav-bgcolor);
+    padding: 8px var(--side-space);
 }
 
 .nav--top{
-    width: 100%;
     position: relative;
     padding: 8px var(--side-space);
-    justify-content: space-between;
+    justify-content: center;
     align-items: baseline;
     display: flex;
     flex-flow: row wrap;
@@ -47,17 +47,26 @@
     flex: 0 0 auto;
 }
 
+.nav__title{
+    flex: 3;
+    padding-top: 70px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 900;
+}
 .nav__title, .nav__title:visited{
     font-family: var(--title-font);
     text-decoration: none;
-    font-weight: normal;
     color: var(--nav-color);
-    padding: 0px;
-    flex: 3;
-    margin-left: 30px;
-    margin-right: 30px;
-    line-height: 1;
+
 }
+.nav__subtitle{
+    color: var(--nav-subtitle-color);
+    font-weight: 100;
+    font-display: italic;
+    font-family: var(--subtitle-font);
+}
+
 
 .nav__wrapper--left{
     justify-self: stretch;

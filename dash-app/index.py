@@ -21,16 +21,24 @@ def serve_layout():
             # represents the URL bar, doesn't render anything
             dcc.Location(id='url', refresh=False),
             html.Div(
-                className="nav__container nav--side",
+                className="nav__container",
                 children=[
                     html.Div(
                         id="nav",
-                        className="nav nav--side",
+                        className="nav",
                         children=[
                             html.Div(
-                                className="nav__wrapper--left row flex-two centered align-baseline",
+                                className="nav__wrapper row flex-one centered align-baseline",
                                 children=[
-                                    html.H1("Searching for the Essentials", id="title", className="nav__title"),
+                                    html.H1("Searching for the Essentials", id="title", className="nav__title")
+                                ]
+                            ),
+                            html.H3("Impacts of COVID-19 on Web Searches for Food & Other Necessities", className="text-centered nav__subtitle"),
+                            html.Div(
+                                className="project-explanation flex-one centered row",
+                                children=[
+                                    # TODO: Update with proper explanation, taken from the project proposal
+                                    "When the COVID-19 pandemic hit the world, nearly every aspect of daily life was affected. The food industry was shaken as people began hoarding products like pasta, toilet paper or dried beans. Due to restaurants and cafés closing in many countries, people were not able to go out for dinner or grab a coffee. Also, lots of people began experimenting more in the kitchen. This interactive web map aims to visualise the impact of COVID-19 on interests in food and other essential items, based on the Google Trends data of specific products. "
                                 ]
                             ),
                             html.Div(
@@ -49,18 +57,14 @@ def serve_layout():
                                     ),
                                 ]
                             ),
-                            html.Div(
-                                className="nav__explainer",
-                                children=[
-                                    "Impacts of COVID-19 on Web Searches for Food & Other Necessities"
-                                ]
-                            ),
+
                         ]
                     ),
                 ]
             ),
+
             # Where all of the content will go
-            html.Div(className="page-content", id='page-content'),
+            html.Div(className="page-content centered", id='page-content'),
             html.Footer(
                 id='footer',
                 className="footer clearfix centered",
@@ -70,8 +74,7 @@ def serve_layout():
                             """Created for Erasmus Mundus Joint Master's in Cartography Mapping Project. """,
                             html.Br(),
                             "Vivien, Nele, & Esmé",
-                            html.Br(),
-                            "EXPLANATION OF HOW THINGS WERE CALCULATED HERE." #TODO Explanation of How things were calculated.
+                            html.Br()
                         ]
                     )
                 ]

@@ -33,6 +33,7 @@ try:
     trends_df = trends_df[trends_df.score_difference.notna()]
     trends_df["score_difference"] = trends_df["score_difference"].astype("int")
     who_trends_df = pd.read_csv(INPUT_DIR + 'data_who_clean.csv', )
+    trends_df['date_str'] = trends_df['date'].astype(str)
 
     ###########################
     # PREP FOR MAPPING
@@ -52,7 +53,6 @@ try:
         return data
 
     trends_df = add_location(trends_df)
-
 
     # Transform score_difference into absolute values and create additional column "score_diff_positive"
     # To distinguish and use different colors for positive and negative score differences
@@ -126,9 +126,16 @@ try:
     # *** End Time Series Figure
 
     ## GENERATE ICONS
-    ICON_DIR = './assets/icons/'
-    icons = glob.glob(ICON_DIR + '*.svg')
+    if os.name == 'nt':
+        ICON_DIR = os.getcwd() + '\\dash-app\\assets\\icons\\'  # for windows users
+    else:
+        ICON_DIR = './assets/icons/'
 
+    icons = []
+    for name in os.listdir(ICON_DIR):
+        if name.endswith(".svg"):
+            icons.append(ICON_DIR + name)
+    #icons = icons = glob.glob(ICON_DIR + '*.svg')
     icon_ids = []
     icons = np.array(icons).reshape((3, -1))
     icon_layout = []
@@ -139,7 +146,7 @@ try:
             name_stripped = re.sub(r'\d+', '', icon.split('/')[-1][:-4]) # extract the main product name from the path, removing numbers and .svg
             button = html.Button(
                 id=f"{name_stripped}-button",
-                className="nav__link nav__link--current",
+                className="nav__link striped-bg-dark",
                 children=
                     html.Img(
                         src=icon,
@@ -157,14 +164,10 @@ try:
 
     ## DETAILS JOY MAP --- JUST NETHERLANDS FOR NOW< TODO Turn into Callback
     np.random.seed(1)
-
     num_categories = len(icon_ids)
-
     data = (np.linspace(1, 2, num_categories)[:, np.newaxis] * np.random.randn(num_categories, 200) +
             (np.arange(num_categories) + 2 * np.random.random(num_categories))[:, np.newaxis])
-
     colors = n_colors('rgb(5, 200, 200)', 'rgb(200, 10, 10)', num_categories, colortype='rgb')
-
     joy_fig = go.Figure()
 
     #TODO: modify so that its zipping together trends_df filtered on item type for each color
@@ -186,7 +189,6 @@ try:
             html.H4("Step 1: Select a Search Term",
                     className="viz-card__header viz-card__header--timeseries"),
             *icon_layout,
-            html.H4(id="test-output"),
 
             html.H4("Step 2: Map",
                     className="viz-card__header viz-card__header--timeseries"),
@@ -195,17 +197,7 @@ try:
                 children=[
                     dcc.Graph(id="test_map",
                               className='viz-card__graph viz-card__graph--timeseries flex-three'
-                              ),
-                    html.Div(
-                        className="viz-card__controller viz-card__controller--timeseries flex-one",
-                        children=[
-                            html.H4(className="viz-card__header viz-card__header--timeseries", children="In Depth Info"),
-                            dcc.Graph(id="joy_graph",
-                                      className='viz-card__graph viz-card__graph--timeseries flex-two',
-                                      figure=joy_fig)
-                        ]
-                    )
-
+                              )
                 ]
             ),
             html.Div(
@@ -213,7 +205,6 @@ try:
                 children=[
                     html.Div(
                         id="test-map-output",
-                        children="butter"
                     )
                 ]
             ),
@@ -235,8 +226,7 @@ try:
 
     ## Create the callbacks in a loop
     @app.callback(
-        [Output('test-output', 'children'),
-         Output("test_map", "figure")],
+         Output("test_map", "figure"),
         [Input(x, 'n_clicks') for x in icon_ids])
     def update_output_div(*icon_ids):
         ctx = dash.callback_context
@@ -244,7 +234,6 @@ try:
             button_id = 'No clicks yet'
         else:
             button_id = ctx.triggered[0]['prop_id'].split('.')[0]
-
         # Attempt to generate map
         try:
             filtered_data = trends_df[trends_df.term == button_id.split("-")[0]] # test term, should be exchanged
@@ -256,16 +245,33 @@ try:
 
         #filtered_data = trends_df[trends_df.term == "restaurant"] # baseline
         transformed_data = transform_data(filtered_data)
+        transformed_data["modified_score_difference"] = transformed_data["score_difference"] * 8
+        color_discrete_map = {"positive": "#419D78", "negative": "#DE6449"}
         test_fig = px.scatter_geo(transformed_data,
                                   locations="iso_alpha",
                                   color="score_diff_positive",
+                                  color_discrete_map=color_discrete_map,
                                   hover_name="country",
+                                  hover_data={"country": True, "term": True, "score_difference": True},
                                   size="score_difference",
-                                  # has to be changed to score_difference as soon as values have been transformed to positive values
+                                  size_max=50,
                                   animation_frame="date_str",  # has to be edited
-                                  projection="conic conformal")  # to represent Europe: conic conformal OR azimuthal equal area;
-        # to represent ONLY nl, uk and ger use conic equal area OR azimuthal equal area
+                                  projection="conic conformal", # for Europe: conic conformal OR azimuthal equal area
+                                  height=600,
+                                  width=1000,
+                                  #title="SET TITLE",
+                                  labels = {
+                                           "score_diff_positive":"Search term popularity compared to previous year ",
+                                           "date_str": "Date ",
+                                           "iso_alpha":"Country abbreviation ",
+                                           "country":"Country ",
+                                           "score_difference":"Search query value ",
+                                           "term":"Term "
+                                     }
+                                  )  
+
         test_fig.update_layout(geo_scope="europe")
+        test_fig.update_layout(legend_title_text='Search term popularity compared to previous year') 
 
         test_fig.update_geos(projection_scale=4,  # set value; default = 1 (Europe scale)
                              # set map extent
@@ -274,15 +280,16 @@ try:
                              # fitbounds= "locations"
                              showland=False,
                              showocean=True,
-                             oceancolor="#eee")
+                             oceancolor="#eee" # try with "#fffff" for white background
+                             )
 
 
-        return f"{button_id}", test_fig
+        return test_fig
 
     # What user has selected on map
     @app.callback(
         Output('test-map-output', 'children'),
-        [Input("test-map", 'relayputData')])
+        [Input("test-map", 'relayoutData')])
     def map_clicked(selected_country):
         ctx = dash.callback_context
         if not ctx.triggered:
