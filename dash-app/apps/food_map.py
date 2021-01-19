@@ -54,6 +54,18 @@ try:
 
     trends_df = add_location(trends_df)
 
+    def add_variable(data):
+        for index, row in data.iterrows():
+            if row['Country'] == "Germany":
+                data.at[index, 'position'] = "1"
+            elif row['Country'] == "Netherlands":
+                data.at[index, 'position'] = "2"
+            elif row['Country'] == "United Kingdom":
+                data.at[index, 'position'] = "3"
+        return data
+
+    who_trends_df = add_variable(who_trends_df)
+
     # Transform score_difference into absolute values and create additional column "score_diff_positive"
     # To distinguish and use different colors for positive and negative score differences
     def transform_data(data):
@@ -105,7 +117,11 @@ try:
     )
 
     #Test for WHO
-    who_fig = px.line(who_trends_df, x="Date_reported", y="Nom_new_cases", color='Country')
+    #who_fig = px.line(who_trends_df, x="Date_reported", y="Nom_new_cases", color="Country")
+    # who_fig = px.scatter(who_trends_df, x="Nom_new_cases", y="position", color="Country",
+                #   hover_name="Country")
+    who_fig = px.histogram(who_trends_df, x="Country", y="Nom_new_cases")
+    # who_fig = go.whoFigure()
 
     # *** Time Series Figure Creation
     timeseries_fig = go.Figure()
@@ -197,7 +213,11 @@ try:
                 children=[
                     dcc.Graph(id="test_map",
                               className='viz-card__graph viz-card__graph--timeseries flex-three'
-                              )
+                              ),
+                    dcc.Graph(id="who_fig",
+                              className='viz-card__graph viz-card__graph--timeseries flex-three',
+                              figure = who_fig
+                    )
                 ]
             ),
             html.Div(
@@ -209,14 +229,6 @@ try:
                 ]
             ),
             
-            html.Div(
-                className="row",
-                children=[
-                    dcc.Graph(id="who_fig",
-                    className='viz-card__graph viz-card__graph--timeseries flex-two',
-                    figure=who_fig)
-                ]
-            ),
         ])
         
     ###########################
@@ -285,6 +297,24 @@ try:
 
 
         return test_fig
+
+        # who_fig2 = px.scatter(who_trends_df, 
+        #                         x="Nom_new_cases", 
+        #                         y="iso_alpha", 
+        #                         color="Country",
+        #                         hover_name="Country",
+        #                         labels= {
+        #                             "iso_alpha":"Position",
+        #                             "Nom_new_cases":"Cases per 100000 inhabitants",
+        #                         }) 
+        # return who_fig2
+
+        # who_fig = px.histogram(who_trends_df,
+        #                         x="Country", 
+        #                         y="Nom_new_cases",
+        #                         animation_frame="date_str")
+         
+        # return who_fig
 
     # What user has selected on map
     @app.callback(
