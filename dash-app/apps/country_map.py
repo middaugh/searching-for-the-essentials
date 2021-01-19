@@ -82,7 +82,7 @@ try:
     # LAYOUT TO BE USED IN INDEX.PY
     ###########################
     layout = html.Div(
-        className="viz-card viz-card--country centered",
+        className="viz-card viz-card--country centered flex-one",
         children=[
             html.H4("Select a Country",
                     className="viz-card__header viz-card__header--timeseries"),
@@ -173,6 +173,7 @@ try:
             joy_fig.add_trace(go.Violin(x=joy_filtered_data["score_difference"], line_color=color, name=term))
         joy_fig.update_traces(orientation='h', side='positive', width=3, points=False)
         joy_fig.update_layout(xaxis_showgrid=False, xaxis_zeroline=False, showlegend=False)
+        joy_fig.update_xaxes(showticklabels=False)
 
         return polar_header, polar_fig, joy_fig
 
