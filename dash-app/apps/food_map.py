@@ -182,22 +182,25 @@ try:
     # LAYOUT TO BE USED IN INDEX.PY
     ###########################
     layout = html.Div(
-        className="viz-card viz-card--timeseries flex-one",
+        className="viz-card flex-one",
         children=[
             dcc.Store(id="timeseries_output"),
 
-            html.H4("Step 1: Select a Search Term",
+            html.H4("Select a Search Term",
                     className="viz-card__header viz-card__header--timeseries"),
             *icon_layout,
 
-            html.H4("Step 2: Map",
+            html.H4("Search Trend Popularity & WHO COVID-19 Cases",
                     className="viz-card__header viz-card__header--timeseries"),
             html.Div(
                 className="row mobile-interaction-disabled",
                 children=[
                     dcc.Graph(id="test_map",
                               className='viz-card__graph viz-card__graph--timeseries flex-three'
-                              )
+                              ),
+                    dcc.Graph(id="who_fig",
+                              className='viz-card__graph flex-one',
+                              figure=who_fig)
                 ]
             ),
             html.Div(
@@ -205,18 +208,10 @@ try:
                 children=[
                     html.Div(
                         id="test-map-output",
+                        className="flex-one"
                     )
                 ]
-            ),
-            
-            html.Div(
-                className="row",
-                children=[
-                    dcc.Graph(id="who_fig",
-                    className='viz-card__graph viz-card__graph--timeseries flex-two',
-                    figure=who_fig)
-                ]
-            ),
+            )
         ])
         
     ###########################
@@ -258,8 +253,6 @@ try:
                                   animation_frame="date_str",  # has to be edited
                                   projection="conic conformal", # for Europe: conic conformal OR azimuthal equal area
                                   height=600,
-                                  width=1000,
-                                  #title="SET TITLE",
                                   labels = {
                                            "score_diff_positive":"Search term popularity compared to previous year ",
                                            "date_str": "Date ",
@@ -271,7 +264,14 @@ try:
                                   )  
 
         test_fig.update_layout(geo_scope="europe")
-        test_fig.update_layout(legend_title_text='Search term popularity compared to previous year') 
+        test_fig.update_layout(legend_title_text='Search term popularity compared to previous year')
+        test_fig.update_layout(legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1
+        ))
 
         test_fig.update_geos(projection_scale=4,  # set value; default = 1 (Europe scale)
                              # set map extent
