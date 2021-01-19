@@ -215,8 +215,9 @@ try:
                               className='viz-card__graph viz-card__graph--timeseries flex-three'
                               ),
                     dcc.Graph(id="who_fig",
-                              className='viz-card__graph flex-one',
-                              figure=who_fig)
+                              className='viz-card__graph viz-card__graph--timeseries flex-three',
+                              figure = who_fig
+                              )
                 ]
             ),
             html.Div(
