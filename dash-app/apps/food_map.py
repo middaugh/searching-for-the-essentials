@@ -239,7 +239,11 @@ try:
                                   color="score_diff_positive",
                                   color_discrete_map=color_discrete_map,
                                   hover_name="country",
-                                  hover_data={"country": True, "term": True, "score_difference": True},
+                                  hover_data={"country": True, 
+                                           "iso_alpha":False,
+                                           "term": True, 
+                                           "score_difference": True,
+                                           "country":False},
                                   size="score_difference",
                                   size_max=50,
                                   animation_frame="date_str",  # has to be edited
@@ -250,7 +254,6 @@ try:
                                   labels = {
                                            "score_diff_positive":"Search term popularity compared to previous year ",
                                            "date_str": "Date ",
-                                           "iso_alpha":"Country abbreviation ",
                                            "country":"Country ",
                                            "score_difference":"Search query value ",
                                            "term":"Term "
