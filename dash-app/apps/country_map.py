@@ -32,6 +32,7 @@ try:
     trends_df = pd.read_csv(INPUT_DIR + 'google-trends-difference-terms-ordered.csv', parse_dates=parse_dates)
     trends_df = trends_df[trends_df.score_difference.notna()]
     trends_df["score_difference"] = trends_df["score_difference"].astype("int")
+    trends_df['date_str'] = trends_df['date'].astype(str)
 
     ###########################
     # PREP
@@ -66,13 +67,12 @@ try:
         return data
 
     trends_df = add_location(trends_df)
-    trends_df = transform_data(trends_df)
 
     if os.name == 'nt':
         ICON_DIR = os.getcwd() + '\\dash-app\\assets\\icons\\'  # for windows users
     else:
         ICON_DIR = './assets/icons/'
-    
+
     icons = []
     for name in os.listdir(ICON_DIR):
         if name.endswith(".svg"):
@@ -94,7 +94,7 @@ try:
                         id='country-dropdown',
                         options=[
                             {'label': 'Germany', 'value': 'ger'},
-                            {'label': 'England', 'value': 'uk'},
+                            {'label': 'United Kingdom', 'value': 'uk'},
                             {'label': 'Netherlands', 'value': 'nl'}
                         ],
                         value='ger'
@@ -151,7 +151,7 @@ try:
             animation_frame="date_str",
             width=600,
             height=600,
-            labels={"date_str":"Date ", 
+            labels={"date_str":"Date ",
                     "country":"Country ",
                     "term":"Term ",
                     "score_difference":'Search term popularity value'},
@@ -185,4 +185,3 @@ except Exception as e:
 if __name__ == '__main__':
     app.layout = layout
     app.run_server(debug=True)
-

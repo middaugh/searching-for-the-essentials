@@ -32,6 +32,7 @@ try:
     trends_df = pd.read_csv(INPUT_DIR + 'google-trends-difference.csv', parse_dates=parse_dates)
     trends_df = trends_df[trends_df.score_difference.notna()]
     trends_df["score_difference"] = trends_df["score_difference"].astype("int")
+    trends_df['date_str'] = trends_df['date'].astype(str)
 
     ###########################
     # PREP FOR MAPPING
@@ -266,7 +267,7 @@ try:
                              # fitbounds= "locations"
                              showland=False,
                              showocean=True,
-                             oceancolor="#eee" # try with "#fffff" for white background, color_discrete_map has to be changed though
+                             oceancolor="#eee" # try with "#fffff" for white background
                              )
 
 

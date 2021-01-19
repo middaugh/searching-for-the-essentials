@@ -38,7 +38,7 @@ def serve_layout():
                                 className="project-explanation flex-one centered row",
                                 children=[
                                     # TODO: Update with proper explanation, taken from the project proposal
-                                    "When the COVID-19 pandemic hit the world, nearly every aspect of daily life was affected. The food industry, normally functioning smoothly and unobtrusively, was shaken as people began hoarding products like pasta, toilet paper, dried beans, and canned vegetables. Due to restaurants and cafés closing in many countries, people could not go out for dinner or to grab a coffee and many began experimenting more in the kitchen. We would like to visualise the impact of COVID-19 on interests in food and other essential items in an interactive web map, based on the Google Trends data of specific products. "
+                                    "When the COVID-19 pandemic hit the world, nearly every aspect of daily life was affected. The food industry was shaken as people began hoarding products like pasta, toilet paper or dried beans. Due to restaurants and cafés closing in many countries, people were not able to go out for dinner or grab a coffee. Also, lots of people began experimenting more in the kitchen. This interactive web map aims to visualise the impact of COVID-19 on interests in food and other essential items, based on the Google Trends data of specific products. "
                                 ]
                             ),
                             html.Div(
