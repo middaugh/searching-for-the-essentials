@@ -38,6 +38,21 @@ try:
     ###########################
     # PREP FOR MAPPING
     ###########################
+     # Renaming terms for improved labeling:
+    old_terms = ['baking','bananabread','beans','coffee','cooking','facemask','grocerydelivery','hand-sanitizer','pasta',
+            'restaurant','rice','spices','takeaway','to-go','toiletpaper']
+    new_terms = ['baking','banana bread','beans','coffee','cooking','face mask','grocery delivery','hand sanitizer','pasta',
+            'restaurant','rice','spices','take away','to go','toiletpaper']
+
+    def rename_terms(data):
+        for i in range(0,len(old_terms)):
+            for index, row in data.iterrows():
+                if row['term'] == old_terms[i]:
+                    data.loc[index,'renamed_term'] = new_terms[i]
+        return data
+
+    trends_df = rename_terms(trends_df)
+
     # Adding iso_alpha and iso_num to df to use it as location for creating the map
     def add_location(data):
         for index, row in data.iterrows():
@@ -187,9 +202,9 @@ try:
     joy_fig = go.Figure()
 
     #TODO: modify so that its zipping together trends_df filtered on item type for each color
-    for term, color in zip(trends_df.term.unique(), colors):
-        filtered_data = trends_df[(trends_df.country == "nl") & (trends_df.term == term)] # keep only one country and one term at a time
-        joy_fig.add_trace(go.Violin(x=filtered_data["score_difference"], line_color=color, name=term))
+    for renamed_term, color in zip(trends_df.renamed_term.unique(), colors):
+        filtered_data = trends_df[(trends_df.country == "nl") & (trends_df.renamed_term == renamed_term)] # keep only one country and one term at a time
+        joy_fig.add_trace(go.Violin(x=filtered_data["score_difference"], line_color=color, name=renamed_term))
     joy_fig.update_traces(orientation='h', side='positive', width=3, points=False)
     joy_fig.update_layout(xaxis_showgrid=False, xaxis_zeroline=False, showlegend=False)
 
@@ -247,14 +262,14 @@ try:
             button_id = ctx.triggered[0]['prop_id'].split('.')[0]
         # Attempt to generate map
         try:
-            filtered_data = trends_df[trends_df.term == button_id.split("-")[0]] # test term, should be exchanged
+            filtered_data = trends_df[trends_df.renamed_term == button_id.split("-")[0]] # test term, should be exchanged
             if len(filtered_data) == 0:
-                filtered_data = trends_df[trends_df.term == "restaurant"]  # baseline
+                filtered_data = trends_df[trends_df.renamed_term == "restaurant"]  # baseline
         except Exception as e:
-            filtered_data = trends_df[trends_df.term == "restaurant"] # baseline
+            filtered_data = trends_df[trends_df.renamed_term == "restaurant"] # baseline
             raise e
 
-        #filtered_data = trends_df[trends_df.term == "restaurant"] # baseline
+        #filtered_data = trends_df[trends_df.renamed_term == "restaurant"] # baseline
         transformed_data = transform_data(filtered_data)
         transformed_data["modified_score_difference"] = transformed_data["score_difference"] * 8
         color_discrete_map = {"positive": "#419D78", "negative": "#DE6449"}
@@ -265,7 +280,7 @@ try:
                                   hover_name="country",
                                   hover_data={"country": True, 
                                            "iso_alpha":False,
-                                           "term": True, 
+                                           "renamed_term": True, 
                                            "score_difference": True,
                                            "country":False},
                                   size="score_difference",
@@ -278,7 +293,7 @@ try:
                                            "date_str": "Date ",
                                            "country":"Country ",
                                            "score_difference":"Search query value ",
-                                           "term":"Term "
+                                           "renamed_term":"Term "
                                      }
                                   )  
 

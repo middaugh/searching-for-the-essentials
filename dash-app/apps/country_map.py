@@ -40,6 +40,21 @@ try:
 
     np.random.seed(1)
 
+    # Renaming terms for improved labeling:
+    old_terms = ['baking','bananabread','beans','coffee','cooking','facemask','grocerydelivery','hand-sanitizer','pasta',
+            'restaurant','rice','spices','takeaway','to-go','toiletpaper']
+    new_terms = ['baking','banana bread','beans','coffee','cooking','face mask','grocery delivery','hand sanitizer','pasta',
+            'restaurant','rice','spices','take away','to go','toiletpaper']
+
+    def rename_terms(data):
+        for i in range(0,len(old_terms)):
+            for index, row in data.iterrows():
+                if row['term'] == old_terms[i]:
+                    data.loc[index,'renamed_term'] = new_terms[i]
+        return data
+
+    trends_df = rename_terms(trends_df)
+
     # Adding iso_alpha and iso_num to df to use it as location for creating the map
     def add_location(data):
         for index, row in data.iterrows():
@@ -142,7 +157,7 @@ try:
         polar_fig = px.line_polar(
             selected_country_df,
             r="score_difference",
-            theta="term",
+            theta="renamed_term",
             color="country",
             line_close=True,
             line_shape="spline",
@@ -153,9 +168,8 @@ try:
             height=600,
             labels={"date_str":"Date ",
                     "country":"Country ",
-                    "term":"Term ",
+                    "renamed_term":"Term ",
                     "score_difference":'Search term popularity value'},
-            #category_orders= {"term":["baking","coffee","toiletpaper","to-go":"tTo-go","pasta":"Pasta"},
             )
         polar_fig.update_layout(
             margin=dict(t=25, l=25, r=25, b=25, pad=10),
@@ -163,14 +177,14 @@ try:
         )
 
         # JOY MAP
-        num_categories = selected_country_df.term.nunique()
+        num_categories = selected_country_df.renamed_term.nunique()
         colors = n_colors('rgb(5, 200, 200)', 'rgb(200, 10, 10)', num_categories, colortype='rgb')
         joy_fig = go.Figure()
 
         # TODO: modify so that its zipping together trends_df filtered on item type for each color
-        for term, color in zip(trends_df.term.unique(), colors):
-            joy_filtered_data = selected_country_df[ selected_country_df.term == term]  # show one term at a time
-            joy_fig.add_trace(go.Violin(x=joy_filtered_data["score_difference"], line_color=color, name=term))
+        for renamed_term, color in zip(trends_df.renamed_term.unique(), colors):
+            joy_filtered_data = selected_country_df[ selected_country_df.renamed_term == renamed_term]  # show one term at a time
+            joy_fig.add_trace(go.Violin(x=joy_filtered_data["score_difference"], line_color=color, name=renamed_term))
         joy_fig.update_traces(orientation='h', side='positive', width=3, points=False)
         joy_fig.update_layout(xaxis_showgrid=False, xaxis_zeroline=False, showlegend=False)
         joy_fig.update_xaxes(showticklabels=False)
