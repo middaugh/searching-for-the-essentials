@@ -191,6 +191,15 @@ try:
 
         return polar_header, polar_fig, joy_fig
 
+        #Make scatter line plot
+        scat_fig = px.scatter(
+            who_trends_df,
+            x="Nom_new_cases", 
+            y="position", 
+            color="Country",
+            hover_name="Country"
+        )
+
 
 except Exception as e:
     layout = html.H3(f"Problem loading {os.path.basename(__file__)}, please check console for details.")
