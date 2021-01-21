@@ -110,10 +110,10 @@ try:
                         options=[
                             {'label': 'Germany', 'value': 'ger'},
                             {'label': 'United Kingdom', 'value': 'uk'},
-                            {'label': 'The Netherlands', 'value': 'nl'},
-                            {'label': 'All the three countries', 'value': 'all'},
+                            {'label': 'The Netherlands', 'value': 'nl'}
                         ],
-                        value='ger'
+                        value='ger',
+                        multi=True
                     )
                 ]
             ),
@@ -141,29 +141,31 @@ try:
          Output('joy-graph', 'figure')],
         [Input("country-dropdown", 'value')])
     def map_clicked(selected_country):
+        print(selected_country)
         # H3 Header
         abbr_dict = {
             'ger': 'Germany',
             'uk': 'the United Kingdom',
             'nl': 'the Netherlands',
-            'all':'all the three countries'
         }
 
+        if type(selected_country) != list:
+            selected_country = [selected_country]
+
         # Filter By Selected Country
-        if selected_country == 'ger' or 'nl' or 'uk':
-            selected_country_df = trends_df[trends_df['country'] == selected_country]
-        elif selected_country == 'all':
-            selected_country_df = trends_df.copy()
+        selected_country_df = trends_df[trends_df['country'].isin(selected_country)]
+        selected_country_df['display_country'] = selected_country_df['country'].map(abbr_dict)
+
         
         # Polar Header
-        polar_header = f"Comparative Search Trends for {abbr_dict[selected_country]}"
+        polar_header = f"Comparative Search Trends for {' & '.join([abbr_dict[x] for x in selected_country])}"
 
         # Make Polar Chart
         polar_fig = px.line_polar(
             selected_country_df,
             r="score_difference",
             theta="renamed_term",
-            color="country",
+            color="display_country",
             line_close=True,
             line_shape="spline",
             range_r=[min(selected_country_df["score_difference"]), max(selected_country_df["score_difference"])],
@@ -178,7 +180,8 @@ try:
             )
         polar_fig.update_layout(
             margin=dict(t=25, l=25, r=25, b=25, pad=10),
-            showlegend=False
+            showlegend=True,
+            legend_title_text='Country'
         )
 
         # JOY MAP
