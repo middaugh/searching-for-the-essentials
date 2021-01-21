@@ -110,7 +110,8 @@ try:
                         options=[
                             {'label': 'Germany', 'value': 'ger'},
                             {'label': 'United Kingdom', 'value': 'uk'},
-                            {'label': 'Netherlands', 'value': 'nl'}
+                            {'label': 'The Netherlands', 'value': 'nl'},
+                            {'label': 'All the three countries', 'value': 'all'},
                         ],
                         value='ger'
                     )
@@ -143,13 +144,17 @@ try:
         # H3 Header
         abbr_dict = {
             'ger': 'Germany',
-            'uk': 'United Kingdom',
-            'nl': 'The Netherlands'
+            'uk': 'the United Kingdom',
+            'nl': 'the Netherlands',
+            'all':'all the three countries'
         }
 
         # Filter By Selected Country
-        selected_country_df = trends_df[trends_df['country'] == selected_country]
-
+        if selected_country == 'ger' or 'nl' or 'uk':
+            selected_country_df = trends_df[trends_df['country'] == selected_country]
+        elif selected_country == 'all':
+            selected_country_df = trends_df.copy()
+        
         # Polar Header
         polar_header = f"Comparative Search Trends for {abbr_dict[selected_country]}"
 
