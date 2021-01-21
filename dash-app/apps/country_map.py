@@ -168,7 +168,7 @@ try:
             color="display_country",
             line_close=True,
             line_shape="spline",
-            range_r=[min(selected_country_df["score_difference"]), max(selected_country_df["score_difference"])],
+            range_r=[min(trends_df["score_difference"]), max(trends_df["score_difference"])],
             render_mode="auto",
             animation_frame="date_str",
             width=600,
