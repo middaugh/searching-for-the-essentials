@@ -112,8 +112,10 @@ try:
                             {'label': 'United Kingdom', 'value': 'uk'},
                             {'label': 'The Netherlands', 'value': 'nl'}
                         ],
-                        value='ger',
-                        multi=True
+                        value=['ger', 'uk', 'nl'],
+                        multi=True,
+                        clearable=False,
+                        searchable=False
                     )
                 ]
             ),
@@ -141,7 +143,6 @@ try:
          Output('joy-graph', 'figure')],
         [Input("country-dropdown", 'value')])
     def map_clicked(selected_country):
-        print(selected_country)
         # H3 Header
         abbr_dict = {
             'ger': 'Germany',
@@ -149,7 +150,7 @@ try:
             'nl': 'the Netherlands',
         }
 
-        if type(selected_country) != list:
+        if type(selected_country) != list: # want a standard input format regardless of number items selected by user
             selected_country = [selected_country]
 
         # Filter By Selected Country
@@ -191,8 +192,14 @@ try:
 
         # TODO: modify so that its zipping together trends_df filtered on item type for each color
         for renamed_term, color in zip(trends_df.renamed_term.unique(), colors):
-            joy_filtered_data = selected_country_df[ selected_country_df.renamed_term == renamed_term]  # show one term at a time
-            joy_fig.add_trace(go.Violin(x=joy_filtered_data["score_difference"], line_color=color, name=renamed_term))
+            joy_filtered_data = selected_country_df[selected_country_df.renamed_term == renamed_term]  # show one term at a time
+            joy_fig.add_trace(go.Violin(x=joy_filtered_data["score_difference"],
+                                        line_color=color,
+                                        name=renamed_term,
+                                        customdata=["date_str"],
+                                        hoverinfo="skip"
+                                        )
+                              )
         joy_fig.update_traces(orientation='h', side='positive', width=3, points=False)
         joy_fig.update_layout(xaxis_showgrid=False, xaxis_zeroline=False, showlegend=False)
         joy_fig.update_xaxes(showticklabels=False)
