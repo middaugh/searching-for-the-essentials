@@ -128,10 +128,12 @@ try:
                         options=[
                             {'label': 'Germany', 'value': 'ger'},
                             {'label': 'United Kingdom', 'value': 'uk'},
-                            {'label': 'The Netherlands', 'value': 'nl'},
-                            {'label': 'All the three countries', 'value': 'all'},
+                            {'label': 'The Netherlands', 'value': 'nl'}
                         ],
-                        value='ger'
+                        value=['ger', 'uk', 'nl'],
+                        multi=True,
+                        clearable=False,
+                        searchable=False
                     )
                 ]
             ),
@@ -173,24 +175,25 @@ try:
             'ger': 'Germany',
             'uk': 'the United Kingdom',
             'nl': 'the Netherlands',
-            'all':'all the three countries'
         }
 
+        if type(selected_country) != list: # want a standard input format regardless of number items selected by user
+            selected_country = [selected_country]
+
         # Filter By Selected Country
-        if selected_country == 'ger' or 'nl' or 'uk':
-            selected_country_df = trends_df[trends_df['country'] == selected_country]
-        elif selected_country == 'all':
-            selected_country_df = trends_df.copy()
+        selected_country_df = trends_df[trends_df['country'].isin(selected_country)]
+        selected_country_df['display_country'] = selected_country_df['country'].map(abbr_dict)
+
         
         # Polar Header
-        polar_header = f"Comparative Search Trends for {abbr_dict[selected_country]}"
+        polar_header = f"Comparative Search Trends for {' & '.join([abbr_dict[x] for x in selected_country])}"
 
         # Make Polar Chart
         polar_fig = px.line_polar(
             selected_country_df,
             r="score_difference",
             theta="renamed_term",
-            color="country",
+            color="display_country",
             line_close=True,
             line_shape="spline",
             range_r=[min(selected_country_df["score_difference"]), max(selected_country_df["score_difference"])],
@@ -205,7 +208,8 @@ try:
             )
         polar_fig.update_layout(
             margin=dict(t=25, l=25, r=25, b=25, pad=10),
-            showlegend=False
+            showlegend=True,
+            legend_title_text='Country'
         )
 
 
@@ -216,8 +220,14 @@ try:
 
         # TODO: modify so that its zipping together trends_df filtered on item type for each color
         for renamed_term, color in zip(trends_df.renamed_term.unique(), colors):
-            joy_filtered_data = selected_country_df[ selected_country_df.renamed_term == renamed_term]  # show one term at a time
-            joy_fig.add_trace(go.Violin(x=joy_filtered_data["score_difference"], line_color=color, name=renamed_term))
+            joy_filtered_data = selected_country_df[selected_country_df.renamed_term == renamed_term]  # show one term at a time
+            joy_fig.add_trace(go.Violin(x=joy_filtered_data["score_difference"],
+                                        line_color=color,
+                                        name=renamed_term,
+                                        customdata=["date_str"],
+                                        hoverinfo="skip"
+                                        )
+                              )
         joy_fig.update_traces(orientation='h', side='positive', width=3, points=False)
         joy_fig.update_layout(xaxis_showgrid=False, xaxis_zeroline=False, showlegend=False)
         joy_fig.update_xaxes(showticklabels=False)
