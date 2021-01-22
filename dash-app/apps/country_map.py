@@ -33,6 +33,7 @@ try:
     trends_df = trends_df[trends_df.score_difference.notna()]
     trends_df["score_difference"] = trends_df["score_difference"].astype("int")
     trends_df['date_str'] = trends_df['date'].astype(str)
+    who_trends_df = pd.read_csv(INPUT_DIR + 'data_who_clean.csv', )
 
     ###########################
     # PREP
@@ -93,6 +94,23 @@ try:
         if name.endswith(".svg"):
             icons.append(ICON_DIR + name)
 
+    # # who_linefig = px.line(
+    #         who_trends_df,
+    #         x="Date_reported", 
+    #         y="Nom_new_cases", 
+    #         color="Country",
+    #         hover_name="Country"
+    # )
+
+    who_linefig = px.line(who_trends_df,
+         x="Date_reported", 
+         y="Nom_new_cases", 
+         color="Country", 
+         hover_name="Country",
+         labels={"Nom_new_cases":"Cases per 100000 inhabitants",
+                    "Date_reported":"Week reported "},
+    )
+
     ###########################
     # LAYOUT TO BE USED IN INDEX.PY
     ###########################
@@ -112,8 +130,10 @@ try:
                             {'label': 'United Kingdom', 'value': 'uk'},
                             {'label': 'The Netherlands', 'value': 'nl'}
                         ],
-                        value='ger',
-                        multi=True
+                        value=['ger', 'uk', 'nl'],
+                        multi=True,
+                        clearable=False,
+                        searchable=False
                     )
                 ]
             ),
@@ -128,6 +148,15 @@ try:
                     dcc.Graph(id="joy-graph",
                               className='viz-card__graph viz-card__graph--timeseries flex-one')
                 ]
+            ),
+            html.H4("\nCorona cases per week per country"),
+            html.Div(
+                className="viz-card flex-one",
+                children=[
+                    dcc.Graph(
+                        figure=who_linefig
+                    )
+                ]
             )
         ]
     )
@@ -141,7 +170,6 @@ try:
          Output('joy-graph', 'figure')],
         [Input("country-dropdown", 'value')])
     def map_clicked(selected_country):
-        print(selected_country)
         # H3 Header
         abbr_dict = {
             'ger': 'Germany',
@@ -149,7 +177,7 @@ try:
             'nl': 'the Netherlands',
         }
 
-        if type(selected_country) != list:
+        if type(selected_country) != list: # want a standard input format regardless of number items selected by user
             selected_country = [selected_country]
 
         # Filter By Selected Country
@@ -184,6 +212,7 @@ try:
             legend_title_text='Country'
         )
 
+
         # JOY MAP
         num_categories = selected_country_df.renamed_term.nunique()
         colors = n_colors('rgb(5, 200, 200)', 'rgb(200, 10, 10)', num_categories, colortype='rgb')
@@ -191,22 +220,19 @@ try:
 
         # TODO: modify so that its zipping together trends_df filtered on item type for each color
         for renamed_term, color in zip(trends_df.renamed_term.unique(), colors):
-            joy_filtered_data = selected_country_df[ selected_country_df.renamed_term == renamed_term]  # show one term at a time
-            joy_fig.add_trace(go.Violin(x=joy_filtered_data["score_difference"], line_color=color, name=renamed_term))
+            joy_filtered_data = selected_country_df[selected_country_df.renamed_term == renamed_term]  # show one term at a time
+            joy_fig.add_trace(go.Violin(x=joy_filtered_data["score_difference"],
+                                        line_color=color,
+                                        name=renamed_term,
+                                        customdata=["date_str"],
+                                        hoverinfo="skip"
+                                        )
+                              )
         joy_fig.update_traces(orientation='h', side='positive', width=3, points=False)
         joy_fig.update_layout(xaxis_showgrid=False, xaxis_zeroline=False, showlegend=False)
         joy_fig.update_xaxes(showticklabels=False)
 
         return polar_header, polar_fig, joy_fig
-
-        #Make scatter line plot
-        scat_fig = px.scatter(
-            who_trends_df,
-            x="Nom_new_cases", 
-            y="position", 
-            color="Country",
-            hover_name="Country"
-        )
 
 
 except Exception as e:
