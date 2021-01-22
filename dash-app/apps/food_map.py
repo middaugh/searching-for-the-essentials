@@ -228,12 +228,13 @@ try:
     def update_output_div(*icon_ids):
         ctx = dash.callback_context
         if not ctx.triggered:
-            button_id = 'No clicks yet'
-            header = "Search Trend Popularity & WHO COVID-19 Cases"
-
+            button_id = 'toiletpaper-button'
         else:
             button_id = ctx.triggered[0]['prop_id'].split('.')[0]
-            header = f"Search Trend Popularity & WHO COVID-19 Cases for {button_id[:-7].capitalize()}"
+
+        # Header to display based on selected item
+        header = f"Search Trend Popularity & WHO COVID-19 Cases for {button_id[:-7].capitalize()}"
+
         # Attempt to generate map
         try:
             filtered_data = trends_df[trends_df.term == button_id.split("-")[0]] # test term, should be exchanged
