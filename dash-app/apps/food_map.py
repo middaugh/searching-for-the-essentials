@@ -190,8 +190,9 @@ try:
                     className="viz-card__header viz-card__header--timeseries"),
             *icon_layout,
 
-            html.H4("Search Trend Popularity & WHO COVID-19 Cases",
-                    className="viz-card__header viz-card__header--timeseries"),
+            html.H4(id="food_map_header",
+                    className="viz-card__header viz-card__header--timeseries"
+                    ),
             html.Div(
                 className="row mobile-interaction-disabled",
                 children=[
@@ -221,14 +222,19 @@ try:
 
     ## Create the callbacks in a loop
     @app.callback(
-         Output("test_map", "figure"),
+         [Output("test_map", "figure"),
+          Output("food_map_header", "children")],
         [Input(x, 'n_clicks') for x in icon_ids])
     def update_output_div(*icon_ids):
         ctx = dash.callback_context
         if not ctx.triggered:
-            button_id = 'No clicks yet'
+            button_id = 'toiletpaper-button'
         else:
             button_id = ctx.triggered[0]['prop_id'].split('.')[0]
+
+        # Header to display based on selected item
+        header = f"Search Trend Popularity & WHO COVID-19 Cases for {button_id[:-7].capitalize()}"
+
         # Attempt to generate map
         try:
             filtered_data = trends_df[trends_df.term == button_id.split("-")[0]] # test term, should be exchanged
@@ -284,7 +290,7 @@ try:
                              )
 
 
-        return test_fig
+        return test_fig, header
 
     # What user has selected on map
     @app.callback(
