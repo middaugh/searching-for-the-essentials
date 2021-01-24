@@ -46,6 +46,7 @@ try:
             'restaurant','rice','spices','takeaway','to-go','toiletpaper']
     new_terms = ['baking','banana bread','beans','coffee','cooking','face mask','grocery delivery','hand sanitizer','pasta',
             'restaurant','rice','spices','take away','to go','toiletpaper']
+    new_terms = old_terms
 
     def rename_terms(data):
         for i in range(0,len(old_terms)):

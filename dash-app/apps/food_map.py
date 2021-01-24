@@ -157,26 +157,16 @@ try:
             html.Div(
                 className="row",
                 children=[
-                    html.Div(
-                        id="test-map-output",
-                        className="flex-one"
-                    )
+                    dcc.Slider(
+                        id='my-slider',
+                        min=0,
+                        max=20,
+                        step=0.5,
+                        value=10,
+                    ),
+                    html.Div(id='slider-output-container')
                 ]
-            ),
-
-            # html.H3("Extra information", className="text-centered nav__subtitle"),
-            # html.Div(
-            #     className="nav_container",
-            #     children=[
-            #         html.Div(
-            #             className="project-explanation flex-one centered row",
-            #             children=[
-            #                 # TODO: Update with proper explanation, taken from the project proposal
-            #                 "For displaying the Google Search Trend data in the map, we have used data from November 2018 till November 2020. The first year is the non-covid data, and we compare the second year (Nov 2019-Nov 2020), with the first year (Nov 2018-Nov 2019). In this way the difference between the two years are displayed. The new reported corona cases per day are calculated with the data that is available on the site of the World Health Organisation. To be able to compare the Corona outbreaks per country, we calculated the new reported corona cases per day. Note that the countries had lest test capacity during the first day, therefore the first wave is less accurate than for the second wave. "
-            #             ]
-            #         ),
-            #     ]
-            # )
+            )
         ])
     ###########################
     # CALLBACK FUNCTIONS, IF ANY
@@ -195,21 +185,33 @@ try:
         else:
             button_id = ctx.triggered[0]['prop_id'].split('.')[0]
 
+        search_term = button_id[:-7]
+        
+        # Human Readable Formating
+        display_terms = {'baking': 'baking',
+                        'bananabread': 'banana bread',
+                        'beans': 'beans' ,
+                        'coffee': 'coffee' ,
+                        'cooking': 'cooking',
+                        'facemask': 'face mask',
+                        'grocerydelivery': 'grocery delivery',
+                        'hand-sanitizer': 'hand sanitizer',
+                        'pasta': 'pasta',
+                        'restaurant': 'restaurant',
+                        'rice': 'rice',
+                        'spices': 'spices',
+                        'takeaway': 'takeaway',
+                        'to-go': 'to go',
+                        'toiletpaper': 'toilet paper'
+                         }
+
         # Header to display based on selected item
-        header = f"Search Trend Popularity & WHO COVID-19 Cases for {button_id[:-7].capitalize()}"
+        header = f"Search Trend Popularity & WHO COVID-19 Cases for {display_terms[search_term].capitalize()}"
 
         # Attempt to generate map
-        try:
-            filtered_data = trends_df[trends_df.term == button_id.split("-")[0]] # test term, should be exchanged
-            if len(filtered_data) == 0:
-                filtered_data = trends_df[trends_df.term == "restaurant"]  # baseline
-        except Exception as e:
-            filtered_data = trends_df[trends_df.term == "restaurant"] # baseline
-            raise e
+        filtered_data = trends_df[trends_df.term == search_term]
 
-        #filtered_data = trends_df[trends_df.term == "restaurant"] # baseline
         transformed_data = transform_data(filtered_data)
-        print(transformed_data.columns)
         transformed_data = transformed_data.sort_values(by="date_str", axis=0)
         color_discrete_map = {"positive": "#419D78", "negative": "#DE6449"}
         test_fig = px.scatter_geo(transformed_data,
@@ -247,8 +249,8 @@ try:
             y=1.02,
             xanchor="right",
             x=1
-        ))
-
+            )
+        )
 
         test_fig.update_geos(projection_scale=4,  # set value; default = 1 (Europe scale)
                              # set map extent
@@ -264,6 +266,11 @@ try:
         return test_fig, header
 
 
+    @app.callback(
+        dash.dependencies.Output('slider-output-container', 'children'),
+        [dash.dependencies.Input('my-slider', 'value')])
+    def update_output(value):
+        return 'You have selected "{}"'.format(value)
 
 except Exception as e:
     layout = html.H3(f"Problem loading {os.path.basename(__file__)}, please check console for details.")
