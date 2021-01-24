@@ -38,7 +38,7 @@ def serve_layout():
                                 className="project-explanation flex-one centered row",
                                 children=[
                                     # TODO: Update with proper explanation, taken from the project proposal
-                                    "When the COVID-19 pandemic hit the world in 2020, nearly every aspect of daily life was affected. The food industry was shaken as people began hoarding products like pasta, toilet paper or rice. Due to restaurants and cafés closing in many countries, people were not able to go out for dinner or grab a coffee anymore. Lots of people began experimenting more in the kitchen and doubtless, lots of banana bread have been produced. This interactive web map aims to visualise the impact of COVID-19 on interests in food and other essential items in three European countries based on the Google Trends data of specific products. Enjoy exploring and comparing acroos foods, countries & time."
+                                    "When the COVID-19 pandemic hit the world in 2020, nearly every aspect of daily life was affected. The food industry was shaken as people began hoarding products like pasta, toilet paper or rice. Due to restaurants and cafés closing in many countries, people were not able to go out for dinner or grab a coffee anymore. Lots of people began experimenting more in the kitchen and doubtless, huge amounts of banana bread were being produced. This interactive web map aims to visualise the impact of COVID-19 on interests in food and other essential items in three European countries based on the Google Trends data of specific products. Enjoy exploring and comparing acroos foods, countries & time."
                                 ]
                             ),
                             html.Div(
@@ -66,7 +66,7 @@ def serve_layout():
             # Where all of the content will go
             html.Div(className="page-content centered", id='page-content'),
 
-            html.H3("Extra information", className="text-centered nav__subtitle"),
+            html.H3("ABOUT", className="text-centered nav__subtitle"),
             html.Div(
                 className="nav_container",
                 children=[
@@ -74,21 +74,11 @@ def serve_layout():
                         className="project-explanation flex-one centered row",
                         children=[
                             # TODO: Update with proper explanation, taken from the project proposal
-                            "For displaying the Google Search Trend data in the map, we have used data from November 2018 till November 2020. The first year is the non-covid data, and we compare the second year (Nov 2019-Nov 2020), with the first year (Nov 2018-Nov 2019). A positive search query value means that the search term has been searched more often than in the previous year, and a negative search value means that it has been searched less often. In this way the difference between the two years are displayed. The new reported corona cases per day are calculated with the data that is available on the site of the World Health Organisation. To be able to compare the Corona outbreaks per country, we calculated the new reported corona cases per day. Note that the countries had lest test capacity during the first day, therefore the first wave is less accurate than for the second wave. "
-                        ]
-                    ),
-                ]
-            ),
-
-            html.H3("Extra information", className="text-centered nav__subtitle"),
-            html.Div(
-                className="nav_container",
-                children=[
-                    html.Div(
-                        className="project-explanation flex-one centered row",
-                        children=[
-                            # TODO: Update with proper explanation, taken from the project proposal
-                            "In the radar chart are no absolute values given, but a range from -60 to 100. This displays if a search term has been searched for less often than the previous year (negative value), or more often than the previous year (positive value).  "
+                            'Searching For The Essentials is an interactive web map experience allowing the user to explore the evolution of Google Trends data during the corona pandemic. We used the Google data from November 2018 to November 2020 and calculated the Search Trends differences between the first year (11/2018-11/2019) and the second year with COVID-19 impact (11/2019-11/2020). The result from this calculation is used for the data visualizations. A positive search query value indicates that the search term was searched more often during the pandemic than in the previous year, whereas a negative search value indicates a lower search frequency during the pandemic compared to the year before.',
+                            html.P(),
+                            'The COVID-19 cases per 100.000 inhabitants per country were calculated from the daily reported COVID-19 data available on the website of the World Health Organization. Note, that the countries were having lest testing capacity during the start of the pandemic in March 2020 resulting in less accuracy than for the second wave starting in autumn 2020.',
+                            html.P(),
+                            'In contrast to the values shown in the map, the radar chart includes negative and positive values indicating a lower or higher search frequency than in the previous year.' 
                         ]
                     ),
                 ]

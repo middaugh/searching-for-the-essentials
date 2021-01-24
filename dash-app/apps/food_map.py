@@ -163,20 +163,6 @@ try:
                     )
                 ]
             ),
-
-            html.H3("Extra information", className="text-centered nav__subtitle"),
-            html.Div(
-                className="nav_container",
-                children=[
-                    html.Div(
-                        className="project-explanation flex-one centered row",
-                        children=[
-                            # TODO: Update with proper explanation, taken from the project proposal
-                            "For displaying the Google Search Trend data in the map, we have used data from November 2018 till November 2020. The first year is the non-covid data, and we compare the second year (Nov 2019-Nov 2020), with the first year (Nov 2018-Nov 2019). In this way the difference between the two years are displayed. The new reported corona cases per day are calculated with the data that is available on the site of the World Health Organisation. To be able to compare the Corona outbreaks per country, we calculated the new reported corona cases per day. Note that the countries had lest test capacity during the first day, therefore the first wave is less accurate than for the second wave. "
-                        ]
-                    ),
-                ]
-            )
         ])
     ###########################
     # CALLBACK FUNCTIONS, IF ANY
