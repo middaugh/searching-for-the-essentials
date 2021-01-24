@@ -77,16 +77,6 @@ try:
             data.at[index, 'score_difference'] = abs(data.at[index, 'score_difference'])
         return data
 
-    #Test for WHO
-    who_fig = px.bar(who_trends_df,
-                x="Country", 
-                y="Nom_new_cases",
-                hover_name="Country",
-                labels={
-                    "Nom_new_cases":"Cases per 100000 inhabitants",
-                    "Country":"Country"},
-    )
-
     ## GENERATE ICONS
     if os.name == 'nt':
         ICON_DIR = os.getcwd() + '\\dash-app\\assets\\icons\\'  # for windows users
@@ -163,14 +153,13 @@ try:
                               className='viz-card__graph viz-card__graph--timeseries flex-three'
                               ),
                     dcc.Graph(id="who_fig",
-                              className='viz-card__graph flex-one',
-                              figure=who_fig)
+                              className='viz-card__graph flex-one'
+                              )
                 ]
             ),
             html.Div(
                 children=[
-                    slider,
-                    html.Div(id='slider-output-container')
+                    slider
                 ]
             ),
             html.Div(
@@ -188,6 +177,7 @@ try:
     callback_inputs = [Input(x, 'n_clicks') for x in icon_ids]
     callback_inputs.append(Input('my-slider', 'value'))
 
+    # Get which icon has been clicked and update the store
     @app.callback(
           Output("icon_store", "data"),
         [Input(x, 'n_clicks') for x in icon_ids])
@@ -201,6 +191,7 @@ try:
         search_term = button_id[:-7]
         return search_term
 
+    # Update another store with the value of the slider
     @app.callback(
             Output("slider_store", "data"),
             [Input("map-date-slider", "value")])
@@ -212,6 +203,7 @@ try:
     @app.callback(
         [Output("test_map", "figure"),
          Output("food_map_header", "children"),
+         Output("who_fig", "figure"),
          Output("test_store", "children")],
         [Input("icon_store", "data"),
          Input("slider_store", "data")])
@@ -292,9 +284,20 @@ try:
         ### Header
         header = f"Search Trend Popularity & WHO COVID-19 Cases for {display_terms[search_term].capitalize()}"
 
-        ### Bar Graph
+        ### WHO Bar Graph
+        who_trends_df["date"] = pd.to_datetime(who_trends_df.Date_reported)
+        date_selected_datetime = pd.to_datetime(date_selected)
+        filtered_who_df = who_trends_df[who_trends_df.date == date_selected_datetime]
+        who_fig = px.bar(filtered_who_df,
+                         x="Country",
+                         y="Nom_new_cases",
+                         hover_name="Country",
+                         labels={
+                             "Nom_new_cases": "Cases per 100.000 inhabitants",
+                             "Country": "Country"},
+                         )
 
-        return map_fig, header, f"Your selected term is {search_term} and your selected date is {date_selected}"
+        return map_fig, header, who_fig, f"Your selected term is {search_term} and your selected date is {date_selected}"
 
 except Exception as e:
     layout = html.H3(f"Problem loading {os.path.basename(__file__)}, please check console for details.")
