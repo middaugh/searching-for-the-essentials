@@ -37,7 +37,6 @@ def serve_layout():
                             html.Div(
                                 className="project-explanation flex-one centered row",
                                 children=[
-                                    # TODO: Update with proper explanation, taken from the project proposal
                                     "When the COVID-19 pandemic hit the world in 2020, nearly every aspect of daily life was affected. The food industry was shaken as people began hoarding products like pasta, toilet paper or rice. Due to restaurants and cafés closing in many countries, people were not able to go out for dinner or grab a coffee anymore. Lots of people began experimenting more in the kitchen and doubtless, huge amounts of banana bread were being produced. This interactive web map aims to visualise the impact of COVID-19 on interests in food and other essential items in three European countries based on the Google Trends data of specific products. Enjoy exploring and comparing acroos foods, countries & time."
                                 ]
                             ),
@@ -73,10 +72,9 @@ def serve_layout():
                     html.Div(
                         className="project-explanation flex-one centered row",
                         children=[
-                            # TODO: Update with proper explanation, taken from the project proposal
-                            'Searching For The Essentials is an interactive web map experience allowing the user to explore the evolution of Google Trends data during the corona pandemic. We used the Google data from November 2018 to November 2020 and calculated the Search Trends differences between the first year (11/2018-11/2019) and the second year with COVID-19 impact (11/2019-11/2020). The result from this calculation is used for the data visualizations. A positive search query value indicates that the search term was searched more often during the pandemic than in the previous year, whereas a negative search value indicates a lower search frequency during the pandemic compared to the year before.',
+                            'Searching For The Essentials is an interactive web map experience allowing the user to explore the evolution of ', html.A('Google Trends', href="https://trends.google.com"),' data during the corona pandemic. We used the Google data from November 2018 to November 2020 and calculated the Search Trends differences between the first year (11/2018-11/2019) and the second year with COVID-19 impact (11/2019-11/2020). The result from this calculation is used for the data visualizations. A positive search query value indicates that the search term was searched more often during the pandemic than in the previous year, whereas a negative search value indicates a lower search frequency during the pandemic compared to the year before.',
                             html.P(),
-                            'The COVID-19 cases per 100.000 inhabitants per country were calculated from the daily reported COVID-19 data available on the website of the World Health Organization. Note, that the countries were having lest testing capacity during the start of the pandemic in March 2020 resulting in less accuracy than for the second wave starting in autumn 2020.',
+                            'The COVID-19 cases per 100.000 inhabitants per country were calculated from the daily reported COVID-19 data available on the website of the ', html.A('World Health Organization ', href="https://www.who.int/"),'. Note, that the countries were having lest testing capacity during the start of the pandemic in March 2020 resulting in less accuracy than for the second wave starting in autumn 2020.',
                             html.P(),
                             'In contrast to the values shown in the map, the radar chart includes negative and positive values indicating a lower or higher search frequency than in the previous year.' 
                         ]
