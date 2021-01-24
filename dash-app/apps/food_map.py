@@ -45,8 +45,10 @@ try:
     trends_df['display_country'] = trends_df['country'].map(abbr_dict)
 
     ###########################
-    # PREP FOR MAPPING
+    # PREP
     ###########################
+
+    # MAPPING
     # Adding iso_alpha and iso_num to df to use it as location for creating the map
     def add_location(data):
         for index, row in data.iterrows():
@@ -74,11 +76,6 @@ try:
                 data.at[index, 'score_diff_positive'] = "negative"
             data.at[index, 'score_difference'] = abs(data.at[index, 'score_difference'])
         return data
-
-
-    ###########################
-    # PREP
-    ###########################
 
     #Test for WHO
     who_fig = px.bar(who_trends_df,
@@ -128,17 +125,33 @@ try:
         icon_layout.append(row_layout)
 
 
+    # SLIDER
+    # transform every unique date to a number
+    slider_dict = {i: x for i, x in enumerate(trends_df["date"].sort_values().unique())}
+
+    slider = dcc.Slider(
+        id='map-date-slider',
+        min=min(slider_dict.keys()),
+        max=max(slider_dict.keys()),
+        value=min(slider_dict.keys()),
+        marks={key: pd.to_datetime(str(value)).strftime('%d/%m/%y') for key, value in slider_dict.items()},
+        included=False,
+        updatemode='drag'
+    )
+
     ###########################
     # LAYOUT TO BE USED IN INDEX.PY
     ###########################
     layout = html.Div(
         className="viz-card flex-one",
         children=[
-            dcc.Store(id="timeseries_output"),
+            dcc.Store(id="icon_store"),
+            dcc.Store(id="slider_store"),
 
             html.H4("Select a Search Term",
                     className="viz-card__header viz-card__header--timeseries"),
-            *icon_layout,
+
+            *icon_layout, # all 15 icons laid out in three rows
 
             html.H4(id="food_map_header",
                     className="viz-card__header viz-card__header--timeseries"
@@ -155,28 +168,28 @@ try:
                 ]
             ),
             html.Div(
-                className="row",
                 children=[
-                    dcc.Slider(
-                        id='my-slider',
-                        min=0,
-                        max=20,
-                        step=0.5,
-                        value=10,
-                    ),
+                    slider,
                     html.Div(id='slider-output-container')
                 ]
+            ),
+            html.Div(
+                id="test_store"
             )
-        ])
+
+        ]
+    )
     ###########################
     # CALLBACK FUNCTIONS, IF ANY
     ###########################
     # Time Series and Record Types
 
     ## Create the callbacks in a loop
+    callback_inputs = [Input(x, 'n_clicks') for x in icon_ids]
+    callback_inputs.append(Input('my-slider', 'value'))
+
     @app.callback(
-         [Output("test_map", "figure"),
-          Output("food_map_header", "children")],
+          Output("icon_store", "data"),
         [Input(x, 'n_clicks') for x in icon_ids])
     def update_output_div(*icon_ids):
         ctx = dash.callback_context
@@ -186,43 +199,55 @@ try:
             button_id = ctx.triggered[0]['prop_id'].split('.')[0]
 
         search_term = button_id[:-7]
-        
-        # Human Readable Formating
+        return search_term
+
+    @app.callback(
+            Output("slider_store", "data"),
+            [Input("map-date-slider", "value")])
+    def update_from_date_slider(slider_choice):
+        date_selected = slider_dict[slider_choice]
+        date_selected = pd.to_datetime(str(date_selected)).strftime('%Y-%m-%d') # match the date_str format from transformed_Df
+        return date_selected 
+
+    @app.callback(
+        [Output("test_map", "figure"),
+         Output("food_map_header", "children"),
+         Output("test_store", "children")],
+        [Input("icon_store", "data"),
+         Input("slider_store", "data")])
+    def update_from_store(search_term, date_selected):
+        ### Prep
         display_terms = {'baking': 'baking',
-                        'bananabread': 'banana bread',
-                        'beans': 'beans' ,
-                        'coffee': 'coffee' ,
-                        'cooking': 'cooking',
-                        'facemask': 'face mask',
-                        'grocerydelivery': 'grocery delivery',
-                        'hand-sanitizer': 'hand sanitizer',
-                        'pasta': 'pasta',
-                        'restaurant': 'restaurant',
-                        'rice': 'rice',
-                        'spices': 'spices',
-                        'takeaway': 'takeaway',
-                        'to-go': 'to go',
-                        'toiletpaper': 'toilet paper'
+                         'bananabread': 'banana bread',
+                         'beans': 'beans',
+                         'coffee': 'coffee',
+                         'cooking': 'cooking',
+                         'facemask': 'face mask',
+                         'grocerydelivery': 'grocery delivery',
+                         'hand-sanitizer': 'hand sanitizer',
+                         'pasta': 'pasta',
+                         'restaurant': 'restaurant',
+                         'rice': 'rice',
+                         'spices': 'spices',
+                         'takeaway': 'takeaway',
+                         'to-go': 'to go',
+                         'toiletpaper': 'toilet paper'
                          }
 
-        # Header to display based on selected item
-        header = f"Search Trend Popularity & WHO COVID-19 Cases for {display_terms[search_term].capitalize()}"
-
-        # Attempt to generate map
-        filtered_data = trends_df[trends_df.term == search_term]
-
+        # Limit to selected term and date
+        filtered_data = trends_df[(trends_df.term == search_term) & (trends_df.date_str == date_selected)]
         transformed_data = transform_data(filtered_data)
-        transformed_data = transformed_data.sort_values(by="date_str", axis=0)
+
+        ### Map
         color_discrete_map = {"positive": "#419D78", "negative": "#DE6449"}
-        test_fig = px.scatter_geo(transformed_data,
+        map_fig = px.scatter_geo(transformed_data,
                                   locations="iso_alpha",
                                   color="score_diff_positive",
                                   color_discrete_map=color_discrete_map,
                                   hover_name="country",
                                   size="score_difference",
                                   size_max=50,
-                                  animation_frame="date_str",  # has to be edited
-                                  projection="conic conformal", # for Europe: conic conformal OR azimuthal equal area
+                                  projection="conic conformal",  # for Europe: conic conformal OR azimuthal equal area
                                   height=600,
                                   hover_data={
                                       "term": True,
@@ -241,36 +266,35 @@ try:
                                   }
                                   )
 
-        test_fig.update_layout(geo_scope="europe")
-        test_fig.update_layout(legend_title_text='Search term popularity compared to previous year')
-        test_fig.update_layout(legend=dict(
-            orientation="h",
-            yanchor="bottom",
-            y=1.02,
-            xanchor="right",
-            x=1
+        map_fig.update_layout(geo_scope="europe")
+        map_fig.update_layout(legend_title_text='Search term popularity compared to previous year')
+        map_fig.update_layout(
+            legend=dict(
+                orientation="h",
+                yanchor="bottom",
+                y=1.02,
+                xanchor="right",
+                x=1
             )
         )
 
-        test_fig.update_geos(projection_scale=4,  # set value; default = 1 (Europe scale)
-                             # set map extent
-                             center_lon=4.895168,  # set coordinates of Amsterdam as center of map
-                             center_lat=52.370216,
-                             # fitbounds= "locations"
-                             showland=False,
-                             showocean=True,
-                             oceancolor="#eee" # try with "#fffff" for white background
-                             )
+        map_fig.update_geos(
+            projection_scale=4,  # set value; default = 1 (Europe scale)
+            # set map extent
+            center_lon=4.895168,  # set coordinates of Amsterdam as center of map
+            center_lat=52.370216,
+            # fitbounds= "locations"
+            showland=False,
+            showocean=True,
+            oceancolor="#eee"  # try with "#fffff" for white background
+        )
 
+        ### Header
+        header = f"Search Trend Popularity & WHO COVID-19 Cases for {display_terms[search_term].capitalize()}"
 
-        return test_fig, header
+        ### Bar Graph
 
-
-    @app.callback(
-        dash.dependencies.Output('slider-output-container', 'children'),
-        [dash.dependencies.Input('my-slider', 'value')])
-    def update_output(value):
-        return 'You have selected "{}"'.format(value)
+        return map_fig, header, f"Your selected term is {search_term} and your selected date is {date_selected}"
 
 except Exception as e:
     layout = html.H3(f"Problem loading {os.path.basename(__file__)}, please check console for details.")
