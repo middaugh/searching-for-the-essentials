@@ -94,13 +94,6 @@ try:
         if name.endswith(".svg"):
             icons.append(ICON_DIR + name)
 
-    # # who_linefig = px.line(
-    #         who_trends_df,
-    #         x="Date_reported", 
-    #         y="Nom_new_cases", 
-    #         color="Country",
-    #         hover_name="Country"
-    # )
 
     who_linefig = px.line(who_trends_df,
          x="Date_reported", 
@@ -151,7 +144,8 @@ try:
             ),
             html.H4("\nCorona cases per week per country"),
             html.Div(
-                className="viz-card flex-one",
+                className="viz-card__header viz-card__header--timeseries",
+                # className="viz-card flex-one",
                 children=[
                     dcc.Graph(
                         figure=who_linefig

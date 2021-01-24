@@ -66,34 +66,6 @@ def serve_layout():
             # Where all of the content will go
             html.Div(className="page-content centered", id='page-content'),
 
-            html.H3("Extra information", className="text-centered nav__subtitle"),
-            html.Div(
-                className="nav_container",
-                children=[
-                    html.Div(
-                        className="project-explanation flex-one centered row",
-                        children=[
-                            # TODO: Update with proper explanation, taken from the project proposal
-                            "For displaying the Google Search Trend data in the map, we have used data from November 2018 till November 2020. The first year is the non-covid data, and we compare the second year (Nov 2019-Nov 2020), with the first year (Nov 2018-Nov 2019). A positive search query value means that the search term has been searched more often than in the previous year, and a negative search value means that it has been searched less often. In this way the difference between the two years are displayed. The new reported corona cases per day are calculated with the data that is available on the site of the World Health Organisation. To be able to compare the Corona outbreaks per country, we calculated the new reported corona cases per day. Note that the countries had lest test capacity during the first day, therefore the first wave is less accurate than for the second wave. "
-                        ]
-                    ),
-                ]
-            ),
-
-            html.H3("Extra information", className="text-centered nav__subtitle"),
-            html.Div(
-                className="nav_container",
-                children=[
-                    html.Div(
-                        className="project-explanation flex-one centered row",
-                        children=[
-                            # TODO: Update with proper explanation, taken from the project proposal
-                            "In the radar chart are no absolute values given, but a range from -60 to 100. This displays if a search term has been searched for less often than the previous year (negative value), or more often than the previous year (positive value).  "
-                        ]
-                    ),
-                ]
-            ),
-
             html.Footer(
                 id='footer',
                 className="footer clearfix centered",
@@ -125,8 +97,15 @@ def display_page(pathname):
                     html.Div(
                         className="row",
                         children=[
-                            country_map.layout
+                            country_map.layout,
                         ]
+                    ),
+                    html.H3("Extra Information", className="text-centered nav__subtitle"),
+                    html.Div(
+                        className="project-explanation flex-one centered row",
+                        children=[
+                            "In the radar chart are no absolute values given, but a range from -60 to 100. This displays if a search term has been searched for less often than the previous year (negative value), or more often than the previous year (positive value). Because there were differences in the restrictions per country, some differences in searchterms can clearly be seen. Check out the differences between the search term \"facemask\", or \"toiletpaper\". The chart on the right visualizes the Google Search Trends chronologically for the selected countries. "
+                        ],
                     ),
                 ]
             )
@@ -137,12 +116,18 @@ def display_page(pathname):
                     html.Div(
                         className="row",
                         children=[
-                            food_map.layout
+                            food_map.layout,
+                        ]
+                    ),
+                    html.H3("Extra Information", className="text-centered nav__subtitle"),
+                    html.Div(
+                        className="project-explanation flex-one centered row",
+                        children=[
+                            "The timeframe for the Google Search Trend data in the map is from November 2018 till November 2020. The first year is the non-covid data, and we compare the second year (Nov 2019-Nov 2020), with the first year (Nov 2018-Nov 2019). A positive search query value means that the search term has been searched more often than in the previous year, and a negative search value means that it has been searched less often. The bigger the circle on the map, the higher the positive or negative difference. In this way the difference between the two years are displayed. The new reported corona cases per day are calculated with the data from the World Health Organisation. To be able to compare the COVID-19 outbreaks per country, we calculated the new reported corona cases per day per 100 000 inhabitants. Note that the countries had less test capacity during the first wave, resulting in the first wave to be less accurate than the second wave. "
                         ]
                     ),
                 ]
-            )
-
+            ),
         else:
             page_content = html.Div([html.H1('404 Error - Page not found')])
         return page_content
