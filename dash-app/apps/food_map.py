@@ -217,7 +217,7 @@ try:
     def update_from_date_slider(slider_choice):
         date_selected = slider_dict[slider_choice]
         date_selected = pd.to_datetime(str(date_selected)).strftime('%Y-%m-%d') # match the date_str format from transformed_Df
-        return date_selected 
+        return date_selected
 
     @app.callback(
         [Output("test_map", "figure"),
@@ -324,6 +324,3 @@ except Exception as e:
 if __name__ == '__main__':
     app.layout = layout
     app.run_server(debug=True)
-
-
-
