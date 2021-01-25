@@ -33,7 +33,10 @@ try:
     trends_df = trends_df[trends_df.score_difference.notna()]
     trends_df["score_difference"] = trends_df["score_difference"].astype("int")
     trends_df['date_str'] = trends_df['date'].astype(str)
+
+    # World Health Organization Covid Data
     who_trends_df = pd.read_csv(INPUT_DIR + 'data_who_clean.csv', )
+    who_trends_df["date"] = pd.to_datetime(who_trends_df.Date_reported, format="%d/%m/%Y")
 
     ###########################
     # PREP
@@ -97,12 +100,12 @@ try:
 
 
     who_linefig = px.line(who_trends_df,
-         x="Date_reported", 
+         x="date",
          y="Nom_new_cases", 
          color="Country", 
          hover_name="Country",
          labels={"Nom_new_cases":"Cases per 100000 inhabitants",
-                    "Date_reported":"Week reported "},
+                    "date":"Week reported "},
     )
 
     ###########################

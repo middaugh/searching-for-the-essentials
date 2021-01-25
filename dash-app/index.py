@@ -119,7 +119,7 @@ def display_page(pathname):
                             food_map.layout,
                         ]
                     ),
-                    html.H3("Extra Information", className="text-centered nav__subtitle"),
+                    html.H3("Extra Information", className="text-centered nav__link"),
                     html.Div(
                         className="project-explanation flex-one centered row",
                         children=[
