@@ -36,6 +36,25 @@ try:
     trends_df['date_str'] = trends_df['date'].astype(str)
     trends_df = trends_df.sort_values(by="date_str", axis=0)
 
+    display_terms = {'baking': 'baking',
+                     'bananabread': 'banana bread',
+                     'beans': 'beans',
+                     'coffee': 'coffee',
+                     'cooking': 'cooking',
+                     'facemask': 'face mask',
+                     'grocerydelivery': 'grocery delivery',
+                     'hand-sanitizer': 'hand sanitizer',
+                     'pasta': 'pasta',
+                     'restaurant': 'restaurant',
+                     'rice': 'rice',
+                     'spices': 'spices',
+                     'takeaway': 'takeaway',
+                     'to-go': 'to go',
+                     'toiletpaper': 'toilet paper'
+                     }
+
+    trends_df["display_term"] = trends_df.term.map(display_terms)
+
     # World Health Organization Covid Data
     who_trends_df = pd.read_csv(INPUT_DIR + 'data_who_clean.csv', )
     who_trends_df["date"] = pd.to_datetime(who_trends_df.Date_reported, format="%d/%m/%Y")
@@ -213,61 +232,46 @@ try:
          Input("slider_store", "data")])
     def update_from_store(search_term, date_selected):
         ### Prep
-        display_terms = {'baking': 'baking',
-                         'bananabread': 'banana bread',
-                         'beans': 'beans',
-                         'coffee': 'coffee',
-                         'cooking': 'cooking',
-                         'facemask': 'face mask',
-                         'grocerydelivery': 'grocery delivery',
-                         'hand-sanitizer': 'hand sanitizer',
-                         'pasta': 'pasta',
-                         'restaurant': 'restaurant',
-                         'rice': 'rice',
-                         'spices': 'spices',
-                         'takeaway': 'takeaway',
-                         'to-go': 'to go',
-                         'toiletpaper': 'toilet paper'
-                         }
-
         # Limit to selected term and date
         filtered_data = trends_df[(trends_df.term == search_term) & (trends_df.date_str == date_selected)]
         transformed_data = transform_data(filtered_data)
 
         ### Map
         color_discrete_map = {"positive": "#419D78", "negative": "#DE6449"}
-        map_fig = px.scatter_geo(transformed_data,
-                                  locations="iso_alpha",
-                                  color="score_diff_positive",
-                                  color_discrete_map=color_discrete_map,
-                                  hover_name="country",
-                                  size="score_difference",
-                                  size_max=50,
-                                  projection="conic conformal",  # for Europe: conic conformal OR azimuthal equal area
-                                  height=600,
-                                  hover_data={
-                                      "term": True,
-                                      "date_str": True,
-                                      "display_country": True,
-                                      "score_difference": True,
-                                      "score_diff_positive": True,
-                                      "iso_alpha": False
-                                  },
-                                  labels={
-                                      "score_diff_positive": "Search term popularity compared to previous year ",
-                                      "date_str": "Date ",
-                                      "display_country": "Country ",
-                                      "score_difference": "Search query value ",
-                                      "renamed_term": "Term "
-                                  }
-                                  )
+        map_fig = px.scatter_geo(
+            transformed_data,
+            locations="iso_alpha",
+            color="score_diff_positive",
+            color_discrete_map=color_discrete_map,
+            hover_name="country",
+            size="score_difference",
+            size_max=50,
+            projection="conic conformal",  # for Europe: conic conformal OR azimuthal equal area
+            height=600,
+            hover_data={
+              "display_term": True,
+              "date_str": True,
+              "display_country": True,
+              "score_difference": True,
+              "score_diff_positive": True,
+              "iso_alpha": False
+            },
+            labels={
+              "score_diff_positive": "Search term popularity compared to previous year ",
+              "date_str": "Date ",
+              "display_country": "Country ",
+              "score_difference": "Search query value ",
+              "renamed_term": "Term "
+            }
+        )
 
-        map_fig.update_layout(geo_scope="europe")
-        map_fig.update_layout(legend_title_text='Search term popularity compared to previous year')
         map_fig.update_layout(
+            geo_scope="europe",
+            legend_title_text='Search term popularity compared to previous year',
             legend_x=0,
             legend_y=0,
             margin=dict(l=0, r=0, t=0, b=0),
+
         )
 
         map_fig.update_geos(
@@ -279,6 +283,11 @@ try:
             showland=False,
             showocean=True,
             oceancolor="#eee"  # try with "#fffff" for white background
+        )
+
+        map_fig.update_traces(
+            hovertemplate="<b>%{customdata[0]}</b><br>Date: %{customdata[1]}<br>Country: %{customdata[2]}<br>Score Difference: %{customdata[3]}<extra></extra>",
+            # print("plotly express hovertemplate:", disposed_lifecycle_fig.data[0].hovertemplate)
         )
 
         ### Header
@@ -306,7 +315,7 @@ try:
                               y="Nom_new_cases",
                               color="Country",
                               hover_name="Country",
-                              labels={"Nom_new_cases": "Cases per 100000 inhabitants",
+                              labels={"Nom_new_cases": "Cases per 100.000 inhabitants",
                                       "Date_reported": "Week reported "},
                               )
 
