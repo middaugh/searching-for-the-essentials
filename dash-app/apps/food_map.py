@@ -184,11 +184,7 @@ try:
                 children=[
                     slider
                 ]
-            ),
-            html.Div(
-                id="test_store"
             )
-
         ]
     )
     ###########################
@@ -226,8 +222,7 @@ try:
     @app.callback(
         [Output("test_map", "figure"),
          Output("food_map_header", "children"),
-         Output("who_fig", "figure"),
-         Output("test_store", "children")],
+         Output("who_fig", "figure")],
         [Input("icon_store", "data"),
          Input("slider_store", "data")])
     def update_from_store(search_term, date_selected):
@@ -268,8 +263,12 @@ try:
         map_fig.update_layout(
             geo_scope="europe",
             legend_title_text='Search term popularity compared to previous year',
-            legend_x=0,
-            legend_y=0,
+            legend=dict(
+                yanchor="top",
+                y=0.99,
+                xanchor="left",
+                x=0.01
+            ),
             margin=dict(l=0, r=0, t=0, b=0),
 
         )
@@ -295,19 +294,6 @@ try:
 
         ### WHO Bar Graph
         date_selected_datetime = pd.to_datetime(date_selected)
-        # filtered_who_df = who_trends_df[who_trends_df.date == date_selected_datetime]
-        # who_fig = px.bar(filtered_who_df,
-        #                  x="Country",
-        #                  y="Nom_new_cases",
-        #                  hover_name="Country",
-        #                  labels={
-        #                      "Nom_new_cases": "Cases per 100.000 inhabitants",
-        #                      "Country": "Country"},
-        #                  )
-
-        # date_to_date_reported = dict(zip(who_trends_df['date'], who_trends_df["Date_reported"]))
-        # who_date_list = who_trends_df['date'].sort_values().tolist()
-        # who_date_reported_list = who_trends_df.sort_values(by="date")["Date_reported"].tolist()
 
         # WHO Line Fig with Vertical Line
         who_fig = px.line(who_trends_df,
@@ -316,24 +302,21 @@ try:
                               color="Country",
                               hover_name="Country",
                               labels={"Nom_new_cases": "Cases per 100.000 inhabitants",
-                                      "Date_reported": "Week reported "},
+                                      "date": ""},
                               )
-
-        # who_ger = who_trends_df[who_trends_df.Country == "Germany"]
-        # who_uk = who_trends_df[who_trends_df.Country == "The United Kingdom"]
-        # who_nl = who_trends_df[who_trends_df.Country == "Netherlands"]
-        # who_dfs = [who_ger]
-        #
-        # who_fig = go.Figure()
-        # for who_df in who_dfs:
-        #     who_fig.add_trace(go.Scatter(x=who_df["date"], y=who_df["Nom_new_cases"],
-        #                              mode='lines',
-        #                              name='lines'))
-
         who_fig.add_vline(x=date_selected_datetime, line_color="gray", line_dash="dash")
+        who_fig.update_xaxes(title_text=None)
+        who_fig.update_layout(
+            legend=dict(
+                yanchor="top",
+                y=0.99,
+                xanchor="left",
+                x=0.01
+            )
+        )
         #who_fig.add_vrect(x0=who_date_reported_list[who_date_list.index(date_selected_datetime)], x1=who_date_reported_list[who_date_list.index(date_selected_datetime)+1])
 
-        return map_fig, header, who_fig, f"Your selected term is {search_term} and your selected date is {date_selected}"
+        return map_fig, header, who_fig
 
 except Exception as e:
     layout = html.H3(f"Problem loading {os.path.basename(__file__)}, please check console for details.")

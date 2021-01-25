@@ -104,8 +104,17 @@ try:
          y="Nom_new_cases", 
          color="Country", 
          hover_name="Country",
-         labels={"Nom_new_cases":"Cases per 100000 inhabitants",
-                    "date":"Week reported "},
+         labels={"Nom_new_cases":"Cases per 100.000 inhabitants",
+                    "date":""},
+    )
+
+    who_linefig.update_layout(
+        legend=dict(
+            yanchor="top",
+            y=0.99,
+            xanchor="left",
+            x=0.01
+        )
     )
 
     ###########################

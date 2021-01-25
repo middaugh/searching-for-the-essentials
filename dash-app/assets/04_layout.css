@@ -117,6 +117,7 @@
 /* Page Content */
 .page-content{
     padding: 10px;
+    padding-bot
     flex-flow: column wrap;
     height: 100%:
     width: var(--display-max-width);
