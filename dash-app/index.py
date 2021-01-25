@@ -120,9 +120,22 @@ def display_page(pathname):
                     ),
                     html.H3("Extra Information", className="text-centered nav__link"),
                     html.Div(
-                        className="project-explanation flex-one centered row",
+                        className="nav_container",
                         children=[
-                            "The timeframe for the Google Search Trend data in the map is from November 2018 till November 2020. The first year is the non-covid data, and we compare the second year (Nov 2019-Nov 2020), with the first year (Nov 2018-Nov 2019). A positive search query value means that the search term has been searched more often than in the previous year, and a negative search value means that it has been searched less often. The bigger the circle on the map, the higher the positive or negative difference. In this way the difference between the two years are displayed. The new reported corona cases per day are calculated with the data from the World Health Organisation. To be able to compare the COVID-19 outbreaks per country, we calculated the new reported corona cases per day per 100 000 inhabitants. Note that the countries had less test capacity during the first wave, resulting in the first wave to be less accurate than the second wave. "
+                            html.Div(
+                                className="project-explanation flex-one centered row",
+                                children=[
+                                    'Searching For The Essentials is an interactive web map experience allowing the user to explore the evolution of ',
+                                    html.A('Google Trends', href="https://trends.google.com"),
+                                    ' data during the corona pandemic. We used the Google data from November 2018 to November 2020 and calculated the Search Trends differences between the first year (11/2018-11/2019) and the second year with COVID-19 impact (11/2019-11/2020). The result from this calculation is used for the data visualizations. A positive search query value indicates that the search term was searched more often during the pandemic than in the previous year, whereas a negative search value indicates a lower search frequency during the pandemic compared to the year before.',
+                                    html.P(),
+                                    'The COVID-19 cases per 100.000 inhabitants per country were calculated from the daily reported COVID-19 data available on the website of the ',
+                                    html.A('World Health Organization ', href="https://www.who.int/"),
+                                    '. Note, that the countries were having lest testing capacity during the start of the pandemic in March 2020 resulting in less accuracy than for the second wave starting in autumn 2020.',
+                                    html.P(),
+                                    'In contrast to the values shown in the map, the radar chart includes negative and positive values indicating a lower or higher search frequency than in the previous year.'
+                                ]
+                            ),
                         ]
                     ),
                 ]
