@@ -29,8 +29,7 @@ try:
     ###########################
     # READ IN DATA
     ###########################
-    parse_dates = ['date']  # need the correct format
-    trends_df = pd.read_csv(INPUT_DIR + 'google-trends-difference.csv', parse_dates=parse_dates)
+    trends_df = pd.read_csv(INPUT_DIR + 'google-trends-new.csv')
     trends_df = trends_df[trends_df.score_difference.notna()]
     trends_df["score_difference"] = trends_df["score_difference"].astype("int")
     who_trends_df = pd.read_csv(INPUT_DIR + 'data_who_clean.csv', )
