@@ -18,14 +18,18 @@ Esme Middaugh, emiddaugh@info-first.com
   width: calc(100% + var(--gap));
 }
 
-.row > * {
+.row > *:not(a) {
   margin: var(--gap) 0 0 var(--gap);
 }
 
 .project-explanation{
     color: #f0f0f0;
-    padding: 30px 50px;
+    padding: 15px;
     text-align: justify;
+}
+
+.project-explanation-first{
+    margin-bottom: 15px;
 }
 
 .rc-slider-mark-text{
