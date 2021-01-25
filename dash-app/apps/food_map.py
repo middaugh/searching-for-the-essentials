@@ -314,8 +314,6 @@ try:
                 x=0.01
             )
         )
-        #who_fig.add_vrect(x0=who_date_reported_list[who_date_list.index(date_selected_datetime)], x1=who_date_reported_list[who_date_list.index(date_selected_datetime)+1])
-
         return map_fig, header, who_fig
 
 except Exception as e:
