@@ -9,6 +9,7 @@ December 7, 2020
 import os
 from datetime import datetime
 import pandas as pd
+pd.options.mode.chained_assignment = None  # default='warn'
 import numpy as np
 import glob
 import re
@@ -33,10 +34,43 @@ try:
     trends_df = trends_df[trends_df.score_difference.notna()]
     trends_df["score_difference"] = trends_df["score_difference"].astype("int")
     trends_df['date_str'] = trends_df['date'].astype(str)
+    trends_df = trends_df.sort_values(by="date_str", axis=0)
+
+    display_terms = {'baking': 'baking',
+                     'bananabread': 'banana bread',
+                     'beans': 'beans',
+                     'coffee': 'coffee',
+                     'cooking': 'cooking',
+                     'facemask': 'face mask',
+                     'grocerydelivery': 'grocery delivery',
+                     'hand-sanitizer': 'hand sanitizer',
+                     'pasta': 'pasta',
+                     'restaurant': 'restaurant',
+                     'rice': 'rice',
+                     'spices': 'spices',
+                     'takeaway': 'takeaway',
+                     'to-go': 'to go',
+                     'toiletpaper': 'toilet paper'
+                     }
+
+    trends_df["display_term"] = trends_df.term.map(display_terms)
+
+    # World Health Organization Covid Data
+    who_trends_df = pd.read_csv(INPUT_DIR + 'data_who_clean.csv', )
+    who_trends_df["date"] = pd.to_datetime(who_trends_df.Date_reported, format="%d/%m/%Y")
+
+    abbr_dict = {
+        'ger': 'Germany',
+        'uk': 'the United Kingdom',
+        'nl': 'the Netherlands',
+    }
+    trends_df['display_country'] = trends_df['country'].map(abbr_dict)
 
     ###########################
-    # PREP FOR MAPPING
+    # PREP
     ###########################
+
+    # MAPPING
     # Adding iso_alpha and iso_num to df to use it as location for creating the map
     def add_location(data):
         for index, row in data.iterrows():
@@ -64,62 +98,6 @@ try:
                 data.at[index, 'score_diff_positive'] = "negative"
             data.at[index, 'score_difference'] = abs(data.at[index, 'score_difference'])
         return data
-
-
-    ###########################
-    # PREP
-    ###########################
-    timeseries_update_layout_range_selector = dict(
-        # title_text='Records Ingested by Day',
-        margin=dict(l=75, r=40, b=40, t=75, pad=4),
-        clickmode='event+select',
-        xaxis=dict(
-            rangeselector=dict(
-                buttons=list([
-                    dict(count=1,
-                         label="1m",
-                         step="month",
-                         stepmode="backward"),
-                    dict(count=6,
-                         label="6m",
-                         step="month",
-                         stepmode="backward"),
-                    dict(count=1,
-                         label="YTD",
-                         step="year",
-                         stepmode="todate"),
-                    dict(count=1,
-                         label="1y",
-                         step="year",
-                         stepmode="backward"),
-                    dict(step="all")
-                ])
-            ),
-            rangeslider=dict(
-                visible=True
-            ),
-            type="date"
-        )
-
-    )
-
-    # *** Time Series Figure Creation
-    timeseries_fig = go.Figure()
-    # Cumulative Registered
-    timeseries_fig.add_trace(go.Scatter(x=trends_df['date'],
-                                         y=trends_df['score_difference'],
-                                         name="Cumulative",
-                                         line_color='lightgrey', line=dict(shape="spline")))
-
-    timeseries_fig.update_layout(
-        **timeseries_update_layout_range_selector,
-        legend=dict(
-        yanchor="top",
-        y=0.99,
-        xanchor="left",
-        x=0.01
-    ))
-    # *** End Time Series Figure
 
     ## GENERATE ICONS
     if os.name == 'nt':
@@ -158,130 +136,185 @@ try:
         )
         icon_layout.append(row_layout)
 
-    ## DETAILS JOY MAP --- JUST NETHERLANDS FOR NOW< TODO Turn into Callback
-    np.random.seed(1)
-    num_categories = len(icon_ids)
-    data = (np.linspace(1, 2, num_categories)[:, np.newaxis] * np.random.randn(num_categories, 200) +
-            (np.arange(num_categories) + 2 * np.random.random(num_categories))[:, np.newaxis])
-    colors = n_colors('rgb(5, 200, 200)', 'rgb(200, 10, 10)', num_categories, colortype='rgb')
-    joy_fig = go.Figure()
 
-    #TODO: modify so that its zipping together trends_df filtered on item type for each color
-    for term, color in zip(trends_df.term.unique(), colors):
-        filtered_data = trends_df[(trends_df.country == "nl") & (trends_df.term == term)] # keep only one country and one term at a time
-        joy_fig.add_trace(go.Violin(x=filtered_data["score_difference"], line_color=color, name=term))
-    joy_fig.update_traces(orientation='h', side='positive', width=3, points=False)
-    joy_fig.update_layout(xaxis_showgrid=False, xaxis_zeroline=False, showlegend=False)
+    # SLIDER
+    # transform every unique date to a number & only get days that have matching WHO Covid data
+    slider_dict = {i: x for i, x in enumerate(trends_df[trends_df["date"].isin(who_trends_df["date"])]["date"].sort_values().unique())}
+
+    slider = dcc.Slider(
+        id='map-date-slider',
+        min=min(slider_dict.keys()),
+        max=max(slider_dict.keys()),
+        value=min(slider_dict.keys()),
+        marks={key: pd.to_datetime(str(value)).strftime('%d/%m/%y') for key, value in slider_dict.items()},
+        included=False,
+        updatemode='drag'
+    )
 
 
     ###########################
     # LAYOUT TO BE USED IN INDEX.PY
     ###########################
     layout = html.Div(
-        className="viz-card viz-card--timeseries flex-one",
+        className="viz-card flex-one",
         children=[
-            dcc.Store(id="timeseries_output"),
+            dcc.Store(id="icon_store"),
+            dcc.Store(id="slider_store"),
 
-            html.H4("Step 1: Select a Search Term",
+            html.H4("Select a Search Term",
                     className="viz-card__header viz-card__header--timeseries"),
-            *icon_layout,
 
-            html.H4("Step 2: Map",
-                    className="viz-card__header viz-card__header--timeseries"),
+            *icon_layout, # all 15 icons laid out in three rows
+
+            html.H4(id="food_map_header",
+                    className="viz-card__header viz-card__header--timeseries"
+                    ),
             html.Div(
                 className="row mobile-interaction-disabled",
                 children=[
                     dcc.Graph(id="test_map",
                               className='viz-card__graph viz-card__graph--timeseries flex-three'
+                              ),
+                    dcc.Graph(id="who_fig",
+                              className='viz-card__graph flex-two'
                               )
                 ]
             ),
             html.Div(
-                className="row",
                 children=[
-                    html.Div(
-                        id="test-map-output",
-                    )
+                    slider
                 ]
             )
-        ])
-
+        ]
+    )
     ###########################
     # CALLBACK FUNCTIONS, IF ANY
     ###########################
     # Time Series and Record Types
 
     ## Create the callbacks in a loop
+    callback_inputs = [Input(x, 'n_clicks') for x in icon_ids]
+    callback_inputs.append(Input('my-slider', 'value'))
+
+    # Get which icon has been clicked and update the store
     @app.callback(
-         Output("test_map", "figure"),
+          Output("icon_store", "data"),
         [Input(x, 'n_clicks') for x in icon_ids])
     def update_output_div(*icon_ids):
         ctx = dash.callback_context
         if not ctx.triggered:
-            button_id = 'No clicks yet'
+            button_id = 'toiletpaper-button'
         else:
             button_id = ctx.triggered[0]['prop_id'].split('.')[0]
-        # Attempt to generate map
-        try:
-            filtered_data = trends_df[trends_df.term == button_id.split("-")[0]] # test term, should be exchanged
-            if len(filtered_data) == 0:
-                filtered_data = trends_df[trends_df.term == "restaurant"]  # baseline
-        except Exception as e:
-            filtered_data = trends_df[trends_df.term == "restaurant"] # baseline
-            raise e
 
-        #filtered_data = trends_df[trends_df.term == "restaurant"] # baseline
-        transformed_data = transform_data(filtered_data)
-        transformed_data["modified_score_difference"] = transformed_data["score_difference"] * 8
-        color_discrete_map = {"positive": "#419D78", "negative": "#DE6449"}
-        test_fig = px.scatter_geo(transformed_data,
-                                  locations="iso_alpha",
-                                  color="score_diff_positive",
-                                  color_discrete_map=color_discrete_map,
-                                  hover_name="country",
-                                  hover_data={"country": True, "term": True, "score_difference": True},
-                                  size="score_difference",
-                                  size_max=50,
-                                  animation_frame="date_str",  # has to be edited
-                                  projection="conic conformal", # for Europe: conic conformal OR azimuthal equal area
-                                  height=600,
-                                  width=1000,
-                                  #title="SET TITLE",
-                                  labels = {
-                                           "score_diff_positive":"Search term popularity compared to previous year ",
-                                           "date_str": "Date ",
-                                           "iso_alpha":"Country abbreviation ",
-                                           "country":"Country ",
-                                           "score_difference":"Search query value ",
-                                           "term":"Term "
-                                     }
-                                  )  
+        search_term = button_id[:-7]
+        return search_term
 
-        test_fig.update_layout(geo_scope="europe")
-        test_fig.update_layout(legend_title_text='Search term popularity compared to previous year') 
-
-        test_fig.update_geos(projection_scale=4,  # set value; default = 1 (Europe scale)
-                             # set map extent
-                             center_lon=4.895168,  # set coordinates of Amsterdam as center of map
-                             center_lat=52.370216,
-                             # fitbounds= "locations"
-                             showland=False,
-                             showocean=True,
-                             oceancolor="#eee" # try with "#fffff" for white background
-                             )
-
-
-        return test_fig
-
-    # What user has selected on map
+    # Update another store with the value of the slider
     @app.callback(
-        Output('test-map-output', 'children'),
-        [Input("test-map", 'relayoutData')])
-    def map_clicked(selected_country):
-        ctx = dash.callback_context
-        if not ctx.triggered:
-            return 'BUBBLE'
-        return "zoom"
+            Output("slider_store", "data"),
+            [Input("map-date-slider", "value")])
+    def update_from_date_slider(slider_choice):
+        date_selected = slider_dict[slider_choice]
+        date_selected = pd.to_datetime(str(date_selected)).strftime('%Y-%m-%d') # match the date_str format from transformed_Df
+        return date_selected
+
+    @app.callback(
+        [Output("test_map", "figure"),
+         Output("food_map_header", "children"),
+         Output("who_fig", "figure")],
+        [Input("icon_store", "data"),
+         Input("slider_store", "data")])
+    def update_from_store(search_term, date_selected):
+        ### Prep
+        # Limit to selected term and date
+        filtered_data = trends_df[(trends_df.term == search_term) & (trends_df.date_str == date_selected)]
+        transformed_data = transform_data(filtered_data)
+
+        ### Map
+        color_discrete_map = {"positive": "#419D78", "negative": "#DE6449"}
+        map_fig = px.scatter_geo(
+            transformed_data,
+            locations="iso_alpha",
+            color="score_diff_positive",
+            color_discrete_map=color_discrete_map,
+            hover_name="country",
+            size="score_difference",
+            size_max=50,
+            projection="conic conformal",  # for Europe: conic conformal OR azimuthal equal area
+            height=600,
+            hover_data={
+              "display_term": True,
+              "date_str": True,
+              "display_country": True,
+              "score_difference": True,
+              "score_diff_positive": True,
+              "iso_alpha": False
+            },
+            labels={
+              "score_diff_positive": "Search term popularity compared to previous year ",
+              "date_str": "Date ",
+              "display_country": "Country ",
+              "score_difference": "Search query value ",
+              "renamed_term": "Term "
+            }
+        )
+
+        map_fig.update_layout(
+            geo_scope="europe",
+            legend_title_text='Search term popularity compared to previous year',
+            legend=dict(
+                yanchor="top",
+                y=0.99,
+                xanchor="left",
+                x=0.01
+            ),
+            margin=dict(l=0, r=0, t=0, b=0),
+
+        )
+
+        map_fig.update_geos(
+            projection_scale=4,  # set value; default = 1 (Europe scale)
+            # set map extent
+            center_lon=4.895168,  # set coordinates of Amsterdam as center of map
+            center_lat=52.370216,
+            # fitbounds= "locations"
+            showland=False,
+            showocean=True,
+            oceancolor="#eee"  # try with "#fffff" for white background
+        )
+
+        map_fig.update_traces(
+            hovertemplate="<b>%{customdata[0]}</b><br>Date: %{customdata[1]}<br>Country: %{customdata[2]}<br>Score Difference: %{customdata[3]}<extra></extra>",
+            # print("plotly express hovertemplate:", disposed_lifecycle_fig.data[0].hovertemplate)
+        )
+
+        ### Header
+        header = f"Search Trend Popularity & WHO COVID-19 Cases for {display_terms[search_term].capitalize()}"
+
+        ### WHO Bar Graph
+        date_selected_datetime = pd.to_datetime(date_selected)
+
+        # WHO Line Fig with Vertical Line
+        who_fig = px.line(who_trends_df,
+                              x="date",
+                              y="Nom_new_cases",
+                              color="Country",
+                              hover_name="Country",
+                              labels={"Nom_new_cases": "Cases per 100.000 inhabitants",
+                                      "date": ""},
+                              )
+        who_fig.add_vline(x=date_selected_datetime, line_color="gray", line_dash="dash")
+        who_fig.update_xaxes(title_text=None)
+        who_fig.update_layout(
+            legend=dict(
+                yanchor="top",
+                y=0.99,
+                xanchor="left",
+                x=0.01
+            )
+        )
+        return map_fig, header, who_fig
 
 except Exception as e:
     layout = html.H3(f"Problem loading {os.path.basename(__file__)}, please check console for details.")
@@ -291,6 +324,3 @@ except Exception as e:
 if __name__ == '__main__':
     app.layout = layout
     app.run_server(debug=True)
-
-
-

@@ -27,3 +27,7 @@ Esme Middaugh, emiddaugh@info-first.com
     padding: 30px 50px;
     text-align: justify;
 }
+
+.rc-slider-mark-text{
+    transform: translate(-45px, 10px) rotate(-45deg) !important;
+}

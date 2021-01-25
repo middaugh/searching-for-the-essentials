@@ -41,7 +41,7 @@ Stylesheet for basics of a viz-card.
 .viz-card {
     margin-bottom: 15px;
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.18), 0 5px 15px 0 rgba(0, 0, 0, 0.15);
-    padding: 2vmin 4vmin;
+    padding: 4vmin 4vmin;
     background-color: #ffff;
     min-width: 275px; /* set to min graph-card-size" */
     box-sizing: content-box;

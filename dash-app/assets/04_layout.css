@@ -9,6 +9,7 @@
 
 :root {
   --nav-side-width: 0px;
+  --display-max-width: 750px:
 }
 .nav{
     background-color: var(--nav-bgcolor);
@@ -106,19 +107,29 @@
     color: #DE6449;
 }
 
+.nav__container{
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--display-max-width);
+}
+
 
 /* Page Content */
 .page-content{
-    margin: 0px var(--side-space);
     padding: 10px;
+    padding-bot
     flex-flow: column wrap;
     height: 100%:
+    width: var(--display-max-width);
+    margin: 0 auto;
+
 }
 
 @media only screen and (max-width: 600px) {
 	.page-content {
-		margin: 0px var(--side-space--mobile);
 		padding: 5px;
+		width: 95%;
+        margin: 0 auto;
 	}
 }
 

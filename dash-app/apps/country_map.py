@@ -34,11 +34,31 @@ try:
     trends_df["score_difference"] = trends_df["score_difference"].astype("int")
     trends_df['date_str'] = trends_df['date'].astype(str)
 
+    # World Health Organization Covid Data
+    who_trends_df = pd.read_csv(INPUT_DIR + 'data_who_clean.csv', )
+    who_trends_df["date"] = pd.to_datetime(who_trends_df.Date_reported, format="%d/%m/%Y")
+
     ###########################
     # PREP
     ###########################
 
     np.random.seed(1)
+
+    # Renaming terms for improved labeling:
+    old_terms = ['baking','bananabread','beans','coffee','cooking','facemask','grocerydelivery','hand-sanitizer','pasta',
+            'restaurant','rice','spices','takeaway','to-go','toiletpaper']
+    new_terms = ['baking','banana bread','beans','coffee','cooking','face mask','grocery delivery','hand sanitizer','pasta',
+            'restaurant','rice','spices','take away','to go','toiletpaper']
+    new_terms = old_terms
+
+    def rename_terms(data):
+        for i in range(0,len(old_terms)):
+            for index, row in data.iterrows():
+                if row['term'] == old_terms[i]:
+                    data.loc[index,'renamed_term'] = new_terms[i]
+        return data
+
+    trends_df = rename_terms(trends_df)
 
     # Adding iso_alpha and iso_num to df to use it as location for creating the map
     def add_location(data):
@@ -78,11 +98,30 @@ try:
         if name.endswith(".svg"):
             icons.append(ICON_DIR + name)
 
+
+    who_linefig = px.line(who_trends_df,
+         x="date",
+         y="Nom_new_cases", 
+         color="Country", 
+         hover_name="Country",
+         labels={"Nom_new_cases":"Cases per 100.000 inhabitants",
+                    "date":""},
+    )
+
+    who_linefig.update_layout(
+        legend=dict(
+            yanchor="top",
+            y=0.99,
+            xanchor="left",
+            x=0.01
+        )
+    )
+
     ###########################
     # LAYOUT TO BE USED IN INDEX.PY
     ###########################
     layout = html.Div(
-        className="viz-card viz-card--country centered",
+        className="viz-card viz-card--country centered flex-one",
         children=[
             html.H4("Select a Country",
                     className="viz-card__header viz-card__header--timeseries"),
@@ -95,9 +134,12 @@ try:
                         options=[
                             {'label': 'Germany', 'value': 'ger'},
                             {'label': 'United Kingdom', 'value': 'uk'},
-                            {'label': 'Netherlands', 'value': 'nl'}
+                            {'label': 'The Netherlands', 'value': 'nl'}
                         ],
-                        value='ger'
+                        value=['ger', 'uk', 'nl'],
+                        multi=True,
+                        clearable=False,
+                        searchable=False
                     )
                 ]
             ),
@@ -111,6 +153,16 @@ try:
                     ),
                     dcc.Graph(id="joy-graph",
                               className='viz-card__graph viz-card__graph--timeseries flex-one')
+                ]
+            ),
+            html.H4("\nCorona cases per week per country"),
+            html.Div(
+                className="viz-card__header viz-card__header--timeseries",
+                # className="viz-card flex-one",
+                children=[
+                    dcc.Graph(
+                        figure=who_linefig
+                    )
                 ]
             )
         ]
@@ -128,51 +180,64 @@ try:
         # H3 Header
         abbr_dict = {
             'ger': 'Germany',
-            'uk': 'United Kingdom',
-            'nl': 'The Netherlands'
+            'uk': 'the United Kingdom',
+            'nl': 'the Netherlands',
         }
 
-        # Filter By Selected Country
-        selected_country_df = trends_df[trends_df['country'] == selected_country]
+        if type(selected_country) != list: # want a standard input format regardless of number items selected by user
+            selected_country = [selected_country]
 
+        # Filter By Selected Country
+        selected_country_df = trends_df[trends_df['country'].isin(selected_country)]
+        selected_country_df['display_country'] = selected_country_df['country'].map(abbr_dict)
+
+        
         # Polar Header
-        polar_header = f"Comparative Search Trends for {abbr_dict[selected_country]}"
+        polar_header = f"Comparative Search Trends for {' & '.join([abbr_dict[x] for x in selected_country])}"
 
         # Make Polar Chart
         polar_fig = px.line_polar(
             selected_country_df,
             r="score_difference",
-            theta="term",
-            color="country",
+            theta="renamed_term",
+            color="display_country",
             line_close=True,
             line_shape="spline",
-            range_r=[min(selected_country_df["score_difference"]), max(selected_country_df["score_difference"])],
+            range_r=[min(trends_df["score_difference"]), max(trends_df["score_difference"])],
             render_mode="auto",
             animation_frame="date_str",
             width=600,
             height=600,
             labels={"date_str":"Date ",
                     "country":"Country ",
-                    "term":"Term ",
+                    "renamed_term":"Term ",
                     "score_difference":'Search term popularity value'},
-            #category_orders= {"term":["baking","coffee","toiletpaper","to-go":"tTo-go","pasta":"Pasta"},
             )
         polar_fig.update_layout(
             margin=dict(t=25, l=25, r=25, b=25, pad=10),
-            showlegend=False
+            showlegend=True,
+            legend_title_text='Country'
         )
 
+
         # JOY MAP
-        num_categories = selected_country_df.term.nunique()
+        num_categories = selected_country_df.renamed_term.nunique()
         colors = n_colors('rgb(5, 200, 200)', 'rgb(200, 10, 10)', num_categories, colortype='rgb')
         joy_fig = go.Figure()
 
         # TODO: modify so that its zipping together trends_df filtered on item type for each color
-        for term, color in zip(trends_df.term.unique(), colors):
-            joy_filtered_data = selected_country_df[ selected_country_df.term == term]  # show one term at a time
-            joy_fig.add_trace(go.Violin(x=joy_filtered_data["score_difference"], line_color=color, name=term))
+        for renamed_term, color in zip(trends_df.renamed_term.unique(), colors):
+            joy_filtered_data = selected_country_df[selected_country_df.renamed_term == renamed_term]  # show one term at a time
+            joy_fig.add_trace(go.Violin(x=joy_filtered_data["score_difference"],
+                                        line_color=color,
+                                        name=renamed_term,
+                                        customdata=["date_str"],
+                                        hoverinfo="skip"
+                                        )
+                              )
         joy_fig.update_traces(orientation='h', side='positive', width=3, points=False)
         joy_fig.update_layout(xaxis_showgrid=False, xaxis_zeroline=False, showlegend=False)
+        joy_fig.update_xaxes(showticklabels=False)
 
         return polar_header, polar_fig, joy_fig
 
