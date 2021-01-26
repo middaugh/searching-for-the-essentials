@@ -262,7 +262,7 @@ try:
 
         map_fig.update_layout(
             geo_scope="europe",
-            legend_title_text='Search term popularity compared to previous year',
+            legend_title_text='Search Term Popularity Compared to Previous Year',
             legend=dict(
                 yanchor="top",
                 y=0.99,

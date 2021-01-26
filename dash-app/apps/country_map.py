@@ -104,7 +104,7 @@ try:
          y="Nom_new_cases", 
          color="Country", 
          hover_name="Country",
-         labels={"Nom_new_cases":"Cases per 100.000 inhabitants",
+         labels={"Nom_new_cases":"COVID-19 Cases per 100.000 Inhabitants",
                     "date":""},
     )
 
@@ -133,7 +133,7 @@ try:
                         id='country-dropdown',
                         options=[
                             {'label': 'Germany', 'value': 'ger'},
-                            {'label': 'United Kingdom', 'value': 'uk'},
+                            {'label': 'The United Kingdom', 'value': 'uk'},
                             {'label': 'The Netherlands', 'value': 'nl'}
                         ],
                         value=['ger', 'uk', 'nl'],
@@ -155,7 +155,7 @@ try:
                               className='viz-card__graph viz-card__graph--timeseries flex-one')
                 ]
             ),
-            html.H4("\nCorona cases per week per country"),
+            html.H4("\nCOVID-19 Cases per Country"),
             html.Div(
                 className="viz-card__header viz-card__header--timeseries",
                 # className="viz-card flex-one",
