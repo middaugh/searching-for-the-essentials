@@ -201,6 +201,8 @@ try:
             r="score_difference",
             theta="renamed_term",
             color="display_country",
+            category_orders={'country':['ger','nl','uk']},
+            #color_discrete_map={'country':['#17becf','#ff7f0e','#7f7f7f']}, # TODO: has to be edited
             line_close=True,
             line_shape="spline",
             range_r=[min(trends_df["score_difference"]), max(trends_df["score_difference"])],
@@ -215,8 +217,13 @@ try:
             )
         polar_fig.update_layout(
             margin=dict(t=25, l=25, r=25, b=25, pad=10),
-            showlegend=True,
-            legend_title_text='Country'
+            legend_title_text='',
+            #legend_font_size=12,
+            legend=dict(orientation="h",
+                        yanchor="bottom",
+                        xanchor="left",
+                        y=-0.15
+                        )
         )
 
 
