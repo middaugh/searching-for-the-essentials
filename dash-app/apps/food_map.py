@@ -319,7 +319,7 @@ try:
         )
 
         ### Header
-        header = f"Search Trend Popularity & WHO COVID-19 Cases for {display_terms[search_term].capitalize()}"
+        header = f"Search Trend Popularity for {display_terms[search_term].capitalize()} and average COVID-19 Rate for Germany, the Netherlands, and the UK"
 
         ### WHO Bar Graph
         date_selected_datetime = pd.to_datetime(date_selected)
@@ -330,6 +330,7 @@ try:
                               y="Nom_new_cases",
                               color="Country",
                               hover_name="Country",
+                              line_shape="spline",
                               labels={"Nom_new_cases": "Cases per 100.000 inhabitants",
                                       "date": ""},
                               )
