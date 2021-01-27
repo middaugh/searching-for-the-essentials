@@ -275,7 +275,7 @@ try:
                                     "iso_alpha": False
                                 },
                                 color_discrete_map={
-                                    "grey": "#AEAEAE"
+                                    "grey": "#CECECE"
                                 }
                             )
 
@@ -310,7 +310,7 @@ try:
             showland=False,
             showocean=True,
             oceancolor="#eee",  # try with "#fffff" for white background
-            countrycolor="#aaa"
+            countrycolor="#aaa" # outline of countries
         )
 
         map_fig.update_traces(
@@ -334,7 +334,7 @@ try:
                               labels={"Nom_new_cases": "Cases per 100.000 inhabitants",
                                       "date": ""},
                               )
-        who_fig.add_vline(x=date_selected_datetime, line_color="gray", line_dash="dash")
+        who_fig.add_vline(x=date_selected_datetime, line_color="#f0f0f0", line_dash="dash")
         who_fig.update_xaxes(title_text=None)
         who_fig.update_layout(
             legend=dict(

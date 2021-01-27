@@ -77,6 +77,10 @@
     justify-content: center;
 }
 
+a.nav__link, a.nav__link:visited{
+    color: var(--secondary-color);
+}
+
 .nav__link{
     text-decoration: none;
     font-size: 1.3em;
