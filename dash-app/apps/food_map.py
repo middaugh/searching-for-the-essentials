@@ -238,7 +238,7 @@ try:
             transformed_data,
             locations="iso_alpha",
             color="score_diff_positive",
-            color_discrete_map=color_discrete_map,
+            color_discrete_sequence=['dodgerblue', 'orangered'],
             hover_name="country",
             size="score_difference",
             size_max=50,
@@ -331,7 +331,7 @@ try:
                               color="Country",
                               hover_name="Country",
                               line_shape="spline",
-                              labels={"Nom_new_cases": "Cases per 100.000 inhabitants",
+                              labels={"Nom_new_cases": "COVID-19 Cases per 100.000 Inhabitants",
                                       "date": ""},
                               )
         who_fig.add_vline(x=date_selected_datetime, line_color="#f0f0f0", line_dash="dash")
