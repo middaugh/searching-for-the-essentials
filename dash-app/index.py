@@ -99,7 +99,7 @@ def display_page(pathname):
                             country_map.layout,
                         ]
                     ),
-                    html.H3("ABOUT", className="text-centered nav__container"),
+                    html.H3("ABOUT", className="text-centered nav__link"),
                     html.Div(
                         className="nav_container",
                         children=[

@@ -230,6 +230,7 @@ try:
         # Limit to selected term and date
         filtered_data = trends_df[(trends_df.term == search_term) & (trends_df.date_str == date_selected)]
         transformed_data = transform_data(filtered_data)
+        transformed_data["choropleth"] = "grey"
 
         ### Map
         color_discrete_map = {"positive": "#419D78", "negative": "#DE6449"}
@@ -237,7 +238,7 @@ try:
             transformed_data,
             locations="iso_alpha",
             color="score_diff_positive",
-            color_discrete_map=color_discrete_map,
+            color_discrete_sequence=['dodgerblue', 'darkred'],
             hover_name="country",
             size="score_difference",
             size_max=50,
@@ -260,6 +261,33 @@ try:
             }
         )
 
+        map_fig_choropleth = px.choropleth(
+                            transformed_data,
+                                locations="iso_alpha",
+                                color="choropleth",  # lifeExp is a column of gapminder
+                                hover_name=None,  # column to add to hover information
+                                hover_data={
+                                    "display_term": True,
+                                    "date_str": True,
+                                    "display_country": True,
+                                    "score_difference": True,
+                                    "score_diff_positive": True,
+                                    "iso_alpha": False
+                                },
+                                color_discrete_map={
+                                    "grey": "#CECECE"
+                                }
+                            )
+
+
+        # Add background color to map & ensure it doesn't show up in legend
+        map_fig_choropleth.update_traces(name='background_color', showlegend=True)
+        map_fig.add_trace(map_fig_choropleth.data[0])
+
+        map_fig.for_each_trace(
+            lambda trace: trace.update(showlegend=False) if trace.name == "background_color" else (),
+        )
+
         map_fig.update_layout(
             geo_scope="europe",
             legend_title_text='Search Term Popularity Compared to Previous Year',
@@ -270,8 +298,8 @@ try:
                 x=0.01
             ),
             margin=dict(l=0, r=0, t=0, b=0),
-
         )
+
 
         map_fig.update_geos(
             projection_scale=4,  # set value; default = 1 (Europe scale)
@@ -281,7 +309,8 @@ try:
             # fitbounds= "locations"
             showland=False,
             showocean=True,
-            oceancolor="#eee"  # try with "#fffff" for white background
+            oceancolor="#eee",  # try with "#fffff" for white background
+            countrycolor="#aaa" # outline of countries
         )
 
         map_fig.update_traces(
@@ -290,7 +319,7 @@ try:
         )
 
         ### Header
-        header = f"Search Trend Popularity & WHO COVID-19 Cases for {display_terms[search_term].capitalize()}"
+        header = f"Search Trend Popularity for {display_terms[search_term].capitalize()} and average COVID-19 Rate for Germany, the Netherlands, and the UK"
 
         ### WHO Bar Graph
         date_selected_datetime = pd.to_datetime(date_selected)
@@ -301,10 +330,11 @@ try:
                               y="Nom_new_cases",
                               color="Country",
                               hover_name="Country",
-                              labels={"Nom_new_cases": "Cases per 100.000 inhabitants",
+                              line_shape="spline",
+                              labels={"Nom_new_cases": "COVID-19 Cases per 100.000 Inhabitants",
                                       "date": ""},
                               )
-        who_fig.add_vline(x=date_selected_datetime, line_color="gray", line_dash="dash")
+        who_fig.add_vline(x=date_selected_datetime, line_color="#f0f0f0", line_dash="dash")
         who_fig.update_xaxes(title_text=None)
         who_fig.update_layout(
             legend=dict(
