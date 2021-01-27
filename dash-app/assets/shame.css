@@ -35,3 +35,8 @@ Esme Middaugh, emiddaugh@info-first.com
 .rc-slider-mark-text{
     transform: translate(-45px, 10px) rotate(-45deg) !important;
 }
+
+a, a:visited{
+   color: #419D78;
+   text-decoration: none;
+}
