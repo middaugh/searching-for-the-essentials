@@ -44,21 +44,41 @@ try:
 
     np.random.seed(1)
 
-    # Renaming terms for improved labeling:
-    old_terms = ['baking','bananabread','beans','coffee','cooking','facemask','grocerydelivery','hand-sanitizer','pasta',
-            'restaurant','rice','spices','takeaway','to-go','toiletpaper']
-    new_terms = ['baking','banana bread','beans','coffee','cooking','face mask','grocery delivery','hand sanitizer','pasta',
-            'restaurant','rice','spices','take away','to go','toiletpaper']
-    new_terms = old_terms
+    # # Renaming terms for improved labeling:
+    # old_terms = ['baking','bananabread','beans','coffee','cooking','facemask','grocerydelivery','hand-sanitizer','pasta',
+    #         'restaurant','rice','spices','takeaway','to-go','toiletpaper']
+    # new_terms = ['baking','banana bread','beans','coffee','cooking','face mask','grocery delivery','hand sanitizer','pasta',
+    #         'restaurant','rice','spices','take away','to go','toiletpaper']
+    # new_terms = old_terms
+    #
+    # def rename_terms(data):
+    #     for i in range(0,len(old_terms)):
+    #         for index, row in data.iterrows():
+    #             if row['term'] == old_terms[i]:
+    #                 data.loc[index,'renamed_term'] = new_terms[i]
+    #     return data
+    #
+    # trends_df = rename_terms(trends_df)
 
-    def rename_terms(data):
-        for i in range(0,len(old_terms)):
-            for index, row in data.iterrows():
-                if row['term'] == old_terms[i]:
-                    data.loc[index,'renamed_term'] = new_terms[i]
-        return data
+    display_terms = {'baking': 'baking',
+                     'bananabread': 'banana bread',
+                     'beans': 'beans',
+                     'coffee': 'coffee',
+                     'cooking': 'cooking',
+                     'facemask': 'face mask',
+                     'grocerydelivery': 'grocery delivery',
+                     'hand-sanitizer': 'hand sanitizer',
+                     'pasta': 'pasta',
+                     'restaurant': 'restaurant',
+                     'rice': 'rice',
+                     'spices': 'spices',
+                     'takeaway': 'takeaway',
+                     'to-go': 'to go',
+                     'toiletpaper': 'toilet paper'
+                     }
 
-    trends_df = rename_terms(trends_df)
+    trends_df["display_term"] = trends_df.term.map(display_terms)
+    trends_df["renamed_term"] = trends_df["display_term"]
 
     # Adding iso_alpha and iso_num to df to use it as location for creating the map
     def add_location(data):
@@ -191,6 +211,9 @@ try:
         selected_country_df = trends_df[trends_df['country'].isin(selected_country)]
         selected_country_df['display_country'] = selected_country_df['country'].map(abbr_dict)
 
+        selected_country_df_ger = selected_country_df[selected_country_df["country"]=="ger"]
+        selected_country_df_nl = selected_country_df[selected_country_df["country"]=="nl"]
+        selected_country_df_uk = selected_country_df[selected_country_df["country"]=="nl"]
         
         # Polar Header
         polar_header = f"Comparative Search Trends for {' & '.join([abbr_dict[x] for x in selected_country])}"
@@ -214,7 +237,27 @@ try:
                     "country":"Country ",
                     "renamed_term":"Term ",
                     "score_difference":'Search term popularity value'},
-            )
+        )
+        # polar_fig = go.Figure()
+        # polar_fig.add_trace(go.Scatterpolar(
+        #     r=selected_country_df_ger['selected_country'],
+        #     theta=selected_country_df_ger['renamed_term'],
+        #     mode='lines',
+        #     name='Germany',
+        #     line_color='orange',
+        #     line_close=True,
+        #     line_shape="spline",
+        #     range_r=[min(trends_df["score_difference"]), max(trends_df["score_difference"])],
+        #     render_mode="auto",
+        #     animation_frame="date_str",
+        #     width=600,
+        #     height=600,
+        #     labels={"date_str": "Date ",
+        #             "country": "Country ",
+        #             "renamed_term": "Term ",
+        #             "score_difference": 'Search term popularity value'},
+        # )
+        # )
         polar_fig.update_layout(
             margin=dict(t=25, l=25, r=25, b=25, pad=10),
             legend_title_text='',
@@ -225,7 +268,6 @@ try:
                         y=-0.15
                         )
         )
-
 
         # JOY MAP
         num_categories = selected_country_df.renamed_term.nunique()
