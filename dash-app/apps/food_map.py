@@ -238,7 +238,7 @@ try:
             transformed_data,
             locations="iso_alpha",
             color="score_diff_positive",
-            color_discrete_sequence=['dodgerblue', 'orangered'],
+            color_discrete_sequence=['dodgerblue', 'darkred'],
             hover_name="country",
             size="score_difference",
             size_max=50,
