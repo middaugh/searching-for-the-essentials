@@ -7,11 +7,9 @@ December 7, 2020
 """
 
 import os
-from datetime import datetime
 import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
 import numpy as np
-import glob
 import re
 
 import dash
@@ -233,7 +231,6 @@ try:
         transformed_data["choropleth"] = "grey"
 
         ### Map
-        color_discrete_map = {"positive": "#419D78", "negative": "#DE6449"}
         map_fig = px.scatter_geo(
             transformed_data,
             locations="iso_alpha",
@@ -319,7 +316,7 @@ try:
         )
 
         ### Header
-        header = f"Search Trend Popularity for {display_terms[search_term].capitalize()} and average COVID-19 Rate for Germany, the Netherlands, and the UK"
+        header = f"Search Trend Popularity for {display_terms[search_term].capitalize()} and COVID-19 Infection Rate for Germany, the Netherlands, and the UK"
 
         ### WHO Bar Graph
         date_selected_datetime = pd.to_datetime(date_selected)
@@ -334,7 +331,7 @@ try:
                               labels={"Nom_new_cases": "COVID-19 Cases per 100.000 Inhabitants",
                                       "date": ""},
                               )
-        who_fig.add_vline(x=date_selected_datetime, line_color="#f0f0f0", line_dash="dash")
+        who_fig.add_vline(x=date_selected_datetime, line_color="#a0a0a0", line_dash="dash")
         who_fig.update_xaxes(title_text=None)
         who_fig.update_layout(
             legend=dict(

@@ -10,8 +10,7 @@ import os
 from datetime import datetime
 import pandas as pd
 import numpy as np
-import glob
-import re
+
 
 import dash
 import dash_core_components as dcc
@@ -176,7 +175,7 @@ try:
                               className='viz-card__graph viz-card__graph--timeseries flex-one')
                 ]
             ),
-            html.H4("\nCOVID-19 Cases per Country"),
+            html.H4("COVID-19 Infection Rate"),
             html.Div(
                 className="viz-card__header viz-card__header--timeseries",
                 # className="viz-card flex-one",
@@ -239,26 +238,7 @@ try:
                     "renamed_term":"Term ",
                     "score_difference":'Search term popularity value'},
         )
-        # polar_fig = go.Figure()
-        # polar_fig.add_trace(go.Scatterpolar(
-        #     r=selected_country_df_ger['selected_country'],
-        #     theta=selected_country_df_ger['renamed_term'],
-        #     mode='lines',
-        #     name='Germany',
-        #     line_color='orange',
-        #     line_close=True,
-        #     line_shape="spline",
-        #     range_r=[min(trends_df["score_difference"]), max(trends_df["score_difference"])],
-        #     render_mode="auto",
-        #     animation_frame="date_str",
-        #     width=600,
-        #     height=600,
-        #     labels={"date_str": "Date ",
-        #             "country": "Country ",
-        #             "renamed_term": "Term ",
-        #             "score_difference": 'Search term popularity value'},
-        # )
-        # )
+
         polar_fig.update_layout(
             margin=dict(t=25, l=25, r=25, b=25, pad=10),
             legend_title_text='',
@@ -287,7 +267,7 @@ try:
                               )
         joy_fig.update_traces(orientation='h', side='positive', width=3, points=False)
         joy_fig.update_layout(xaxis_showgrid=False, xaxis_zeroline=False, showlegend=False)
-        joy_fig.update_xaxes(showticklabels=False)
+        joy_fig.update_xaxes(showticklabels=False, title="November 2019 through October 2020")
 
         return polar_header, polar_fig, joy_fig
 
