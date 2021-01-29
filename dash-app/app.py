@@ -20,7 +20,7 @@ COLOR_PALETTE_GRADIENT = ["#73cfaa", "#0f6b46"]
 # Creating and Setting our Base Theme
 ###########################
 config = {'displaylogo': False, 'scrollZoom': False, 'displayModeBar': False}
-base_font = dict(family='Roboto, Helvetica, HelveticaNeue, Open Sans, sans-serif', size=15, color="#111111")
+base_font = dict(family='Work Sans, Roboto, Helvetica, HelveticaNeue, Open Sans, sans-serif', size=15, color="#111111")
 base_colorway = COLOR_PALETTE_CATEGORICAL  # from config.ini, pulled in above
 
 base_theme_fig = go.Figure(

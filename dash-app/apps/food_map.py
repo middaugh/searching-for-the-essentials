@@ -31,6 +31,7 @@ try:
     trends_df = pd.read_csv(INPUT_DIR + 'google-trends-difference.csv', parse_dates=parse_dates)
     trends_df = trends_df[trends_df.score_difference.notna()]
     trends_df["score_difference"] = trends_df["score_difference"].astype("int")
+    trends_df["original_score_difference"] = trends_df["score_difference"]
     trends_df['date_str'] = trends_df['date'].astype(str)
     trends_df = trends_df.sort_values(by="date_str", axis=0)
 
@@ -106,8 +107,12 @@ try:
     icons = []
     for name in os.listdir(ICON_DIR):
         if name.endswith(".svg"):
-            icons.append(ICON_DIR + name)
-    #icons = icons = glob.glob(ICON_DIR + '*.svg')
+            if "toiletpaper" in name:
+                icons.insert(0, ICON_DIR + name)  # ensure that toilet paper is always first
+            else:
+                icons.append(ICON_DIR + name)
+
+
     icon_ids = []
     icons = np.array(icons).reshape((3, -1))
     icon_layout = []
@@ -122,7 +127,8 @@ try:
                 children=
                     html.Img(
                         src=icon,
-                        className="icon"
+                        className="icon",
+                        alt=name_stripped
                     )
             )
             row_children.append(button)
