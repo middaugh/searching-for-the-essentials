@@ -16,9 +16,6 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
-from dash.exceptions import PreventUpdate
-import plotly.graph_objects as go
-from plotly.colors import n_colors
 import plotly.express as px
 
 from app import app, INPUT_DIR
@@ -45,25 +42,6 @@ try:
     ###########################
     # PREP
     ###########################
-
-    np.random.seed(1)
-
-    # # Renaming terms for improved labeling:
-    # old_terms = ['baking','bananabread','beans','coffee','cooking','facemask','grocerydelivery','hand-sanitizer','pasta',
-    #         'restaurant','rice','spices','takeaway','to-go','toiletpaper']
-    # new_terms = ['baking','banana bread','beans','coffee','cooking','face mask','grocery delivery','hand sanitizer','pasta',
-    #         'restaurant','rice','spices','take away','to go','toiletpaper']
-    # new_terms = old_terms
-    #
-    # def rename_terms(data):
-    #     for i in range(0,len(old_terms)):
-    #         for index, row in data.iterrows():
-    #             if row['term'] == old_terms[i]:
-    #                 data.loc[index,'renamed_term'] = new_terms[i]
-    #     return data
-    #
-    # trends_df = rename_terms(trends_df)
-
     display_terms = {'baking': 'baking',
                      'bananabread': 'banana bread',
                      'beans': 'beans',
@@ -199,7 +177,6 @@ try:
             theta="renamed_term",
             color="display_country",
             category_orders={'country': ['ger', 'nl', 'uk']},
-            # color_discrete_map={'country':['#17becf','#ff7f0e','#7f7f7f']}, # TODO: has to be edited
             line_close=True,
             line_shape="spline",
             range_r=[min(trends_df["orig_score_diff"]), max(trends_df["orig_score_diff"])],
