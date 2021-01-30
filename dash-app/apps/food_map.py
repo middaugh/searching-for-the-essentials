@@ -7,11 +7,9 @@ December 7, 2020
 """
 
 import os
-from datetime import datetime
 import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
 import numpy as np
-import glob
 import re
 
 import dash
@@ -33,6 +31,7 @@ try:
     trends_df = pd.read_csv(INPUT_DIR + 'google-trends-difference.csv', parse_dates=parse_dates)
     trends_df = trends_df[trends_df.score_difference.notna()]
     trends_df["score_difference"] = trends_df["score_difference"].astype("int")
+    trends_df["original_score_difference"] = trends_df["score_difference"]
     trends_df['date_str'] = trends_df['date'].astype(str)
     trends_df = trends_df.sort_values(by="date_str", axis=0)
 
@@ -108,8 +107,12 @@ try:
     icons = []
     for name in os.listdir(ICON_DIR):
         if name.endswith(".svg"):
-            icons.append(ICON_DIR + name)
-    #icons = icons = glob.glob(ICON_DIR + '*.svg')
+            if "toiletpaper" in name:
+                icons.insert(0, ICON_DIR + name)  # ensure that toilet paper is always first
+            else:
+                icons.append(ICON_DIR + name)
+
+
     icon_ids = []
     icons = np.array(icons).reshape((3, -1))
     icon_layout = []
@@ -124,7 +127,8 @@ try:
                 children=
                     html.Img(
                         src=icon,
-                        className="icon"
+                        className="icon",
+                        alt=name_stripped
                     )
             )
             row_children.append(button)
@@ -233,7 +237,6 @@ try:
         transformed_data["choropleth"] = "grey"
 
         ### Map
-        color_discrete_map = {"positive": "#419D78", "negative": "#DE6449"}
         map_fig = px.scatter_geo(
             transformed_data,
             locations="iso_alpha",
@@ -319,7 +322,7 @@ try:
         )
 
         ### Header
-        header = f"Search Trend Popularity for {display_terms[search_term].capitalize()} and average COVID-19 Rate for Germany, the Netherlands, and the UK"
+        header = f"Search Trend Popularity for {display_terms[search_term].capitalize()} and COVID-19 Infection Rate for Germany, the Netherlands, and the UK"
 
         ### WHO Bar Graph
         date_selected_datetime = pd.to_datetime(date_selected)
@@ -334,7 +337,7 @@ try:
                               labels={"Nom_new_cases": "COVID-19 Cases per 100.000 Inhabitants",
                                       "date": ""},
                               )
-        who_fig.add_vline(x=date_selected_datetime, line_color="#f0f0f0", line_dash="dash")
+        who_fig.add_vline(x=date_selected_datetime, line_color="#a0a0a0", line_dash="dash")
         who_fig.update_xaxes(title_text=None)
         who_fig.update_layout(
             legend=dict(

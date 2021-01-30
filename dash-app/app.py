@@ -12,7 +12,7 @@ import plotly.io as pio
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__)) # absolute path to parent directory, aka dashboard_app
 INPUT_DIR = os.path.join(BASE_DIR, 'output-data/')  # data stored from model.py
-TITLE = "SEARCHING FOR THE ESSENTIALS"
+TITLE = "Searching for the Essentials"
 COLOR_PALETTE_CATEGORICAL = ["#419d78", "#13262f", "#de6449", "#eac435", "#6d9dc5", "#a74482", "#f5e5fc"]
 COLOR_PALETTE_GRADIENT = ["#73cfaa", "#0f6b46"]
 
@@ -20,7 +20,7 @@ COLOR_PALETTE_GRADIENT = ["#73cfaa", "#0f6b46"]
 # Creating and Setting our Base Theme
 ###########################
 config = {'displaylogo': False, 'scrollZoom': False, 'displayModeBar': False}
-base_font = dict(family='Roboto, Helvetica, HelveticaNeue, Open Sans, sans-serif', size=15, color="#111111")
+base_font = dict(family='Work Sans, Roboto, Helvetica, HelveticaNeue, Open Sans, sans-serif', size=15, color="#111111")
 base_colorway = COLOR_PALETTE_CATEGORICAL  # from config.ini, pulled in above
 
 base_theme_fig = go.Figure(
@@ -89,7 +89,7 @@ app.index_string = '''
 <html>
     <head>
         {%metas%}
-        <title>{%title%} Dashboard</title>
+        <title>{%title%}</title>
         {%favicon%}
         {%css%}
         <link rel="preconnect" href="https://fonts.gstatic.com">
