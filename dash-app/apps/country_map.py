@@ -203,15 +203,23 @@ try:
         # Facet Plot
         selected_country_df_agg = selected_country_df.groupby(["date", "display_term"], as_index=False).mean()
         selected_country_df["orig_score_diff"] = selected_country_df["orig_score_diff"].astype(float)
-        facet_fig = px.line(selected_country_df_agg, x='date', y='orig_score_diff',
-                      facet_col='display_term', facet_col_wrap=3)
+        facet_fig = px.line(selected_country_df_agg,
+                            x='date', y='orig_score_diff',
+                            hover_data={
+                                "display_term": True,
+                                "date": True,
+                                "orig_score_diff": True,
+                            },
+                            facet_col='display_term',
+                            facet_col_wrap=3)
         facet_fig.for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))
         facet_fig.update_yaxes(title=None, showticklabels=False)
         facet_fig.update_xaxes(title=None)
         facet_fig.update_traces(
-            hovertemplate="<b>baking</b><br>%{x}<br>Score Difference from Previous Year: %{y:.2f}<extra></extra>",
+            hovertemplate="<b>%{customdata[0]}</b><br>%{x}<br>Score Difference from Previous Year: %{y:0f}<extra></extra>",
             line_color = "#a0a0a0"
         )
+        # print("plotly express hovertemplate:", facet_fig.data[0].hovertemplate)
 
         return polar_header, polar_fig, facet_fig
 
