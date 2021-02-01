@@ -107,8 +107,8 @@ def display_page(pathname):
                             className="project-explanation flex-one centered",
                             children='''Searching For The Essentials is an interactive web map experience allowing the user to explore the evolution of 
                             [Google Trends](https://trends.google.com)  data during the COVID-19 pandemic. We used the 
-                            Google data from November 2018 to November 2020 and calculated the Search Trends differences 
-                            between the first year (11/2018-11/2019) and the second year with COVID-19 impact (11/2019-11/2020). 
+                            Google data from January 2019 to November 2020 and calculated the Search Trends differences 
+                            between the first year (1/2019-11/2019) and the second year with COVID-19 impact (1/2020-11/2020). 
                             The result from this calculation is used for the data visualizations. 
                             A positive search query value indicates that the search term was searched more often during the 
                             pandemic than in the previous year, whereas a negative search value indicates a lower search 
@@ -149,8 +149,8 @@ def display_page(pathname):
                             className="project-explanation flex-one centered",
                             children='''Searching For The Essentials is an interactive web map experience allowing the user to explore the evolution of 
                             [Google Trends](https://trends.google.com)  data during the COVID-19 pandemic. We used the 
-                            Google data from November 2018 to November 2020 and calculated the Search Trends differences 
-                            between the first year (11/2018-11/2019) and the second year with COVID-19 impact (11/2019-11/2020). 
+                            Google data from January 2019 to November 2020 and calculated the Search Trends differences 
+                            between the first year (1/2019-11/2019) and the second year with COVID-19 impact (1/2020-11/2020). 
                             The result from this calculation is used for the data visualizations. 
                             A positive search query value indicates that the search term was searched more often during the 
                             pandemic than in the previous year, whereas a negative search value indicates a lower search 
