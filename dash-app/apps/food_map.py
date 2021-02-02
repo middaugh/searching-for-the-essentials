@@ -2,8 +2,8 @@
 Food Map Interaction Block
 
 Esme Middaugh
-December 7, 2020
-
+Nele Peshel
+Vivien van Dongen
 """
 
 import os
@@ -16,9 +16,6 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
-from dash.exceptions import PreventUpdate
-import plotly.graph_objects as go
-from plotly.colors import n_colors
 import plotly.express as px
 
 from app import app, INPUT_DIR

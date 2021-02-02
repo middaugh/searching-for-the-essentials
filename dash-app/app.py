@@ -2,8 +2,11 @@
 Searching for the Essentials
 Mapping Project
 
-Modify this script to suit color preferences & various directory setups.
+Esme Middaugh
+Nele Peshel
+Vivien van Dongen
 
+Modify this script to suit color preferences & various directory setups.
 """
 import os
 import dash

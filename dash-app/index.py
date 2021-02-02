@@ -1,10 +1,13 @@
-"""HTML structure for the base app.
+"""
+HTML structure for the base app, Searching for the Essentials.
+
+Esme Middaugh
+Nele Peshel
+Vivien van Dongen
 
 Utilizes app.py for the dash app, and pulls in the various
-contents of apps/ into page-content.
+contents (scripts) of ./apps/ into page-content. Layout is controlled via the css in ./assets/
 """
-
-import glob
 
 import dash_core_components as dcc
 import dash_html_components as html

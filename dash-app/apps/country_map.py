@@ -1,18 +1,15 @@
 """
-Food Map Interaction Block
+Country Map Interaction Block
 
 Esme Middaugh
-December 7, 2020
+Nele Peshel
+Vivien van Dongen
 
 """
 
 import os
-from datetime import datetime
 import pandas as pd
-import numpy as np
 
-
-import dash
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
