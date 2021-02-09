@@ -234,11 +234,12 @@ try:
         transformed_data["choropleth"] = "grey"
 
         ### Map
+        color_discrete_map = {"positive":"dodgerblue", "negative": "darkred"}
         map_fig = px.scatter_geo(
             transformed_data,
             locations="iso_alpha",
             color="score_diff_positive",
-            color_discrete_sequence=['dodgerblue', 'darkred'],
+            color_discrete_map=color_discrete_map,
             hover_name="country",
             size="score_difference",
             size_max=50,
